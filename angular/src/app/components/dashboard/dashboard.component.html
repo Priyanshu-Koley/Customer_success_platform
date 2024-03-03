@@ -1,0 +1,72 @@
+<div class="dashboard">
+    <app-sidebar></app-sidebar>
+    <div class="main-dashboard">
+        <div class="status-category">
+
+            <div class="all-projects-card status-card">
+                <div class="count">
+                    {{totalProjects}}
+                </div>
+                <div class="title">
+                    All Projects
+                </div>
+            </div>
+
+            <div class="in-progress-card status-card">
+                <div class="count">
+                    {{statusOfProjects.progress}}
+                </div>
+                <div class="title">
+                    In Progress
+                </div>
+            </div>
+
+            <div class="completed-card status-card">
+                <div class="count">
+                    {{statusOfProjects.completed}}
+                </div>
+                <div class="title">
+                    Completed
+                </div>
+            </div>
+
+            <div class="hold-card status-card">
+                <div class="count">
+                    {{statusOfProjects.hold}}
+                </div>
+                <div class="title">
+                    Hold
+                </div>
+            </div>
+
+        </div>
+        <div class="project-list-container">
+            <table class="project-list">
+                <thead>
+                    <th>Project Start</th>
+                    <th>Project Name</th>
+                    <th>Status</th>
+                    <th>Project Manager</th>
+                    <th>Members</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    @for(project of projects; track $index)
+                    {
+                        <tr class="project-{{$index}}">
+                            <td>{{project.creationTime | date}}</td>
+                            <td>{{project.name}}</td>
+                            <td>{{project.status}}</td>
+                            <td>{{project.projectManagerName}}</td>
+                            <td>{{project.membersAssociated}}</td>
+                            <td class="action-btns">
+                                <button class="edit">Edit</button>
+                                <button class="delete" (click)="deleteProject(project.id,project.name)" >Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

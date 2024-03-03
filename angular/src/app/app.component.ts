@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <abp-loader-bar></abp-loader-bar>
-    <abp-dynamic-layout></abp-dynamic-layout>
-  `,
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss'
 })
-export class AppComponent {}
+export class AppComponent {
+  title = 'angular';
+}

@@ -1,0 +1,30 @@
+<div class="form-container">
+    <form [formGroup]="projectForm" (ngSubmit)="createProject()">
+        <h3>Project details</h3>
+        <div class="input-container input-container-1">
+            <label for="name">Project name</label>
+            <input type="text" placeholder="Sample project" id="name" formControlName="name">
+        </div>
+
+        <h3>Invite client</h3>
+        <div class="input-container input-container-2">
+            <label for="client-name">Client name</label>
+            <input type="text" placeholder="Client name" id="client-name" formControlName="clientName">
+
+            <label for="client-email" class="client-email-label">Client email</label>
+            <input type="email" placeholder="example@work.com" id="client-email" formControlName="clientEmail">
+        </div>
+
+        <h3>Select project manager</h3>
+        <div class="input-container input-container-3">
+            <label for="pm-name">Project manager</label>
+            <input type="text" placeholder="Project manager name" id="pm-name" formControlName="projectManagerName">
+
+            <label for="employeeCount">Members</label>
+            <input type="number" placeholder="No. of associated members" id="employeeCount" formControlName="membersAssociated">
+        </div>
+        
+        <button type="submit" class="create-project-btn">Create Project</button>
+        <button type="button" class="cancel-project-btn" routerLink="../dashboard">Cancel</button>
+    </form>
+</div>

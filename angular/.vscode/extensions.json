@@ -1,15 +1,4 @@
 {
-  "recommendations": [
-    "angular.ng-template",
-    "esbenp.prettier-vscode",
-    "ms-vscode.vscode-typescript-tslint-plugin",
-    "visualstudioexptteam.vscodeintellicode",
-    "christian-kohler.path-intellisense",
-    "christian-kohler.npm-intellisense",
-    "Mikael.Angular-BeastCode",
-    "xabikos.JavaScriptSnippets",
-    "msjsdiag.debugger-for-chrome",
-    "donjayamanne.githistory",
-    "oderwat.indent-rainbow"
-  ]
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=827846
+  "recommendations": ["angular.ng-template"]
 }

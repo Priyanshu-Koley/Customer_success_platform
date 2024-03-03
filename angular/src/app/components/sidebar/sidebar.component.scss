@@ -1,0 +1,41 @@
+.sidebar {
+    width:18vw;
+
+    .new-project {
+        background-color: #0073ea;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        width: 180px;
+        margin-bottom: 10px;
+    }
+
+    a{
+        text-decoration: none;
+    }
+
+    .projects-link {
+        padding: 10px 20px;
+        border-radius: 4px;
+        width: 180px;
+        margin-bottom: 10px;
+    }
+
+    .project-managers-link {
+        padding: 10px 0px 10px 20px;
+        border-radius: 4px;
+        width: 180px;
+    }
+
+    .link, .link-btn {
+        cursor: pointer;
+    }
+
+    .link:hover {
+        background-color: #cce5ff;
+    }
+
+    .link-btn:hover {
+        background-color: #0464ca;
+    }
+}

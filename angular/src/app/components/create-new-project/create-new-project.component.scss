@@ -1,0 +1,58 @@
+.form-container{
+    padding-top: 50px;
+    form {
+        width: fit-content;
+        margin: 0 auto;
+    }
+
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 300px;
+    
+        input {
+            height: 30px;
+        }
+    }
+    
+    .input-container-1{
+        height: 100px;
+    }
+    
+    .input-container-2, .input-container-3  {
+        height: 150px;
+    
+        .client-email-label {
+            margin-top: 10px;
+        }
+    }
+
+    
+    .create-project-btn {
+        background-color: #0073ea;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        width: 180px;
+        margin: 30px 0px;
+        cursor: pointer;
+    }
+    .create-project-btn:hover {
+        background-color: #0464ca;
+    }
+    .cancel-project-btn {
+        background-color: crimson;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        width: 80px;
+        margin: 30px 40px;
+        cursor: pointer;
+    }
+    .cancel-project-btn:hover {
+        background-color: rgb(202, 18, 55);
+    }
+}    
