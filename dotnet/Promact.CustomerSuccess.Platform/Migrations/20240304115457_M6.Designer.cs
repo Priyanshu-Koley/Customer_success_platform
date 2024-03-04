@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Promact.CustomerSuccess.Platform.Data;
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Promact.CustomerSuccess.Platform.Migrations
 {
     [DbContext(typeof(PlatformDbContext))]
-    partial class PlatformDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240304115457_M6")]
+    partial class M6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -524,7 +527,7 @@ namespace Promact.CustomerSuccess.Platform.Migrations
                     b.Property<double?>("BudgetedCost")
                         .HasColumnType("double precision");
 
-                    b.Property<int>("BudgetedHours")
+                    b.Property<int?>("BudgetedHours")
                         .HasColumnType("integer");
 
                     b.Property<int?>("ContractDuration")
@@ -541,7 +544,7 @@ namespace Promact.CustomerSuccess.Platform.Migrations
                     b.Property<string>("Currency")
                         .HasColumnType("text");
 
-                    b.Property<int>("DurationInMonths")
+                    b.Property<int?>("DurationInMonths")
                         .HasColumnType("integer");
 
                     b.Property<DateTime?>("LastModificationTime")
@@ -559,11 +562,14 @@ namespace Promact.CustomerSuccess.Platform.Migrations
                     b.Property<Guid?>("ProjectId1")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("LastModifierId");
 
                     b.HasIndex("ProjectId1");
 
@@ -2678,9 +2684,21 @@ namespace Promact.CustomerSuccess.Platform.Migrations
 
             modelBuilder.Entity("Promact.CustomerSuccess.Platform.Entities.ProjectBudget", b =>
                 {
+                    b.HasOne("Promact.CustomerSuccess.Platform.Entities.ApplicationUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId");
+
+                    b.HasOne("Promact.CustomerSuccess.Platform.Entities.ApplicationUser", "LastModifier")
+                        .WithMany()
+                        .HasForeignKey("LastModifierId");
+
                     b.HasOne("Promact.CustomerSuccess.Platform.Entities.Project", null)
                         .WithMany("Budgets")
                         .HasForeignKey("ProjectId1");
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("LastModifier");
                 });
 
             modelBuilder.Entity("Promact.CustomerSuccess.Platform.Entities.ProjectResources", b =>

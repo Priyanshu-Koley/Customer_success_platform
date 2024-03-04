@@ -48,6 +48,7 @@ using Volo.Abp.Security.Claims;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
+using Promact.CustomerSuccess.Platform.Entities;
 
 namespace Promact.CustomerSuccess.Platform;
 

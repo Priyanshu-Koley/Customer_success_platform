@@ -2,7 +2,7 @@
 
 namespace Promact.CustomerSuccess.Platform.Services.Dtos
 {
-    public class CreateAuditHistoryDto
+    public class UpdateAuditHistoryDto
     {
         public required string AuditDate { get; set; }
         public required string ReviewedBy { get; set; }
@@ -10,6 +10,5 @@ namespace Promact.CustomerSuccess.Platform.Services.Dtos
         public required string ReviewedSection { get; set; }
         public required string Comment { get; set; }
         public required string ActionItem { get; set; }
-        public required string ProjectId { get; set; }
     }
 }
