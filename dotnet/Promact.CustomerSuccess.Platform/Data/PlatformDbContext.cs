@@ -33,6 +33,7 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
     public DbSet<EscalationMatrix> EscalationMatrices { get; set; }
     public DbSet<Sprint> Sprints { get; set; }
     public DbSet<ApplicationUser> Users { get; set; }
+    public DbSet<AuditHistory> AuditHistories { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -104,6 +105,14 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
         builder.Entity<ApplicationUser>(ApplicationUser =>
         {
             ApplicationUser.ConfigureByConvention();
+        });
+        builder.Entity<AuditHistory>(AuditHistory =>
+        {
+            AuditHistory.ConfigureByConvention();
+            //b.HasOne<Project>()
+            //    .WithMany()
+            //    .HasForeignKey(a => a.ProjectId)
+            //    .IsRequired();
         });
 
 
