@@ -1,5 +1,4 @@
 <div class="dashboard">
-    <app-sidebar></app-sidebar>
     <div class="main-dashboard">
         <div class="status-category">
 
@@ -53,14 +52,14 @@
                 <tbody>
                     @for(project of projects; track $index)
                     {
-                        <tr class="project-{{$index}}">
+                        <tr class="project-{{$index}} project-row" routerLink="../details/{{project.id}}">
                             <td>{{project.creationTime | date}}</td>
                             <td>{{project.name}}</td>
                             <td>{{project.status}}</td>
                             <td>{{project.projectManagerName}}</td>
                             <td>{{project.membersAssociated}}</td>
                             <td class="action-btns">
-                                <button class="edit">Edit</button>
+                                <button class="edit" routerLink="../edit" [state]="project" >Edit</button>
                                 <button class="delete" (click)="deleteProject(project.id,project.name)" >Delete</button>
                             </td>
                         </tr>

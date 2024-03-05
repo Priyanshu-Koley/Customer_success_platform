@@ -1,6 +1,6 @@
 .sidebar {
     width:18vw;
-
+    margin-right: 20px;
     .new-project {
         background-color: #0073ea;
         color: white;
@@ -12,6 +12,7 @@
 
     a{
         text-decoration: none;
+        color: #000000;
     }
 
     .projects-link {
@@ -37,5 +38,9 @@
 
     .link-btn:hover {
         background-color: #0464ca;
+    }
+
+    .active {
+        background-color: #cce5ffbc;
     }
 }

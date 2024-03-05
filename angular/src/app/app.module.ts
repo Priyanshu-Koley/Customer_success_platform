@@ -9,6 +9,15 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateNewProjectComponent } from './components/create-new-project/create-new-project.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditProjectComponent } from './components/edit-project/edit-project.component';
+
+import { NgToastModule } from 'ng-angular-popup';
+import { ProjectDetailsComponent } from './components/project-details/project-details.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { UpdateAuditModalComponent } from './components/update-audit-modal/update-audit-modal.component';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -16,15 +25,25 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     SidebarComponent,
     DashboardComponent,
-    CreateNewProjectComponent
+    CreateNewProjectComponent,
+    EditProjectComponent,
+    ProjectDetailsComponent,
+    UpdateAuditModalComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgToastModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    provideAnimationsAsync(),
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

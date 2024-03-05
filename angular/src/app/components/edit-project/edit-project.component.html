@@ -1,0 +1,40 @@
+<!-- Project Overview section -->
+
+<form class="project-overview" [formGroup]="projectForm" (ngSubmit)="saveOverview()"> 
+    <h3>Project Overview</h3>
+
+    <div class="brief input-container">
+        <label for="brief">Project Brief</label>
+        <textarea type="text" placeholder="Write project brief here" id="brief" formControlName="brief">
+        </textarea>
+    </div>
+    <div class="purpose input-container">
+        <label for="purpose">Purpose</label>
+        <textarea name="purpose" id="purpose" placeholder="Write project purpose here" formControlName="purpose">
+        </textarea>
+    </div>
+    <div class="goal input-container">
+        <label for="goal">Goals</label>
+        <textarea name="goal" id="goal" placeholder="Write project goals here" formControlName="goal">
+        </textarea>
+    </div>
+    <div class="objective input-container">
+        <label for="objective">Objectives</label>
+        <textarea name="objective" id="objective" placeholder="Write project objectives here" formControlName="objective">
+        </textarea>
+    </div>
+    <div class="budget input-container">
+        <label for="budget">Budget</label>
+        <div>
+            <input type="number" name="budget" id="budget" placeholder="Write project budget here" formControlName="totalBudget">
+            <span>US Dollar</span>
+        </div>
+    </div>
+
+    <div>
+        <button class="btn save-btn" type="submit" >Save</button>
+    </div>
+</form>
+
+
+

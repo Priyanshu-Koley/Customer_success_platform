@@ -1,52 +1,64 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Project } from '../../models/project.model';
 import { ProjectsService } from '../../services/projects.service';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-  
   projects!: Project[];
 
   totalProjects: number = 0;
 
   statusOfProjects: any = {
-    progress:0,
-    completed:0,
-    hold:0,
+    progress: 0,
+    completed: 0,
+    hold: 0,
   };
 
-  constructor(private projectService: ProjectsService, private router: Router) { }
+  constructor(
+    private projectService: ProjectsService,
+    private router: Router,
+    private toast: NgToastService
+  ) {}
 
   ngOnInit(): void {
     this.getAllProjects();
   }
 
   getAllProjects(): void {
-    this.projectService.getProjects().subscribe(response => {
+    this.projectService.getProjects().subscribe((response) => {
       this.projects = response.items;
       this.statusCounter(response.items);
     });
-
   }
 
-  deleteProject(id: string,projectName: string): void {
-
-    let confirmDelete = confirm(`Are you sure, you want to delete project "${projectName}" `);
-    if(confirmDelete)
-    {
+  deleteProject(id: string, projectName: string): void {
+    let confirmDelete = confirm(
+      `Are you sure, you want to delete project "${projectName}" `
+    );
+    if (confirmDelete) {
       this.projectService.deleteProject(id).subscribe(
-        response => {
+        (response) => {
+          this.toast.success({
+            detail: 'Deleted',
+            summary: 'Project deleted successfully',
+            duration: 4000,
+          });
           console.log('Project deleted successfully:', response);
           this.getAllProjects();
           // Handle success response, if needed
         },
-        error => {
+        (error) => {
+          this.toast.error({
+            detail: 'Error',
+            summary: 'Failed to delete project',
+            duration: 4000,
+          });
           console.error('Failed to delete project:', error);
           // Handle error response, if needed
         }
@@ -54,24 +66,20 @@ export class DashboardComponent {
     }
   }
 
-  statusCounter(tempProjects:any): void {
-    tempProjects.forEach((project:any)=>{
-      
+  statusCounter(tempProjects: any): void {
+    tempProjects.forEach((project: any) => {
       this.totalProjects++;
-      switch(project.status.toLowerCase())
-      {
-        case "progress":
+      switch (project.status.toLowerCase()) {
+        case 'progress':
           this.statusOfProjects.progress++;
           break;
-        case "completed":
+        case 'completed':
           this.statusOfProjects.completed++;
           break;
-        case "hold":
+        case 'hold':
           this.statusOfProjects.hold++;
           break;
       }
     });
   }
-
-
 }

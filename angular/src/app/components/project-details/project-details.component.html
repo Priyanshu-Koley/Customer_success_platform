@@ -1,0 +1,51 @@
+
+<div class="project-details">
+
+    <div class="auditHistory">
+        <h2 class="top-heading">Audit History</h2>
+        <form [formGroup]="auditForm" (ngSubmit)="addAudit()">
+            <h3>Add new audit</h3>
+            <div class="row row-1">
+                <input type="text" formControlName="reviewedBy" placeholder="Reviewed By">
+                <input type="text" formControlName="status" placeholder="Status">
+                <input type="text" formControlName="reviewedSection" placeholder="Reviewed Section">
+            </div>
+            <div class="row row-2">
+                <input type="text" formControlName="comment" placeholder="Comments / Queries">
+                <input type="text" formControlName="actionItem" placeholder="Action Item">
+                <button type="submit" class="btn">Add Audit</button>
+            </div>
+            
+        </form>
+
+        <table class="audit-list">
+                <thead>
+                    <th>Date of audit</th>
+                    <th>Reviewed By</th>
+                    <th>Status</th>
+                    <th>Reviewed Section</th>
+                    <th>Comment/Queries </th>
+                    <th>Action Item</th>
+                </thead>
+                <tbody>
+                    @for(audit of audits; track $index)
+                    {
+                        <tr class="audit-{{$index}} audit-row" (click)="openUpdateAuditModal($index)">
+                            <td>{{audit.auditDate | date}}</td>
+                            <td>{{audit.reviewedBy}}</td>
+                            <td>{{audit.status}}</td>
+                            <td>{{audit.reviewedSection}}</td>
+                            <td>{{audit.comment}}</td>
+                            <td>{{audit.actionItem}}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+    </div>
+
+
+
+</div>
+ 

@@ -12,7 +12,7 @@ namespace Promact.CustomerSuccess.Platform
         public required string ClientName { get; set; }
         public required string ClientEmail { get; set; }
         public string? Brief { get; set; }
-        public string? Pupose { get; set; }
+        public string? Purpose { get; set; }
         public string? Goal { get; set; }
         public string? Objective { get; set; }
         public int? MembersAssociated { get; set; }
