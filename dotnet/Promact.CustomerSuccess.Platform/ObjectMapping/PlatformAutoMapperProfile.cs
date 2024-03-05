@@ -35,5 +35,7 @@ public class PlatformAutoMapperProfile : Profile
         CreateMap<RiskProfile, RiskProfileDto>().ReverseMap();
         // Mapping Phase milestone
         CreateMap<PhaseMilestone, PhaseMilestoneDto>().ReverseMap();
+        // Mapping Escalation matrix
+        CreateMap<EscalationMatrix, EscalationMatrixDto>().ReverseMap();
     }
 }
