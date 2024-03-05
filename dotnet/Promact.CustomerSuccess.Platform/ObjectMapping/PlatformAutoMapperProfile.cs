@@ -26,7 +26,14 @@ public class PlatformAutoMapperProfile : Profile
         CreateMap<ProjectBudget, ProjectBudgetDto>().ReverseMap();
         // Mapping Project scope stack
         CreateMap<CreateProjectScopeStackDto, ProjectScopeStack>();
-        CreateMap<UpdateProjectScopeStackDto, VersionHistory>();
+        CreateMap<UpdateProjectScopeStackDto, ProjectScopeStack>();
         CreateMap<ProjectScopeStack, ProjectScopeStackDto>().ReverseMap();
+        // Mapping Stakeholders
+        CreateMap<UpdateStakeholdersDto, Stakeholders>();
+        CreateMap<Stakeholders, StakeholdersDto>().ReverseMap();
+        // Mapping Risk profile
+        CreateMap<RiskProfile, RiskProfileDto>().ReverseMap();
+        // Mapping Phase milestone
+        CreateMap<PhaseMilestone, PhaseMilestoneDto>().ReverseMap();
     }
 }

@@ -11,7 +11,7 @@ using System.Xml.Linq;
 using Volo.Abp.Linq;
 
 namespace Promact.CustomerSuccess.Platform.Services
-{
+{ 
     [RemoteService]
     public class AuditHistoryService : ApplicationService, IAuditHistoryService
     {

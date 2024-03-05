@@ -16,13 +16,13 @@ namespace Promact.CustomerSuccess.Platform.Entities
         public string? Budget { get; set; }
         public int? MembersAssociated { get; set; }
         public string? Status { get; set; }
-        public virtual ICollection<Document>? Documents { get; set; }
-        public virtual ICollection<ProjectBudget>? Budgets { get; set; }        
-        public virtual ICollection<EscalationMatrix>? EscalationMatrices { get; set; }
-        public virtual ICollection<RiskProfile>? RiskProfiles { get; set; }
-        public virtual ICollection<PhaseMilestone>? PhaseMilestones { get; set; }
-        public virtual ICollection<ProjectResources>? Resources { get; set; }
-        public virtual ICollection<ClientFeedback>? ClientFeedbacks { get; set; }
-        public virtual ICollection<MeetingMinute>? MeetingMinutes { get; set; }
+        //public virtual ICollection<Document>? Documents { get; set; }
+        //public virtual ICollection<ProjectBudget>? Budgets { get; set; }        
+        //public virtual ICollection<EscalationMatrix>? EscalationMatrices { get; set; }
+        //public virtual ICollection<RiskProfile>? RiskProfiles { get; set; }
+        //public virtual ICollection<PhaseMilestone>? PhaseMilestones { get; set; }
+        //public virtual ICollection<ProjectResources>? Resources { get; set; }
+        //public virtual ICollection<ClientFeedback>? ClientFeedbacks { get; set; }
+        //public virtual ICollection<MeetingMinute>? MeetingMinutes { get; set; }
     }
 }
