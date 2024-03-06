@@ -18,6 +18,8 @@ import { UpdateAuditModalComponent } from './components/update-audit-modal/updat
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { VersionHistoryComponent } from './components/project-details-tabs/version-history/version-history.component';
+import { ProjectBudgetComponent } from './components/project-details-tabs/project-budget/project-budget.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { MatButtonModule } from '@angular/material/button';
     EditProjectComponent,
     ProjectDetailsComponent,
     UpdateAuditModalComponent,
+    VersionHistoryComponent,
+    ProjectBudgetComponent,
   ],
   imports: [
     BrowserModule,

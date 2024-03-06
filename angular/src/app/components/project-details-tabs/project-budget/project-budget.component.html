@@ -1,0 +1,42 @@
+<div class="budget">
+    <h2 class="top-heading">Project Budget</h2>
+    <form [formGroup]="budgetForm" (ngSubmit)="addBudget()">
+        <h3>Add new budget</h3>
+        <div class="row row-1">
+            <select formControlName="type" placeholder="Project Type">
+                <option value="Fixed budget">Fixed budget</option>
+                <option value="Monthly">Monthly</option>
+            </select>
+            <input type="number" formControlName="durationInMonths" placeholder="Duration (in months)">
+            <input type="number" formControlName="budgetedHours" placeholder="Budgeted Hours">
+        </div>
+        <div class="row row-3">
+            <button type="submit" class="btn">Add Budget</button>
+        </div>
+        
+    </form>
+
+    <table class="budget-list" >
+            <thead>
+                <th>Project Type</th>
+                <th>Duration</th>
+                <th>Budgeted Hours</th>
+                <th>Delete</th>
+            </thead>
+            <tbody>
+                @for(budget of budgets; track $index)
+                {
+                    <tr class="budget-{{$index}} budget-row" >
+                        <td>{{budget.type}}</td>
+                        <td>{{budget.durationInMonths}}</td>
+                        <td>{{budget.budgetedHours}}</td>
+                        <td>
+                            <button (click)="deleteBudget(budget.id)" class="budget-delete">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+</div>

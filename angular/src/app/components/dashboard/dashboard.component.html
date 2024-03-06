@@ -52,14 +52,14 @@
                 <tbody>
                     @for(project of projects; track $index)
                     {
-                        <tr class="project-{{$index}} project-row" routerLink="../details/{{project.id}}">
-                            <td>{{project.creationTime | date}}</td>
-                            <td>{{project.name}}</td>
-                            <td>{{project.status}}</td>
-                            <td>{{project.projectManagerName}}</td>
-                            <td>{{project.membersAssociated}}</td>
+                        <tr class="project-{{$index}} project-row" >
+                            <td routerLink="/details/{{project.id}}">{{project.creationTime | date}}</td>
+                            <td routerLink="/details/{{project.id}}">{{project.name}}</td>
+                            <td routerLink="/details/{{project.id}}">{{project.status}}</td>
+                            <td routerLink="/details/{{project.id}}">{{project.projectManagerName}}</td>
+                            <td routerLink="/details/{{project.id}}">{{project.membersAssociated}}</td>
                             <td class="action-btns">
-                                <button class="edit" routerLink="../edit" [state]="project" >Edit</button>
+                                <button class="edit" routerLink="/edit" [state]="project" >Edit</button>
                                 <button class="delete" (click)="deleteProject(project.id,project.name)" >Delete</button>
                             </td>
                         </tr>

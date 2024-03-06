@@ -1,14 +1,19 @@
-<h3 mat-dialog-title>Update audit</h3>
-<form [formGroup]="updateAuditForm" (ngSubmit)="updateAudit()">
-  <div class="row row-1">
-    <input matInput formControlName="reviewedBy" placeholder="Reviewed By">
-    <input matInput formControlName="status" placeholder="Status">
-    <input matInput formControlName="reviewedSection" placeholder="Reviewed Section">
-  </div>
-  <div class="row row-2">
-    <input matInput formControlName="comment" placeholder="Comments / Queries">
-    <input matInput formControlName="actionItem" placeholder="Action Item">
-    <button mat-button type="submit" class="btn">Add Audit</button>
-    <button mat-button type="button" (click)="onClose()">Cancel</button>
-  </div>
-</form>
+<div class="modal">
+
+  <h3 mat-dialog-title>Update audit</h3>
+  <form [formGroup]="updateAuditForm" (ngSubmit)="updateAudit()">
+    <div class="row row-1">
+      <input matInput formControlName="reviewedBy" placeholder="Reviewed By">
+      <input matInput formControlName="status" placeholder="Status">
+    </div>
+    <div class="row row-2">
+      <input matInput formControlName="reviewedSection" placeholder="Reviewed Section">
+      <input matInput formControlName="comment" placeholder="Comments / Queries">
+    </div>
+    <div class="row row-3">
+      <input matInput formControlName="actionItem" placeholder="Action Item">
+    </div>
+    <button mat-button type="submit" class="update-btn">Update Audit</button>
+    <button mat-button type="button" (click)="onClose()" class="cancel-btn">Cancel</button>
+  </form>
+</div>

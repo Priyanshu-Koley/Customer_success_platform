@@ -1,5 +1,6 @@
 .dashboard {
-  
+  width: 76vw;
+  margin: 0 20px 20px 0;
 
   .main-dashboard {
     width: 77vw;
@@ -34,9 +35,11 @@
     
       th,
       td {
+        max-width: 160px;
         border: none;
         padding: 10px;
         text-align: left;
+        font-size: 14px;
       }
     
       tr,thead{

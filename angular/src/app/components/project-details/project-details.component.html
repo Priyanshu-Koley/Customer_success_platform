@@ -1,49 +1,80 @@
 
 <div class="project-details">
 
-    <div class="auditHistory">
-        <h2 class="top-heading">Audit History</h2>
-        <form [formGroup]="auditForm" (ngSubmit)="addAudit()">
-            <h3>Add new audit</h3>
-            <div class="row row-1">
-                <input type="text" formControlName="reviewedBy" placeholder="Reviewed By">
-                <input type="text" formControlName="status" placeholder="Status">
-                <input type="text" formControlName="reviewedSection" placeholder="Reviewed Section">
+
+    <!-- Project details tabs -->
+    <div class="tabs">
+        @for(tab of tabs; track $index)
+        {
+            <div [class.active]="activeTab === $index + 1" class="tab tab-{{$index+1}}" (click)="setActiveTab($index+1)">
+                <a>
+                    {{tab}}
+                </a>
             </div>
-            <div class="row row-2">
-                <input type="text" formControlName="comment" placeholder="Comments / Queries">
-                <input type="text" formControlName="actionItem" placeholder="Action Item">
-                <button type="submit" class="btn">Add Audit</button>
-            </div>
-            
-        </form>
-
-        <table class="audit-list">
-                <thead>
-                    <th>Date of audit</th>
-                    <th>Reviewed By</th>
-                    <th>Status</th>
-                    <th>Reviewed Section</th>
-                    <th>Comment/Queries </th>
-                    <th>Action Item</th>
-                </thead>
-                <tbody>
-                    @for(audit of audits; track $index)
-                    {
-                        <tr class="audit-{{$index}} audit-row" (click)="openUpdateAuditModal($index)">
-                            <td>{{audit.auditDate | date}}</td>
-                            <td>{{audit.reviewedBy}}</td>
-                            <td>{{audit.status}}</td>
-                            <td>{{audit.reviewedSection}}</td>
-                            <td>{{audit.comment}}</td>
-                            <td>{{audit.actionItem}}</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
-
+        }
     </div>
+    <hr>
+
+    @if(activeTab === 1)
+    {
+        <!-- Audit History -->
+        <div class="auditHistory">
+            <h2 class="top-heading">Audit History</h2>
+            <form [formGroup]="auditForm" (ngSubmit)="addAudit()">
+                <h3>Add new audit</h3>
+                <div class="row row-1">
+                    <input type="text" formControlName="reviewedBy" placeholder="Reviewed By">
+                    <input type="text" formControlName="status" placeholder="Status">
+                    <input type="text" formControlName="reviewedSection" placeholder="Reviewed Section">
+                </div>
+                <div class="row row-2">
+                    <input type="text" formControlName="comment" placeholder="Comments / Queries">
+                    <input type="text" formControlName="actionItem" placeholder="Action Item">
+                    <button type="submit" class="btn">Add Audit</button>
+                </div>
+                
+            </form>
+    
+            <table class="audit-list">
+                    <thead>
+                        <th>Date of audit</th>
+                        <th>Reviewed By</th>
+                        <th>Status</th>
+                        <th>Reviewed Section</th>
+                        <th>Comment/Queries </th>
+                        <th>Action Item</th>
+                        <th>Delete</th>
+                    </thead>
+                    <tbody>
+                        @for(audit of audits; track $index)
+                        {
+                            <tr class="audit-{{$index}} audit-row" >
+                                <td (click)="openUpdateAuditModal($index)">{{audit.auditDate | date}}</td>
+                                <td (click)="openUpdateAuditModal($index)">{{audit.reviewedBy}}</td>
+                                <td (click)="openUpdateAuditModal($index)">{{audit.status}}</td>
+                                <td (click)="openUpdateAuditModal($index)">{{audit.reviewedSection}}</td>
+                                <td (click)="openUpdateAuditModal($index)">{{audit.comment}}</td>
+                                <td (click)="openUpdateAuditModal($index)">{{audit.actionItem}}</td>
+                                <td>
+                                    <button (click)="deleteAudit(audit.id)" class="delete-audit">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+        </div>
+    }
+    @else if (activeTab === 2) 
+    {
+        <!-- Version History -->
+        <app-version-history/>
+    }
+
+
+
+    
 
 
 

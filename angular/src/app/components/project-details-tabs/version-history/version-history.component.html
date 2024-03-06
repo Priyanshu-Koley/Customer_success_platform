@@ -1,0 +1,56 @@
+<div class="version-history">
+    <h2 class="top-heading">Version History</h2>
+    <form [formGroup]="versionForm" (ngSubmit)="addVersion()">
+        <h3>Add new version</h3>
+        <div class="row row-1">
+            <input type="number" formControlName="version" placeholder="Version">
+            <input type="text" formControlName="type" placeholder="Type">
+            <input type="text" formControlName="change" placeholder="Change">
+        </div>
+        <div class="row row-2">
+            <input type="text" formControlName="changeReason" placeholder="Change Reason">
+            <input type="text" formControlName="createdBy" placeholder="Created By">
+            <input type="date" formControlName="revisionDate" placeholder="Revision Date">
+        </div>
+        <div class="row row-3">
+            <input type="date" formControlName="approvalDate" placeholder="Approval Date">
+            <input type="text" formControlName="approvedBy" placeholder="Approved By">
+            <button type="submit" class="btn">Add version</button>
+        </div>
+        
+    </form>
+
+    <table class="version-list" >
+            <thead>
+                <th>Version</th>
+                <th>Type</th>
+                <th>Change</th>
+                <th>Change Reason</th>
+                <th>Created By</th>
+                <th>Revision Date</th>
+                <th>Approval Date</th>
+                <th>Approved By</th>
+                <th>Delete</th>
+            </thead>
+            <tbody>
+                @for(version of versions; track $index)
+                {
+                    <tr class="version-{{$index}} version-row" >
+                        <td>{{version.version}}</td>
+                        <td>{{version.type}}</td>
+                        <td>{{version.change}}</td>
+                        <td>{{version.changeReason}}</td>
+                        <td>{{version.createdBy}}</td>
+                        <td>{{version.revisionDate | date}}</td>
+                        <td>{{version.approvalDate | date}}</td>
+                        <td>{{version.approvedBy}}</td>
+                        <td>
+                            <button (click)="deleteVersion(version.id)" class="delete-version">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+</div>
