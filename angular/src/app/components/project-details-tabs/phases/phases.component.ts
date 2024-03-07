@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { ProjectsService } from '../../../services/projects.service';
+import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 
 @Component({
   selector: 'app-phases',
@@ -20,7 +21,8 @@ export class PhasesComponent {
     private projectService: ProjectsService,
     private formBuilder: FormBuilder,
     private toast: NgToastService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private convertToPdf: ConvertToPdfService
   ) {}
 
   ngOnInit() {
@@ -56,7 +58,6 @@ export class PhasesComponent {
         ...this.phaseForm.value,
         projectId: this.projectId,
       };
-      
 
       this.projectService.createPhase(newPhase).subscribe(
         (res) => {
@@ -110,5 +111,9 @@ export class PhasesComponent {
         }
       );
     }
+  }
+
+  convertToPDF() {
+    this.convertToPdf.convertToPDF('phase-table');
   }
 }

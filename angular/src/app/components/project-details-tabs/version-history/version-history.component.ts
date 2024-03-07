@@ -5,14 +5,14 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 // import { UpdateversionModalComponent } from '../update-version-modal/update-version-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 
 @Component({
   selector: 'app-version-history',
   templateUrl: './version-history.component.html',
-  styleUrl: './version-history.component.scss'
+  styleUrl: './version-history.component.scss',
 })
 export class VersionHistoryComponent {
-
   projectId!: string;
   versionForm: any;
   versions: any;
@@ -22,14 +22,15 @@ export class VersionHistoryComponent {
     private projectService: ProjectsService,
     private formBuilder: FormBuilder,
     private toast: NgToastService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private convertToPdf: ConvertToPdfService
   ) {}
 
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
 
     this.versionForm = this.formBuilder.group({
-      version: ['', [Validators.required,Validators.min(1)]],
+      version: ['', [Validators.required, Validators.min(1)]],
       type: ['', [Validators.required]],
       change: ['', [Validators.required]],
       changeReason: ['', [Validators.required]],
@@ -55,8 +56,11 @@ export class VersionHistoryComponent {
 
   addVersion() {
     if (this.versionForm.valid) {
-      const newVersion = {...this.versionForm.value,'versionDate' : new Date(),'projectId':this.projectId};
-        
+      const newVersion = {
+        ...this.versionForm.value,
+        versionDate: new Date(),
+        projectId: this.projectId,
+      };
 
       this.projectService.createVersionHistory(newVersion).subscribe(
         (res) => {
@@ -88,9 +92,8 @@ export class VersionHistoryComponent {
   }
 
   deleteVersion(id: string) {
-    const confirmDelete = confirm("Are you sure you want to delete ?");
-    if(confirmDelete)
-    {
+    const confirmDelete = confirm('Are you sure you want to delete ?');
+    if (confirmDelete) {
       this.projectService.deleteVersionHistory(id).subscribe(
         (res) => {
           console.log(res);
@@ -110,8 +113,10 @@ export class VersionHistoryComponent {
           });
         }
       );
-
     }
   }
 
+  convertToPDF() {
+    this.convertToPdf.convertToPDF('version-history-table');
+  }
 }

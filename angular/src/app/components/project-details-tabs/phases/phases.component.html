@@ -1,5 +1,10 @@
 <div class="phase">
-  <h2 class="top-heading">Phases / Milestones</h2>
+  <h2 class="top-heading">
+    Phases / Milestones
+    <button class="btn btn-green" (click)="convertToPDF()">
+      Download phases
+    </button>
+  </h2>
   <form [formGroup]="phaseForm" (ngSubmit)="addPhase()">
     <h3>Add new phase / milestone</h3>
     <div class="row row-1">
@@ -19,17 +24,17 @@
         formControlName="endDate"
         onfocus="(this.type='date')"
         onblur="(this.type='text')"
-    />
+      />
     </div>
 
     <div class="row row-2">
-        <input
-            type="text"
-            placeholder="Approval Date"
-            formControlName="approvalDate"
-            onfocus="(this.type='date')"
-            onblur="(this.type='text')"
-        />
+      <input
+        type="text"
+        placeholder="Approval Date"
+        formControlName="approvalDate"
+        onfocus="(this.type='date')"
+        onblur="(this.type='text')"
+      />
 
       <select formControlName="status">
         <option value="" selected disabled>Select Status</option>
@@ -40,12 +45,12 @@
       </select>
 
       <input
-            type="text"
-            placeholder="Revised Completion Date"
-            formControlName="revisedCompletionDate"
-            onfocus="(this.type='date')"
-            onblur="(this.type='text')"
-        />
+        type="text"
+        placeholder="Revised Completion Date"
+        formControlName="revisedCompletionDate"
+        onfocus="(this.type='date')"
+        onblur="(this.type='text')"
+      />
     </div>
 
     <div class="row row-3">
@@ -54,7 +59,7 @@
     </div>
   </form>
 
-  <table class="phase-list">
+  <table class="phase-list" id="phase-table">
     <thead>
       <th>Title</th>
       <th>Start Date</th>
@@ -68,11 +73,11 @@
       @for(phase of phases; track $index) {
       <tr class="phase-{{ $index }} phase-row">
         <td>{{ phase.title }}</td>
-        <td>{{ phase.startDate | date}}</td>
-        <td>{{ phase.endDate | date}}</td>
-        <td>{{ phase.approvalDate | date}}</td>
+        <td>{{ phase.startDate | date }}</td>
+        <td>{{ phase.endDate | date }}</td>
+        <td>{{ phase.approvalDate | date }}</td>
         <td>{{ phase.status }}</td>
-        <td>{{ phase.revisedCompletionDate | date}}</td>
+        <td>{{ phase.revisedCompletionDate | date }}</td>
         <td>{{ phase.comments }}</td>
         <td>
           <button (click)="deletePhase(phase.id)" class="delete-phase">

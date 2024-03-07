@@ -1,5 +1,10 @@
 <div class="escalation">
-  <h2 class="top-heading">Escalation Matrix</h2>
+  <h2 class="top-heading">
+    Escalation Matrix
+    <button class="btn btn-green" (click)="convertToPDF()">
+      Download escalation matrixes
+    </button>
+  </h2>
   <form [formGroup]="escalationForm" (ngSubmit)="addEscalation()">
     <h3>Add new Escalation</h3>
     <div class="row row-1">
@@ -28,12 +33,13 @@
     </div>
   </form>
 
-  <div class="escalation-tables">
+  <div class="escalation-tables" id="escalation-tables">
     <h3>Operational Escalation Matrix</h3>
     <table class="operational-escalation-list escalation-list">
       <thead>
         <th>Escalation Level</th>
         <th>Responsible</th>
+        <th>Delete</th>
       </thead>
       <tbody>
         @for(escalation of escalations; track $index) {
@@ -59,12 +65,13 @@
       <thead>
         <th>Escalation Level</th>
         <th>Responsible</th>
+        <th>Delete</th>
       </thead>
       <tbody>
         @for(escalation of escalations; track $index) {
         @if(escalation.escalationType == 'Financial') {
         <tr class="escalation-{{ $index }} escalation-row">
-          <td>Level-{{escalation.level}}</td>
+          <td>Level-{{ escalation.level }}</td>
           <td>{{ escalation.responsible }}</td>
           <td>
             <button
@@ -84,12 +91,13 @@
       <thead>
         <th>Escalation Level</th>
         <th>Responsible</th>
+        <th>Delete</th>
       </thead>
       <tbody>
         @for(escalation of escalations; track $index) {
         @if(escalation.escalationType == 'Technical') {
         <tr class="escalation-{{ $index }} escalation-row">
-          <td>Level-{{escalation.level }}</td>
+          <td>Level-{{ escalation.level }}</td>
           <td>{{ escalation.responsible }}</td>
           <td>
             <button

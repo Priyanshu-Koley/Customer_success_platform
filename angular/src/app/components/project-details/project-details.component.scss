@@ -35,7 +35,8 @@
 
     .top-heading{
         margin: 20px 0 50px 0;
-        text-align: center;
+        display: flex;
+        justify-content: space-between;
     }
     
     .row {
@@ -98,3 +99,4 @@
   border-bottom: 3px solid #1985f8;
   // background-color:#cce5ffbc;
 }
+

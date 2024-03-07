@@ -1,5 +1,7 @@
 <div class="version-history">
-    <h2 class="top-heading">Version History</h2>
+    <h2 class="top-heading">Version History<button class="btn btn-green" (click)="convertToPDF()">
+      Download version history
+    </button></h2>
     <form [formGroup]="versionForm" (ngSubmit)="addVersion()">
         <h3>Add new version</h3>
         <div class="row row-1">
@@ -32,7 +34,7 @@
         
     </form>
 
-    <table class="version-list" >
+    <table class="version-list" id="version-history-table">
             <thead>
                 <th>Version</th>
                 <th>Type</th>

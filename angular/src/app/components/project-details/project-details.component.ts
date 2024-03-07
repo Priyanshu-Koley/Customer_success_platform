@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { Project } from '../../models/project.model';
 import { DatePipe } from '@angular/common';
+import { ConvertToPdfService } from '../../services/convert-to-pdf.service';
 
 @Component({
   selector: 'app-project-details',
@@ -43,7 +44,8 @@ export class ProjectDetailsComponent {
     private toast: NgToastService,
     private dialog: MatDialog,
     private http: HttpClient,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private convertToPdf: ConvertToPdfService
   ) {}
 
   ngOnInit() {
@@ -159,7 +161,7 @@ export class ProjectDetailsComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       console.log('Form Data:', result);
-      
+
       this.sendEmail(result);
       this.getAuditHistory();
     });
@@ -208,5 +210,10 @@ export class ProjectDetailsComponent {
           });
         },
       });
+  }
+
+  convertToPDF()
+  {
+    this.convertToPdf.convertToPDF('audit-table');
   }
 }

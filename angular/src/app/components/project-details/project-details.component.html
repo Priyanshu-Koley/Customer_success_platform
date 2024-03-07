@@ -1,122 +1,121 @@
-
 <div class="project-details">
-
-
-    <!-- Project details tabs -->
-    <div class="tabs">
-        @for(tab of tabs; track $index)
-        {
-            <div [class.active]="activeTab === $index + 1" class="tab tab-{{$index+1}}" (click)="setActiveTab($index+1)">
-                <a>
-                    {{tab}}
-                </a>
-            </div>
-        }
+  <!-- Project details tabs -->
+  <div class="tabs">
+    @for(tab of tabs; track $index) {
+    <div
+      [class.active]="activeTab === $index + 1"
+      class="tab tab-{{ $index + 1 }}"
+      (click)="setActiveTab($index + 1)"
+    >
+      <a>
+        {{ tab }}
+      </a>
     </div>
-    <hr>
+    }
+  </div>
+  <hr />
 
-    @if(activeTab === 1)
-    {
-        <!-- Audit History -->
-        <div class="auditHistory">
-            <h2 class="top-heading">Audit History</h2>
-            <form [formGroup]="auditForm" (ngSubmit)="addAudit()">
-                <h3>Add new audit</h3>
-                <div class="row row-1">
-                    <input type="text" formControlName="reviewedBy" placeholder="Reviewed By">
-                    <input type="text" formControlName="status" placeholder="Status">
-                    <input type="text" formControlName="reviewedSection" placeholder="Reviewed Section">
-                </div>
-                <div class="row row-2">
-                    <input type="text" formControlName="comment" placeholder="Comments / Queries">
-                    <input type="text" formControlName="actionItem" placeholder="Action Item">
-                    <button type="submit" class="btn">Add Audit</button>
-                </div>
-                
-            </form>
-    
-            <table class="audit-list">
-                    <thead>
-                        <th>Date of audit</th>
-                        <th>Reviewed By</th>
-                        <th>Status</th>
-                        <th>Reviewed Section</th>
-                        <th>Comment/Queries </th>
-                        <th>Action Item</th>
-                        <th>Delete</th>
-                    </thead>
-                    <tbody>
-                        @for(audit of audits; track $index)
-                        {
-                            <tr class="audit-{{$index}} audit-row" >
-                                <td (click)="openUpdateAuditModal($index)">{{audit.auditDate | date}}</td>
-                                <td (click)="openUpdateAuditModal($index)">{{audit.reviewedBy}}</td>
-                                <td (click)="openUpdateAuditModal($index)">{{audit.status}}</td>
-                                <td (click)="openUpdateAuditModal($index)">{{audit.reviewedSection}}</td>
-                                <td (click)="openUpdateAuditModal($index)">{{audit.comment}}</td>
-                                <td (click)="openUpdateAuditModal($index)">{{audit.actionItem}}</td>
-                                <td>
-                                    <button (click)="deleteAudit(audit.id)" class="delete-audit">
-                                        <i class="fa fa-trash-o"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-        </div>
-    }
-    @else if (activeTab === 2) 
-    {
-        <!-- Version History -->
-        <app-version-history/>
-    }
-    @else if (activeTab === 3) 
-    {
-        <!-- Project Budget -->
-        <app-project-budget/>
-    }
-    @else if (activeTab === 4) 
-    {
-        <!-- Project Overview -->
-        <app-edit-project [projectId]="projectId"/>
-    }
-    @else if (activeTab === 5) 
-    {
-        <!-- Project scope & stack -->
-        <app-project-scope-stack/>
-    }
-    @else if (activeTab === 6) 
-    {
-        <!-- Escalation matrix -->
-        <app-escalation-matrix/>
-    }
-    @else if (activeTab === 7) 
-    {
-        <!-- Stakeholders -->
-        <app-stakeholders/>
-    }
-    @else if (activeTab === 8) 
-    {
-        <!-- Risk profile -->
-        <app-risk-profile/>
-    }
-    @else if (activeTab === 9) 
-    {
-        <!-- Phases and Milestone -->
-        <app-phases/>
-    }
-    @else if (activeTab === 10) 
-    {
-        <!-- Phases and Milestone -->
-        <app-sprint/>
-    }
-    
+  @if(activeTab === 1) {
+  <!-- Audit History -->
+  <div class="auditHistory" id="auditHistory">
+    <h2 class="top-heading">
+      Audit History
+      <button
+        class="btn btn-green"
+        (click)="convertToPDF()"
+      >
+        Download audit history
+      </button>
+    </h2>
+    <form [formGroup]="auditForm" (ngSubmit)="addAudit()">
+      <h3>Add new audit</h3>
+      <div class="row row-1">
+        <input
+          type="text"
+          formControlName="reviewedBy"
+          placeholder="Reviewed By"
+        />
+        <input type="text" formControlName="status" placeholder="Status" />
+        <input
+          type="text"
+          formControlName="reviewedSection"
+          placeholder="Reviewed Section"
+        />
+      </div>
+      <div class="row row-2">
+        <input
+          type="text"
+          formControlName="comment"
+          placeholder="Comments / Queries"
+        />
+        <input
+          type="text"
+          formControlName="actionItem"
+          placeholder="Action Item"
+        />
+        <button type="submit" class="btn">Add Audit</button>
+      </div>
+    </form>
 
-
-    
-
-
-
+    <table class="audit-list" id="audit-table">
+      <thead>
+        <th>Date of audit</th>
+        <th>Reviewed By</th>
+        <th>Status</th>
+        <th>Reviewed Section</th>
+        <th>Comment/Queries</th>
+        <th>Action Item</th>
+        <th>Delete</th>
+      </thead>
+      <tbody>
+        @for(audit of audits; track $index) {
+        <tr class="audit-{{ $index }} audit-row">
+          <td (click)="openUpdateAuditModal($index)">
+            {{ audit.auditDate | date }}
+          </td>
+          <td (click)="openUpdateAuditModal($index)">{{ audit.reviewedBy }}</td>
+          <td (click)="openUpdateAuditModal($index)">{{ audit.status }}</td>
+          <td (click)="openUpdateAuditModal($index)">
+            {{ audit.reviewedSection }}
+          </td>
+          <td (click)="openUpdateAuditModal($index)">{{ audit.comment }}</td>
+          <td (click)="openUpdateAuditModal($index)">{{ audit.actionItem }}</td>
+          <td>
+            <button (click)="deleteAudit(audit.id)" class="delete-audit">
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  } @else if (activeTab === 2) {
+  <!-- Version History -->
+  <app-version-history />
+  } @else if (activeTab === 3) {
+  <!-- Project Budget -->
+  <app-project-budget />
+  } @else if (activeTab === 4) {
+  <!-- Project Overview -->
+  <app-edit-project [projectId]="projectId" />
+  } @else if (activeTab === 5) {
+  <!-- Project scope & stack -->
+  <app-project-scope-stack />
+  } @else if (activeTab === 6) {
+  <!-- Escalation matrix -->
+  <app-escalation-matrix />
+  } @else if (activeTab === 7) {
+  <!-- Stakeholders -->
+  <app-stakeholders />
+  } @else if (activeTab === 8) {
+  <!-- Risk profile -->
+  <app-risk-profile />
+  } @else if (activeTab === 9) {
+  <!-- Phases and Milestone -->
+  <app-phases />
+  } @else if (activeTab === 10) {
+  <!-- Phases and Milestone -->
+  <app-sprint />
+  }
 </div>
- 
