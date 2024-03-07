@@ -5,29 +5,33 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { UpdateAuditModalComponent } from '../update-audit-modal/update-audit-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+import { Project } from '../../models/project.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-project-details',
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.scss',
+  providers: [DatePipe],
 })
 export class ProjectDetailsComponent {
-
-  projectId!: string;
+  projectId: string = '';
+  project: Project = {} as Project;
   auditForm: any;
   audits: any;
 
   tabs: string[] = [
-    "Audit History", 
-    "Version History", 
-    "Project Budget", 
-    "Project Overview", 
-    "Project Stack", 
-    "Escalation Matrix", 
-    "Stakeholders", 
-    "Risk Profile", 
-    "Phases / Milestone", 
-    "Sprint Details"
+    'Audit History',
+    'Version History',
+    'Project Budget',
+    'Project Overview',
+    'Project Stack',
+    'Escalation Matrix',
+    'Stakeholders',
+    'Risk Profile',
+    'Phases / Milestone',
+    'Sprint Details',
   ];
 
   activeTab: number = 1;
@@ -37,8 +41,10 @@ export class ProjectDetailsComponent {
     private projectService: ProjectsService,
     private formBuilder: FormBuilder,
     private toast: NgToastService,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    private http: HttpClient,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
@@ -52,6 +58,15 @@ export class ProjectDetailsComponent {
     });
 
     this.getAuditHistory();
+
+    this.projectService.getProjectById(this.projectId).subscribe(
+      (res) => {
+        this.project = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   getAuditHistory() {
@@ -79,7 +94,6 @@ export class ProjectDetailsComponent {
 
       this.projectService.createAuditHistory(newAudit).subscribe(
         (res) => {
-          console.log(res);
           this.getAuditHistory();
           this.auditForm.reset();
           this.toast.success({
@@ -87,6 +101,8 @@ export class ProjectDetailsComponent {
             summary: 'Audit added successfully',
             duration: 4000,
           });
+
+          this.sendEmail(newAudit);
         },
         (err) => {
           console.log(err);
@@ -107,7 +123,7 @@ export class ProjectDetailsComponent {
   }
 
   deleteAudit(id: string) {
-    const confirmDelete = confirm("Are you sure you want to delete ?");
+    const confirmDelete = confirm('Are you sure you want to delete ?');
     if (confirmDelete) {
       this.projectService.deleteAuditHistory(id).subscribe(
         (res) => {
@@ -128,7 +144,6 @@ export class ProjectDetailsComponent {
           });
         }
       );
-
     }
   }
 
@@ -138,18 +153,60 @@ export class ProjectDetailsComponent {
       width: '70%',
       data: auditToUpdate,
       hasBackdrop: true,
-      disableClose: true
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       console.log('Form Data:', result);
+      
+      this.sendEmail(result);
       this.getAuditHistory();
     });
   }
 
-  setActiveTab(index: number)
-  {
+  setActiveTab(index: number) {
     this.activeTab = index;
+  }
+
+  sendEmail(newAudit: any) {
+    newAudit.auditDate = this.datePipe.transform(
+      newAudit.auditDate,
+      'dd-MM-yy'
+    );
+
+    const emailData = {
+      name: this.project.clientName,
+      toEmail: this.project.clientEmail,
+      changedAudit: newAudit,
+    };
+
+    this.http
+      .post('https://localhost:44347/api/Email/AuditChange', emailData, {
+        responseType: 'text',
+      })
+      .subscribe({
+        next: (res) => {
+          // On successful response
+          console.log(res);
+
+          // Show success toast notification
+          this.toast.success({
+            detail: 'Email sent to client',
+            duration: 4000,
+          });
+        },
+        error: (err: any) => {
+          // On error response
+          // Show error toast notification
+          console.log(err);
+
+          this.toast.error({
+            detail: 'Failed to send email',
+            summary: err.message,
+            duration: 4000,
+          });
+        },
+      });
   }
 }

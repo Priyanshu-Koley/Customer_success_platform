@@ -26,6 +26,7 @@ import { RiskProfileComponent } from './components/project-details-tabs/risk-pro
 import { PhasesComponent } from './components/project-details-tabs/phases/phases.component';
 import { SprintComponent } from './components/project-details-tabs/sprint/sprint.component';
 import { EscalationMatrixComponent } from './components/project-details-tabs/escalation-matrix/escalation-matrix.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { EscalationMatrixComponent } from './components/project-details-tabs/esc
   providers: [
     provideAnimationsAsync(),
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
+    DatePipe
   ],
   bootstrap: [AppComponent],
 })

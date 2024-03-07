@@ -58,8 +58,8 @@ export class UpdateAuditModalComponent {
             duration: 4000,
           });
         }
-      );
-      this.dialogRef.close(this.updateAuditForm.value);
+      );     
+      this.dialogRef.close(updatedAudit);
     }
   }
 

@@ -31,8 +31,8 @@ export class ProjectsService {
   getProjects(): Observable<ApiResponse<Project>> {
     return this.http.get<ApiResponse<Project>>(this.projectsApiUrl);
   }
-  getProjectById(id: string): Observable<Project> {
-    return this.http.get<Project>(`${this.projectsApiUrl}/${id}`);
+  getProjectById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.projectsApiUrl}/${id}`);
   }
   updateProject(id: string, project: any): Observable<any> {
     const url = `${this.projectsApiUrl}/${id}`;
