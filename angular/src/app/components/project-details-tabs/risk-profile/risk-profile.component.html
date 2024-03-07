@@ -1,0 +1,81 @@
+<div class="risk">
+    <h2 class="top-heading">Risk Profile</h2>
+    <form [formGroup]="riskForm" (ngSubmit)="addRisk()">
+        <h3>Add new risk profile</h3>
+        <div class="row row-1">
+            <select formControlName="riskType">
+                <option value="" selected disabled>Select risk type</option>
+                <option value="Financial">Financial</option>
+                <option value="Operational">Operational</option>
+                <option value="Technical">Technical</option>
+                <option value="HR">HR</option>
+                <option value="External">External</option>
+            </select>
+
+            <input type="text" formControlName="description" placeholder="Risk Description">
+
+            <select formControlName="severity">
+                <option value="" selected disabled>Select Severity</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+
+        </div>
+
+        <div class="row row-2">
+            <select formControlName="impact">
+                <option value="" selected disabled>Select Impact</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+            <input type="text" formControlName="remedialSteps" placeholder="Remedial Steps">
+            <input type="text" formControlName="status" placeholder="Status">
+
+        </div>
+
+        <div class="row row-3">
+            <input
+                type="text"
+                placeholder="Closure Date"
+                formControlName="closureDate"
+                onfocus="(this.type='date')"
+                onblur="(this.type='text')"
+            />
+            <button type="submit" class="btn">Add Risk</button>
+        </div>
+        
+    </form>
+
+    <table class="risk-list" >
+            <thead>
+                <th>Risk Type</th>
+                <th>Description</th>
+                <th>Severity</th>
+                <th>Impact</th>
+                <th>Remedial Steps</th>
+                <th>Status</th>
+                <th>Closure Date</th>
+            </thead>
+            <tbody>
+                @for(risk of risks; track $index)
+                {
+                    <tr class="risk-{{$index}} risk-row" >
+                        <td>{{risk.riskType}}</td>
+                        <td>{{risk.description}}</td>
+                        <td>{{risk.severity}}</td>
+                        <td>{{risk.impact}}</td>
+                        <td>{{risk.remedialSteps}}</td>
+                        <td>{{risk.status}}</td>
+                        <td>{{risk.closureDate}}</td>
+                        <td>
+                            <button (click)="deleteRisk(risk.id)" class="delete-risk">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+</div>

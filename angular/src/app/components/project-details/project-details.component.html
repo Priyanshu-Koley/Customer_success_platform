@@ -71,7 +71,47 @@
         <!-- Version History -->
         <app-version-history/>
     }
-
+    @else if (activeTab === 3) 
+    {
+        <!-- Project Budget -->
+        <app-project-budget/>
+    }
+    @else if (activeTab === 4) 
+    {
+        <!-- Project Overview -->
+        <app-edit-project [projectId]="projectId"/>
+    }
+    @else if (activeTab === 5) 
+    {
+        <!-- Project scope & stack -->
+        <app-project-scope-stack/>
+    }
+    @else if (activeTab === 6) 
+    {
+        <!-- Escalation matrix -->
+        <app-escalation-matrix/>
+    }
+    @else if (activeTab === 7) 
+    {
+        <!-- Stakeholders -->
+        <app-stakeholders/>
+    }
+    @else if (activeTab === 8) 
+    {
+        <!-- Risk profile -->
+        <app-risk-profile/>
+    }
+    @else if (activeTab === 9) 
+    {
+        <!-- Phases and Milestone -->
+        <app-phases/>
+    }
+    @else if (activeTab === 10) 
+    {
+        <!-- Phases and Milestone -->
+        <app-sprint/>
+    }
+    
 
 
     

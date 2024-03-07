@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ProjectsService } from '../../../services/projects.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NgToastService } from 'ng-angular-popup';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
+import { ProjectsService } from '../../../services/projects.service';
 
 @Component({
-  selector: 'app-project-budget',
-  templateUrl: './project-budget.component.html',
-  styleUrl: './project-budget.component.scss',
+  selector: 'app-project-scope-stack',
+  templateUrl: './project-scope-stack.component.html',
+  styleUrl: './project-scope-stack.component.scss',
 })
-export class ProjectBudgetComponent {
+export class ProjectScopeStackComponent {
   projectId!: string;
-  budgetForm: any;
-  budgets: any;
+  stackForm: any;
+  stacks: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,19 +26,18 @@ export class ProjectBudgetComponent {
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
 
-    this.budgetForm = this.formBuilder.group({
-      type: ['', [Validators.required]],
-      durationInMonths: ['', [Validators.required]],
-      budgetedHours: ['', [Validators.required]],
+    this.stackForm = this.formBuilder.group({
+      stack: ['', [Validators.required]],
+      scope: ['', [Validators.required]],
     });
 
-    this.getBudget();
+    this.getStack();
   }
 
-  getBudget() {
-    this.projectService.getBudget(this.projectId).subscribe(
+  getStack() {
+    this.projectService.getStack(this.projectId).subscribe(
       (res) => {
-        this.budgets = res.items;
+        this.stacks = res.items;
       },
       (err) => {
         console.log(err);
@@ -46,21 +45,21 @@ export class ProjectBudgetComponent {
     );
   }
 
-  addBudget() {
-    if (this.budgetForm.valid) {
-      const newBudget = {
-        ...this.budgetForm.value,
+  addStack() {
+    if (this.stackForm.valid) {
+      const newStack = {
+        ...this.stackForm.value,
         projectId: this.projectId,
       };
 
-      this.projectService.createBudget(newBudget).subscribe(
+      this.projectService.createStack(newStack).subscribe(
         (res) => {
           console.log(res);
-          this.getBudget();
-          this.budgetForm.reset();
+          this.getStack();
+          this.stackForm.reset();
           this.toast.success({
             detail: 'Success',
-            summary: 'Budget added successfully',
+            summary: 'Scope and Stack added successfully',
             duration: 4000,
           });
         },
@@ -68,7 +67,7 @@ export class ProjectBudgetComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error adding budget',
+            summary: 'Error adding Scope and Stack',
             duration: 4000,
           });
         }
@@ -82,16 +81,16 @@ export class ProjectBudgetComponent {
     }
   }
 
-  deleteBudget(id: string) {
+  deleteStack(id: string) {
     const confirmDelete = confirm('Are you sure you want to delete ?');
     if (confirmDelete) {
-      this.projectService.deleteBudget(id).subscribe(
+      this.projectService.deleteStack(id).subscribe(
         (res) => {
           console.log(res);
-          this.getBudget();
+          this.getStack();
           this.toast.success({
             detail: 'Success',
-            summary: 'Budget deleted successfully',
+            summary: 'Scope and Stack deleted successfully',
             duration: 4000,
           });
         },
@@ -99,7 +98,7 @@ export class ProjectBudgetComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error deleting budget',
+            summary: 'Error deleting Scope and Stack',
             duration: 4000,
           });
         }

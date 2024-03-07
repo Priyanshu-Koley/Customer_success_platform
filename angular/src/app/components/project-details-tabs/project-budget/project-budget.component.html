@@ -3,14 +3,15 @@
     <form [formGroup]="budgetForm" (ngSubmit)="addBudget()">
         <h3>Add new budget</h3>
         <div class="row row-1">
-            <select formControlName="type" placeholder="Project Type">
+            <select formControlName="type">
+                <option value="" selected disabled>Select project type</option>
                 <option value="Fixed budget">Fixed budget</option>
                 <option value="Monthly">Monthly</option>
             </select>
             <input type="number" formControlName="durationInMonths" placeholder="Duration (in months)">
             <input type="number" formControlName="budgetedHours" placeholder="Budgeted Hours">
         </div>
-        <div class="row row-3">
+        <div class="row row-2">
             <button type="submit" class="btn">Add Budget</button>
         </div>
         
@@ -31,7 +32,7 @@
                         <td>{{budget.durationInMonths}}</td>
                         <td>{{budget.budgetedHours}}</td>
                         <td>
-                            <button (click)="deleteBudget(budget.id)" class="budget-delete">
+                            <button (click)="deleteBudget(budget.id)" class="delete-budget">
                                 <i class="fa fa-trash-o"></i>
                             </button>
                         </td>

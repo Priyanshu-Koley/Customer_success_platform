@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ProjectsService } from '../../../services/projects.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NgToastService } from 'ng-angular-popup';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
+import { ProjectsService } from '../../../services/projects.service';
 
 @Component({
-  selector: 'app-project-budget',
-  templateUrl: './project-budget.component.html',
-  styleUrl: './project-budget.component.scss',
+  selector: 'app-escalation-matrix',
+  templateUrl: './escalation-matrix.component.html',
+  styleUrl: './escalation-matrix.component.scss',
 })
-export class ProjectBudgetComponent {
+export class EscalationMatrixComponent {
   projectId!: string;
-  budgetForm: any;
-  budgets: any;
+  escalationForm: any;
+  escalations: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,19 +26,19 @@ export class ProjectBudgetComponent {
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
 
-    this.budgetForm = this.formBuilder.group({
-      type: ['', [Validators.required]],
-      durationInMonths: ['', [Validators.required]],
-      budgetedHours: ['', [Validators.required]],
+    this.escalationForm = this.formBuilder.group({
+      level: ['', [Validators.required, Validators.min(1)]],
+      escalationType: ['', [Validators.required]],
+      responsible: ['', [Validators.required]],
     });
 
-    this.getBudget();
+    this.getEscalations();
   }
 
-  getBudget() {
-    this.projectService.getBudget(this.projectId).subscribe(
+  getEscalations() {
+    this.projectService.getEscalations(this.projectId).subscribe(
       (res) => {
-        this.budgets = res.items;
+        this.escalations = res.items;
       },
       (err) => {
         console.log(err);
@@ -46,21 +46,21 @@ export class ProjectBudgetComponent {
     );
   }
 
-  addBudget() {
-    if (this.budgetForm.valid) {
-      const newBudget = {
-        ...this.budgetForm.value,
+  addEscalation() {
+    if (this.escalationForm.valid) {
+      const newEscalation = {
+        ...this.escalationForm.value,
         projectId: this.projectId,
       };
 
-      this.projectService.createBudget(newBudget).subscribe(
+      this.projectService.createEscalation(newEscalation).subscribe(
         (res) => {
           console.log(res);
-          this.getBudget();
-          this.budgetForm.reset();
+          this.getEscalations();
+          this.escalationForm.reset();
           this.toast.success({
             detail: 'Success',
-            summary: 'Budget added successfully',
+            summary: 'Escalation added successfully',
             duration: 4000,
           });
         },
@@ -68,7 +68,7 @@ export class ProjectBudgetComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error adding budget',
+            summary: 'Error adding Escalation',
             duration: 4000,
           });
         }
@@ -82,16 +82,16 @@ export class ProjectBudgetComponent {
     }
   }
 
-  deleteBudget(id: string) {
+  deleteEscalation(id: string) {
     const confirmDelete = confirm('Are you sure you want to delete ?');
     if (confirmDelete) {
-      this.projectService.deleteBudget(id).subscribe(
+      this.projectService.deleteEscalation(id).subscribe(
         (res) => {
           console.log(res);
-          this.getBudget();
+          this.getEscalations();
           this.toast.success({
             detail: 'Success',
-            summary: 'Budget deleted successfully',
+            summary: 'Escalation deleted successfully',
             duration: 4000,
           });
         },
@@ -99,7 +99,7 @@ export class ProjectBudgetComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error deleting budget',
+            summary: 'Error deleting Escalation',
             duration: 4000,
           });
         }

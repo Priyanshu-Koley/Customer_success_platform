@@ -10,7 +10,7 @@ namespace Promact.CustomerSuccess.Platform.Entities
         public required string Description { get; set; }
         public required string Severity { get; set; }
         public required string Impact { get; set; }
-        public required string RemediationSteps { get; set; }
+        public required string RemedialSteps { get; set; }
         public required string Status { get; set; }
         public required string ClosureDate { get; set; }
         public required string ProjectId { get; set; }
@@ -28,5 +28,5 @@ namespace Promact.CustomerSuccess.Platform.Entities
     //{
     //    throw new NotImplementedException();
     //}
-}
+    }
 }

@@ -1,0 +1,39 @@
+<div class="stakeholders">
+    <h2 class="top-heading">Stakeholders</h2>
+    <form [formGroup]="stakeholderForm" (ngSubmit)="addStakeholder()">
+        <h3>Add new Stakeholder</h3>
+        <div class="row row-1">
+            <input type="text" formControlName="title" placeholder="Title">
+            <input type="text" formControlName="name" placeholder="Stakeholder's Name">
+        </div>
+        <div class="row row-2">
+            <input type="text" formControlName="contact" placeholder="Stakeholder's Contact">
+            <button type="submit" class="btn">Add Stakeholder</button>
+        </div>
+        
+    </form>
+
+    <table class="stakeholders-list" >
+            <thead>
+                <th>Title</th>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Delete</th>
+            </thead>
+            <tbody>
+                @for(stakeholder of stakeholders; track $index)
+                {
+                    <tr class="stakeholder-{{$index}} stakeholder-row" >
+                        <td>{{stakeholder.title}}</td>
+                        <td>{{stakeholder.name}}</td>
+                        <td>{{stakeholder.contact}}</td>
+                        <td>
+                            <button (click)="deleteStakeholder(stakeholder.id)" class="delete-stakeholder">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+</div>

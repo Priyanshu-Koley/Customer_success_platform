@@ -6,7 +6,7 @@ namespace Promact.CustomerSuccess.Platform.Services
 {
     public interface IStakeholdersService : IApplicationService
     {
-        Task CreateStakeholdersAsync(StakeholdersDto newStakeholder);
+        Task CreateStakeholdersAsync(UpdateStakeholdersDto newStakeholder);
         Task<ListResultDto<StakeholdersDto>> GetStakeholdersByProjectId(string projectId);
         Task UpdateStakeholdersAsync(Guid id, UpdateStakeholdersDto updatedStakeholder);
         Task DeleteStakeholdersAsync(Guid id);

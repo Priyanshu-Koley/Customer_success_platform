@@ -25,9 +25,9 @@ namespace Promact.CustomerSuccess.Platform.Services
             _asyncExecuter = asyncExecuter;
         }
 
-        public async Task CreateRiskProfileAsync(RiskProfileDto newRiskProfile)
+        public async Task CreateRiskProfileAsync(UpdateRiskProfileDto newRiskProfile)
         {
-            var riskProfiles = ObjectMapper.Map<RiskProfileDto, RiskProfile>(newRiskProfile);
+            var riskProfiles = ObjectMapper.Map<UpdateRiskProfileDto, RiskProfile>(newRiskProfile);
             await _riskProfileRepository.InsertAsync(riskProfiles);
         }
 
@@ -45,7 +45,7 @@ namespace Promact.CustomerSuccess.Platform.Services
             );
         }
 
-        public async Task UpdateRiskProfileAsync(Guid id, RiskProfileDto updatedRiskProfile)
+        public async Task UpdateRiskProfileAsync(Guid id, UpdateRiskProfileDto updatedRiskProfile)
         {
             var riskProfile = await _riskProfileRepository.GetAsync(id);
             ObjectMapper.Map(updatedRiskProfile, riskProfile);

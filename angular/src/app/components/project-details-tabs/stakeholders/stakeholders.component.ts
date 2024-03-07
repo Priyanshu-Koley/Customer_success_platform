@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ProjectsService } from '../../../services/projects.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NgToastService } from 'ng-angular-popup';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
+import { ProjectsService } from '../../../services/projects.service';
 
 @Component({
-  selector: 'app-project-budget',
-  templateUrl: './project-budget.component.html',
-  styleUrl: './project-budget.component.scss',
+  selector: 'app-stakeholders',
+  templateUrl: './stakeholders.component.html',
+  styleUrl: './stakeholders.component.scss',
 })
-export class ProjectBudgetComponent {
+export class StakeholdersComponent {
   projectId!: string;
-  budgetForm: any;
-  budgets: any;
+  stakeholderForm: any;
+  stakeholders: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,19 +26,19 @@ export class ProjectBudgetComponent {
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
 
-    this.budgetForm = this.formBuilder.group({
-      type: ['', [Validators.required]],
-      durationInMonths: ['', [Validators.required]],
-      budgetedHours: ['', [Validators.required]],
+    this.stakeholderForm = this.formBuilder.group({
+      title: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      contact: ['', [Validators.required]],
     });
 
-    this.getBudget();
+    this.getStakeholders();
   }
 
-  getBudget() {
-    this.projectService.getBudget(this.projectId).subscribe(
+  getStakeholders() {
+    this.projectService.getStakeholders(this.projectId).subscribe(
       (res) => {
-        this.budgets = res.items;
+        this.stakeholders = res.items;
       },
       (err) => {
         console.log(err);
@@ -46,21 +46,21 @@ export class ProjectBudgetComponent {
     );
   }
 
-  addBudget() {
-    if (this.budgetForm.valid) {
-      const newBudget = {
-        ...this.budgetForm.value,
+  addStakeholder() {
+    if (this.stakeholderForm.valid) {
+      const newStakeholder = {
+        ...this.stakeholderForm.value,
         projectId: this.projectId,
       };
 
-      this.projectService.createBudget(newBudget).subscribe(
+      this.projectService.createStakeholder(newStakeholder).subscribe(
         (res) => {
           console.log(res);
-          this.getBudget();
-          this.budgetForm.reset();
+          this.getStakeholders();
+          this.stakeholderForm.reset();
           this.toast.success({
             detail: 'Success',
-            summary: 'Budget added successfully',
+            summary: 'Stakeholder added successfully',
             duration: 4000,
           });
         },
@@ -68,7 +68,7 @@ export class ProjectBudgetComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error adding budget',
+            summary: 'Error adding Stakeholder',
             duration: 4000,
           });
         }
@@ -82,16 +82,16 @@ export class ProjectBudgetComponent {
     }
   }
 
-  deleteBudget(id: string) {
+  deleteStakeholder(id: string) {
     const confirmDelete = confirm('Are you sure you want to delete ?');
     if (confirmDelete) {
-      this.projectService.deleteBudget(id).subscribe(
+      this.projectService.deleteStakeholder(id).subscribe(
         (res) => {
           console.log(res);
-          this.getBudget();
+          this.getStakeholders();
           this.toast.success({
             detail: 'Success',
-            summary: 'Budget deleted successfully',
+            summary: 'Stakeholder deleted successfully',
             duration: 4000,
           });
         },
@@ -99,7 +99,7 @@ export class ProjectBudgetComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error deleting budget',
+            summary: 'Error deleting Stakeholder',
             duration: 4000,
           });
         }

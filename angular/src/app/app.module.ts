@@ -20,6 +20,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { VersionHistoryComponent } from './components/project-details-tabs/version-history/version-history.component';
 import { ProjectBudgetComponent } from './components/project-details-tabs/project-budget/project-budget.component';
+import { ProjectScopeStackComponent } from './components/project-details-tabs/project-scope-stack/project-scope-stack.component';
+import { StakeholdersComponent } from './components/project-details-tabs/stakeholders/stakeholders.component';
+import { RiskProfileComponent } from './components/project-details-tabs/risk-profile/risk-profile.component';
+import { PhasesComponent } from './components/project-details-tabs/phases/phases.component';
+import { SprintComponent } from './components/project-details-tabs/sprint/sprint.component';
+import { EscalationMatrixComponent } from './components/project-details-tabs/escalation-matrix/escalation-matrix.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +39,12 @@ import { ProjectBudgetComponent } from './components/project-details-tabs/projec
     UpdateAuditModalComponent,
     VersionHistoryComponent,
     ProjectBudgetComponent,
+    ProjectScopeStackComponent,
+    StakeholdersComponent,
+    RiskProfileComponent,
+    PhasesComponent,
+    SprintComponent,
+    EscalationMatrixComponent,
   ],
   imports: [
     BrowserModule,

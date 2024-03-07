@@ -14,20 +14,20 @@ using Volo.Abp.ObjectMapping;
 namespace Promact.CustomerSuccess.Platform.Services
 {
     [RemoteService]
-    public class StackeholdersService : ApplicationService, IStakeholdersService
+    public class StakeholdersService : ApplicationService, IStakeholdersService
     {
         private readonly IRepository<Stakeholders, Guid> _stakeholdersRepository;
         private readonly IAsyncQueryableExecuter _asyncExecuter;
 
-        public StackeholdersService(IRepository<Stakeholders, Guid> stakeholdersRepository, IAsyncQueryableExecuter asyncExecuter)
+        public StakeholdersService(IRepository<Stakeholders, Guid> stakeholdersRepository, IAsyncQueryableExecuter asyncExecuter)
         {
             _stakeholdersRepository = stakeholdersRepository;
             _asyncExecuter = asyncExecuter;
         }
 
-        public async Task CreateStakeholdersAsync(StakeholdersDto newStakeholders)
+        public async Task CreateStakeholdersAsync(UpdateStakeholdersDto newStakeholders)
         {
-            var stakeholders = ObjectMapper.Map<StakeholdersDto, Stakeholders>(newStakeholders);
+            var stakeholders = ObjectMapper.Map<UpdateStakeholdersDto, Stakeholders>(newStakeholders);
             await _stakeholdersRepository.InsertAsync(stakeholders);
         }
 

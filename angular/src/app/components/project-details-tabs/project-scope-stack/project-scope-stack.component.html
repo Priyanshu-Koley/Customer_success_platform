@@ -1,0 +1,43 @@
+<div class="stack">
+    <h2 class="top-heading">Project Scope and stack</h2>
+    <form [formGroup]="stackForm" (ngSubmit)="addStack()">
+        <h3>Add new Scope and Stack</h3>
+        <div class="row row-1">
+            <select formControlName="stack">
+                <option value="" selected disabled>Select Stack</option>
+                <option value="Backend">Backend</option>
+                <option value="Frontend">Frontend</option>
+                <option value="Mobile App">Mobile App</option>
+                <option value="Database">Database</option>
+                <option value="Infrastructure and Services">Infrastructure and Services</option>
+            </select>
+            <input type="text" formControlName="scope" placeholder="Project Scope">
+        </div>
+        <div class="row row-2">
+            <button type="submit" class="btn">Add Scope and Stack</button>
+        </div>
+        
+    </form>
+
+    <table class="stack-list" >
+            <thead>
+                <th>Project Stack (Tech)</th>
+                <th>Project Scope</th>
+                <th>Delete</th>
+            </thead>
+            <tbody>
+                @for(stack of stacks; track $index)
+                {
+                    <tr class="stack-{{$index}} stack-row" >
+                        <td>{{stack.stack}}</td>
+                        <td>{{stack.scope}}</td>
+                        <td>
+                            <button (click)="deleteStack(stack.id)" class="delete-stack">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+</div>

@@ -1,37 +1,5 @@
-.project-details{
+.risk{
     margin: 0 20px 20px 0;
-
-    .tabs{
-      display: flex;
-      justify-content: space-between;
-
-      .tab{
-        text-align: left;
-        margin-right: 10px;
-        width: fit-content;
-        padding: 5px 10px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        a{
-          text-decoration: none;
-          text-align: center;
-          color: black;
-          font-size: 12px;
-          font-weight: bold;
-        }
-        a:last-child{
-          margin-right: 0px;
-          
-        }
-      }
-
-      .tab:hover{
-        background-color:#cce5ffbc;
-      }
-    }
 
     .top-heading{
         margin: 20px 0 50px 0;
@@ -43,23 +11,24 @@
         display: flex;
         justify-content: space-between;
     
-        input{
+        input,select{
             width: 30%;
             padding: 10px;
         }
         button{
             width: 30%;
+            margin-left: auto;
         }
     }
 
-    .audit-list {
+    .risk-list {
       width: 100%;
       border-collapse: collapse;
 
-      .audit-row{
+      .risk-row{
         cursor: pointer;
       }
-      .audit-row:hover{
+      .risk-row:hover{
         background-color: rgb(254, 246, 237);
       }
     
@@ -77,7 +46,7 @@
       }
     
           
-      .delete-audit{   
+      .delete-risk{   
         background: none;
         border: none;
         padding: 10px;
@@ -86,15 +55,9 @@
         margin-right: 10px;
         border-radius: 4px;
       }
-      .delete-audit:hover{
+      .delete-risk:hover{
         background-color: rgb(240, 110, 110);
       }
     
     }
-}
-
-
-.active{
-  border-bottom: 3px solid #1985f8;
-  // background-color:#cce5ffbc;
 }

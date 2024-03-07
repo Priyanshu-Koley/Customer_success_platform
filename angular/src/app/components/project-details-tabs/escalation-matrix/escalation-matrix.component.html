@@ -1,0 +1,107 @@
+<div class="escalation">
+  <h2 class="top-heading">Escalation Matrix</h2>
+  <form [formGroup]="escalationForm" (ngSubmit)="addEscalation()">
+    <h3>Add new Escalation</h3>
+    <div class="row row-1">
+      <input
+        type="number"
+        placeholder="Escalation Level"
+        formControlName="level"
+      />
+
+      <select formControlName="escalationType">
+        <option value="" selected disabled>Select Escalation Type</option>
+        <option value="Operational">Operational</option>
+        <option value="Financial">Financial</option>
+        <option value="Technical">Technical</option>
+      </select>
+
+      <input
+        type="text"
+        formControlName="responsible"
+        placeholder="Responsible name"
+      />
+    </div>
+
+    <div class="row row-2">
+      <button type="submit" class="btn">Add escalation</button>
+    </div>
+  </form>
+
+  <div class="escalation-tables">
+    <h3>Operational Escalation Matrix</h3>
+    <table class="operational-escalation-list escalation-list">
+      <thead>
+        <th>Escalation Level</th>
+        <th>Responsible</th>
+      </thead>
+      <tbody>
+        @for(escalation of escalations; track $index) {
+        @if(escalation.escalationType == 'Operational') {
+        <tr class="escalation-{{ $index }} escalation-row">
+          <td>Level-{{ escalation.level }}</td>
+          <td>{{ escalation.responsible }}</td>
+          <td>
+            <button
+              (click)="deleteEscalation(escalation.id)"
+              class="delete-escalation"
+            >
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </td>
+        </tr>
+        } }
+      </tbody>
+    </table>
+
+    <h3>Financial Escalation Matrix</h3>
+    <table class="financial-escalation-list escalation-list">
+      <thead>
+        <th>Escalation Level</th>
+        <th>Responsible</th>
+      </thead>
+      <tbody>
+        @for(escalation of escalations; track $index) {
+        @if(escalation.escalationType == 'Financial') {
+        <tr class="escalation-{{ $index }} escalation-row">
+          <td>Level-{{escalation.level}}</td>
+          <td>{{ escalation.responsible }}</td>
+          <td>
+            <button
+              (click)="deleteEscalation(escalation.id)"
+              class="delete-escalation"
+            >
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </td>
+        </tr>
+        } }
+      </tbody>
+    </table>
+
+    <h3>Technical Escalation Matrix</h3>
+    <table class="technical-escalation-list escalation-list">
+      <thead>
+        <th>Escalation Level</th>
+        <th>Responsible</th>
+      </thead>
+      <tbody>
+        @for(escalation of escalations; track $index) {
+        @if(escalation.escalationType == 'Technical') {
+        <tr class="escalation-{{ $index }} escalation-row">
+          <td>Level-{{escalation.level }}</td>
+          <td>{{ escalation.responsible }}</td>
+          <td>
+            <button
+              (click)="deleteEscalation(escalation.id)"
+              class="delete-escalation"
+            >
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </td>
+        </tr>
+        } }
+      </tbody>
+    </table>
+  </div>
+</div>

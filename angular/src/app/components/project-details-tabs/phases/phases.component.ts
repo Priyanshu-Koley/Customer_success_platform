@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ProjectsService } from '../../../services/projects.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NgToastService } from 'ng-angular-popup';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
+import { ProjectsService } from '../../../services/projects.service';
 
 @Component({
-  selector: 'app-project-budget',
-  templateUrl: './project-budget.component.html',
-  styleUrl: './project-budget.component.scss',
+  selector: 'app-phases',
+  templateUrl: './phases.component.html',
+  styleUrl: './phases.component.scss',
 })
-export class ProjectBudgetComponent {
+export class PhasesComponent {
   projectId!: string;
-  budgetForm: any;
-  budgets: any;
+  phaseForm: any;
+  phases: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,19 +26,23 @@ export class ProjectBudgetComponent {
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
 
-    this.budgetForm = this.formBuilder.group({
-      type: ['', [Validators.required]],
-      durationInMonths: ['', [Validators.required]],
-      budgetedHours: ['', [Validators.required]],
+    this.phaseForm = this.formBuilder.group({
+      title: ['', [Validators.required]],
+      startDate: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
+      approvalDate: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+      revisedCompletionDate: ['', [Validators.required]],
+      comments: ['', [Validators.required]],
     });
 
-    this.getBudget();
+    this.getPhases();
   }
 
-  getBudget() {
-    this.projectService.getBudget(this.projectId).subscribe(
+  getPhases() {
+    this.projectService.getPhases(this.projectId).subscribe(
       (res) => {
-        this.budgets = res.items;
+        this.phases = res.items;
       },
       (err) => {
         console.log(err);
@@ -46,21 +50,22 @@ export class ProjectBudgetComponent {
     );
   }
 
-  addBudget() {
-    if (this.budgetForm.valid) {
-      const newBudget = {
-        ...this.budgetForm.value,
+  addPhase() {
+    if (this.phaseForm.valid) {
+      const newPhase = {
+        ...this.phaseForm.value,
         projectId: this.projectId,
       };
+      
 
-      this.projectService.createBudget(newBudget).subscribe(
+      this.projectService.createPhase(newPhase).subscribe(
         (res) => {
           console.log(res);
-          this.getBudget();
-          this.budgetForm.reset();
+          this.getPhases();
+          this.phaseForm.reset();
           this.toast.success({
             detail: 'Success',
-            summary: 'Budget added successfully',
+            summary: 'Phase added successfully',
             duration: 4000,
           });
         },
@@ -68,7 +73,7 @@ export class ProjectBudgetComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error adding budget',
+            summary: 'Error adding Phase',
             duration: 4000,
           });
         }
@@ -82,16 +87,16 @@ export class ProjectBudgetComponent {
     }
   }
 
-  deleteBudget(id: string) {
+  deletePhase(id: string) {
     const confirmDelete = confirm('Are you sure you want to delete ?');
     if (confirmDelete) {
-      this.projectService.deleteBudget(id).subscribe(
+      this.projectService.deletePhase(id).subscribe(
         (res) => {
           console.log(res);
-          this.getBudget();
+          this.getPhases();
           this.toast.success({
             detail: 'Success',
-            summary: 'Budget deleted successfully',
+            summary: 'Phase deleted successfully',
             duration: 4000,
           });
         },
@@ -99,7 +104,7 @@ export class ProjectBudgetComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error deleting budget',
+            summary: 'Error deleting Phase',
             duration: 4000,
           });
         }

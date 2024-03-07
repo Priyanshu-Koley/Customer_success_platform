@@ -1,8 +1,8 @@
-.version-history{
+.budget{
     margin: 0 20px 20px 0;
 
     .top-heading{
-        margin: 0 0 50px 0;
+        margin: 20px 0 50px 0;
         text-align: center;
     }
     
@@ -11,24 +11,24 @@
         display: flex;
         justify-content: space-between;
     
-        input{
+        input,select{
             width: 30%;
-            height: 30px;
             padding: 10px;
         }
         button{
             width: 30%;
+            margin-left: auto;
         }
     }
 
-    .version-list {
+    .budget-list {
       width: 100%;
       border-collapse: collapse;
 
-      .version-row{
+      .budget-row{
         cursor: pointer;
       }
-      .version-row:hover{
+      .budget-row:hover{
         background-color: rgb(254, 246, 237);
       }
     
@@ -46,7 +46,7 @@
       }
     
           
-      .delete-version{   
+      .delete-budget{   
         background: none;
         border: none;
         padding: 10px;
@@ -55,7 +55,7 @@
         margin-right: 10px;
         border-radius: 4px;
       }
-      .delete-version:hover{
+      .delete-budget:hover{
         background-color: rgb(240, 110, 110);
       }
     

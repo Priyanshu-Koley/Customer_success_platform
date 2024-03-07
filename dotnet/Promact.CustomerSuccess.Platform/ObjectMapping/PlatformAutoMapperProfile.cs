@@ -32,10 +32,16 @@ public class PlatformAutoMapperProfile : Profile
         CreateMap<UpdateStakeholdersDto, Stakeholders>();
         CreateMap<Stakeholders, StakeholdersDto>().ReverseMap();
         // Mapping Risk profile
+        CreateMap<UpdateRiskProfileDto, RiskProfile>();
         CreateMap<RiskProfile, RiskProfileDto>().ReverseMap();
         // Mapping Phase milestone
+        CreateMap<UpdatePhaseMilestoneDto, PhaseMilestone>();
         CreateMap<PhaseMilestone, PhaseMilestoneDto>().ReverseMap();
         // Mapping Escalation matrix
+        CreateMap<UpdateEscalationMatrixDto, EscalationMatrix>();
         CreateMap<EscalationMatrix, EscalationMatrixDto>().ReverseMap();
+        // Mapping Sprint
+        CreateMap<UpdateSprintDto, Sprint>();
+        CreateMap<Sprint, SprintDto>().ReverseMap();
     }
 }

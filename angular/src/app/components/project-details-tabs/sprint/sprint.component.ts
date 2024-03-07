@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ProjectsService } from '../../../services/projects.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NgToastService } from 'ng-angular-popup';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
+import { ProjectsService } from '../../../services/projects.service';
 
 @Component({
-  selector: 'app-project-budget',
-  templateUrl: './project-budget.component.html',
-  styleUrl: './project-budget.component.scss',
+  selector: 'app-sprint',
+  templateUrl: './sprint.component.html',
+  styleUrl: './sprint.component.scss',
 })
-export class ProjectBudgetComponent {
+export class SprintComponent {
   projectId!: string;
-  budgetForm: any;
-  budgets: any;
+  sprintForm: any;
+  sprints: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,19 +26,21 @@ export class ProjectBudgetComponent {
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
 
-    this.budgetForm = this.formBuilder.group({
-      type: ['', [Validators.required]],
-      durationInMonths: ['', [Validators.required]],
-      budgetedHours: ['', [Validators.required]],
+    this.sprintForm = this.formBuilder.group({
+      sprintNumber: ['', [Validators.required]],
+      startDate: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+      comments: ['', [Validators.required]],
     });
 
-    this.getBudget();
+    this.getSprints();
   }
 
-  getBudget() {
-    this.projectService.getBudget(this.projectId).subscribe(
+  getSprints() {
+    this.projectService.getSprints(this.projectId).subscribe(
       (res) => {
-        this.budgets = res.items;
+        this.sprints = res.items;
       },
       (err) => {
         console.log(err);
@@ -46,21 +48,21 @@ export class ProjectBudgetComponent {
     );
   }
 
-  addBudget() {
-    if (this.budgetForm.valid) {
-      const newBudget = {
-        ...this.budgetForm.value,
+  addSprint() {
+    if (this.sprintForm.valid) {
+      const newSprint = {
+        ...this.sprintForm.value,
         projectId: this.projectId,
-      };
+      };      
 
-      this.projectService.createBudget(newBudget).subscribe(
+      this.projectService.createSprint(newSprint).subscribe(
         (res) => {
           console.log(res);
-          this.getBudget();
-          this.budgetForm.reset();
+          this.getSprints();
+          this.sprintForm.reset();
           this.toast.success({
             detail: 'Success',
-            summary: 'Budget added successfully',
+            summary: 'Sprint added successfully',
             duration: 4000,
           });
         },
@@ -68,7 +70,7 @@ export class ProjectBudgetComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error adding budget',
+            summary: 'Error adding Sprint',
             duration: 4000,
           });
         }
@@ -82,16 +84,16 @@ export class ProjectBudgetComponent {
     }
   }
 
-  deleteBudget(id: string) {
+  deleteSprint(id: string) {
     const confirmDelete = confirm('Are you sure you want to delete ?');
     if (confirmDelete) {
-      this.projectService.deleteBudget(id).subscribe(
+      this.projectService.deleteSprint(id).subscribe(
         (res) => {
           console.log(res);
-          this.getBudget();
+          this.getSprints();
           this.toast.success({
             detail: 'Success',
-            summary: 'Budget deleted successfully',
+            summary: 'Sprint deleted successfully',
             duration: 4000,
           });
         },
@@ -99,7 +101,7 @@ export class ProjectBudgetComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error deleting budget',
+            summary: 'Error deleting Sprint',
             duration: 4000,
           });
         }

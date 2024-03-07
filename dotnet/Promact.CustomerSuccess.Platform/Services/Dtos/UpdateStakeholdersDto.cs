@@ -7,5 +7,6 @@ namespace Promact.CustomerSuccess.Platform.Services.Dtos
         public required string Title { get; set; }
         public required string Name { get; set; }
         public required string Contact { get; set; }
+        public string? ProjectId { get; set; }
     }
 }

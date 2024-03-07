@@ -2,9 +2,8 @@
 
 namespace Promact.CustomerSuccess.Platform.Services.Dtos
 {
-    public class RiskProfileDto : IEntityDto<Guid>
-    {
-        public Guid Id { get; set; }
+    public class UpdateRiskProfileDto
+    { 
         public required string RiskType { get; set; }
         public required string Description { get; set; }
         public required string Severity { get; set; }

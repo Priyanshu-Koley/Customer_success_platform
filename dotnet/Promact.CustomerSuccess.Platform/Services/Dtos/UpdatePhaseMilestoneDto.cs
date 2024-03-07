@@ -2,9 +2,8 @@
 
 namespace Promact.CustomerSuccess.Platform.Services.Dtos
 {
-    public class PhaseMilestoneDto : IEntityDto<Guid>
+    public class UpdatePhaseMilestoneDto 
     {
-        public Guid Id { get; set; }
         public required string Title { get; set; }
         public required DateTime StartDate { get; set; }
         public required DateTime EndDate { get; set; }

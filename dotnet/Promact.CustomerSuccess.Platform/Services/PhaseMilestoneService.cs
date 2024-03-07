@@ -25,9 +25,9 @@ namespace Promact.CustomerSuccess.Platform.Services
             _asyncExecuter = asyncExecuter;
         }
 
-        public async Task CreatePhaseMilestoneAsync(PhaseMilestoneDto newPhaseMilestone)
+        public async Task CreatePhaseMilestoneAsync(UpdatePhaseMilestoneDto newPhaseMilestone)
         {
-            var phaseMilestone = ObjectMapper.Map<PhaseMilestoneDto, PhaseMilestone>(newPhaseMilestone);
+            var phaseMilestone = ObjectMapper.Map<UpdatePhaseMilestoneDto, PhaseMilestone>(newPhaseMilestone);
             await _phaseMilestoneRepository.InsertAsync(phaseMilestone);
         }
 
@@ -45,7 +45,7 @@ namespace Promact.CustomerSuccess.Platform.Services
             );
         }
 
-        public async Task UpdatePhaseMilestoneAsync(Guid id, PhaseMilestoneDto updatedPhaseMilestone)
+        public async Task UpdatePhaseMilestoneAsync(Guid id, UpdatePhaseMilestoneDto updatedPhaseMilestone)
         {
             var phaseMilestone = await _phaseMilestoneRepository.GetAsync(id);
             ObjectMapper.Map(updatedPhaseMilestone, phaseMilestone);

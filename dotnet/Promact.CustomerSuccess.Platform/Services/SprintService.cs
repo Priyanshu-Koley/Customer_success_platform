@@ -25,9 +25,9 @@ namespace Promact.CustomerSuccess.Platform.Services
             _asyncExecuter = asyncExecuter;
         }
 
-        public async Task CreateSprintAsync(SprintDto newSprint)
+        public async Task CreateSprintAsync(UpdateSprintDto newSprint)
         {
-            var sprint = ObjectMapper.Map<SprintDto, Sprint>(newSprint);
+            var sprint = ObjectMapper.Map<UpdateSprintDto, Sprint>(newSprint);
             await _sprintRepository.InsertAsync(sprint);
         }
 
@@ -45,14 +45,14 @@ namespace Promact.CustomerSuccess.Platform.Services
             );
         }
 
-        public async Task UpdateSprintAsync(Guid id, SprintDto updatedSprint)
+        public async Task UpdateSprintAsync(Guid id, UpdateSprintDto updatedSprint)
         {
             var sprint = await _sprintRepository.GetAsync(id);
             ObjectMapper.Map(updatedSprint, sprint);
             await _sprintRepository.UpdateAsync(sprint);
         }
 
-        public async Task DeleteStakeholdersAsync(Guid id)
+        public async Task DeleteSprintAsync(Guid id)
         {
             await _sprintRepository.DeleteAsync(id);
         }

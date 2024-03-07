@@ -1,0 +1,86 @@
+<div class="phase">
+  <h2 class="top-heading">Phases / Milestones</h2>
+  <form [formGroup]="phaseForm" (ngSubmit)="addPhase()">
+    <h3>Add new phase / milestone</h3>
+    <div class="row row-1">
+      <input type="text" formControlName="title" placeholder="Title" />
+
+      <input
+        type="text"
+        placeholder="Start Date"
+        formControlName="startDate"
+        onfocus="(this.type='date')"
+        onblur="(this.type='text')"
+      />
+
+      <input
+        type="text"
+        placeholder="End Date"
+        formControlName="endDate"
+        onfocus="(this.type='date')"
+        onblur="(this.type='text')"
+    />
+    </div>
+
+    <div class="row row-2">
+        <input
+            type="text"
+            placeholder="Approval Date"
+            formControlName="approvalDate"
+            onfocus="(this.type='date')"
+            onblur="(this.type='text')"
+        />
+
+      <select formControlName="status">
+        <option value="" selected disabled>Select Status</option>
+        <option value="Delayed">Delayed</option>
+        <option value="On-time">On-time</option>
+        <option value="Sign-off Pending">Sign-off Pending</option>
+        <option value="On-time">Signed-off</option>
+      </select>
+
+      <input
+            type="text"
+            placeholder="Revised Completion Date"
+            formControlName="revisedCompletionDate"
+            onfocus="(this.type='date')"
+            onblur="(this.type='text')"
+        />
+    </div>
+
+    <div class="row row-3">
+      <input type="text" formControlName="comments" placeholder="Comments" />
+      <button type="submit" class="btn">Add phase</button>
+    </div>
+  </form>
+
+  <table class="phase-list">
+    <thead>
+      <th>Title</th>
+      <th>Start Date</th>
+      <th>Completion Date</th>
+      <th>Approval Date</th>
+      <th>Status</th>
+      <th>Revised Completion Date</th>
+      <th>Comments</th>
+    </thead>
+    <tbody>
+      @for(phase of phases; track $index) {
+      <tr class="phase-{{ $index }} phase-row">
+        <td>{{ phase.title }}</td>
+        <td>{{ phase.startDate | date}}</td>
+        <td>{{ phase.endDate | date}}</td>
+        <td>{{ phase.approvalDate | date}}</td>
+        <td>{{ phase.status }}</td>
+        <td>{{ phase.revisedCompletionDate | date}}</td>
+        <td>{{ phase.comments }}</td>
+        <td>
+          <button (click)="deletePhase(phase.id)" class="delete-phase">
+            <i class="fa fa-trash-o"></i>
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

@@ -10,10 +10,22 @@
         <div class="row row-2">
             <input type="text" formControlName="changeReason" placeholder="Change Reason">
             <input type="text" formControlName="createdBy" placeholder="Created By">
-            <input type="date" formControlName="revisionDate" placeholder="Revision Date">
+            <input
+                type="text"
+                placeholder="Revision Date"
+                formControlName="revisionDate"
+                onfocus="(this.type='date')"
+                onblur="(this.type='text')"
+            />
         </div>
         <div class="row row-3">
-            <input type="date" formControlName="approvalDate" placeholder="Approval Date">
+            <input
+                type="text"
+                placeholder="Approval Date"
+                formControlName="approvalDate"
+                onfocus="(this.type='date')"
+                onblur="(this.type='text')"
+            />
             <input type="text" formControlName="approvedBy" placeholder="Approved By">
             <button type="submit" class="btn">Add version</button>
         </div>

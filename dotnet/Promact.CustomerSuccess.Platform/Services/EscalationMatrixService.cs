@@ -25,9 +25,9 @@ namespace Promact.CustomerSuccess.Platform.Services
             _asyncExecuter = asyncExecuter;
         }
 
-        public async Task CreateEscalationMatrixAsync(EscalationMatrixDto newEscalationMatrix)
+        public async Task CreateEscalationMatrixAsync(UpdateEscalationMatrixDto newEscalationMatrix)
         {
-            var escalationMatrix = ObjectMapper.Map<EscalationMatrixDto, EscalationMatrix>(newEscalationMatrix);
+            var escalationMatrix = ObjectMapper.Map<UpdateEscalationMatrixDto, EscalationMatrix>(newEscalationMatrix);
             await _escalationMatrixRepository.InsertAsync(escalationMatrix);
         }
 
@@ -45,14 +45,14 @@ namespace Promact.CustomerSuccess.Platform.Services
             );
         }
 
-        public async Task UpdateEscalationMatrixAsync(Guid id, EscalationMatrixDto updatedEscalationMatrix)
+        public async Task UpdateEscalationMatrixAsync(Guid id, UpdateEscalationMatrixDto updatedEscalationMatrix)
         {
             var escalationMatrix = await _escalationMatrixRepository.GetAsync(id);
             ObjectMapper.Map(updatedEscalationMatrix, escalationMatrix);
             await _escalationMatrixRepository.UpdateAsync(escalationMatrix);
         }
 
-        public async Task DeleteStakeholdersAsync(Guid id)
+        public async Task DeleteEscalationMatrixAsync(Guid id)
         {
             await _escalationMatrixRepository.DeleteAsync(id);
         }
