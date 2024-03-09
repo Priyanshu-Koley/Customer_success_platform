@@ -43,5 +43,8 @@ public class PlatformAutoMapperProfile : Profile
         // Mapping Sprint
         CreateMap<UpdateSprintDto, Sprint>();
         CreateMap<Sprint, SprintDto>().ReverseMap();
+        // Mapping Approved team
+        CreateMap<UpdateApprovedTeamDto, ApprovedTeam>();
+        CreateMap<ApprovedTeam, ApprovedTeamDto>().ReverseMap();
     }
 }

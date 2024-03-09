@@ -37,6 +37,7 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
     public DbSet<VersionHistory> VersionHistory { get; set; }
     public DbSet<ProjectScopeStack> ProjectScopeStack { get; set; }
     public DbSet<Stakeholders> Stakeholders { get; set; }
+    public DbSet<ApprovedTeam> ApprovedTeams { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -127,6 +128,10 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
         builder.Entity<Stakeholders>(Stakeholders =>
         {
             Stakeholders.ConfigureByConvention();
+        });
+        builder.Entity<ApprovedTeam>(ApprovedTeam =>
+        {
+            ApprovedTeam.ConfigureByConvention();
         });
 
 
