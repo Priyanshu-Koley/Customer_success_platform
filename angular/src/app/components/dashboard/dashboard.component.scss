@@ -3,7 +3,7 @@
   margin: 0 20px 20px 0;
 
   .main-dashboard {
-    width: 77vw;
+    width: 75vw;
 
     .status-category {
       display: flex;
@@ -15,10 +15,20 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 30px;
+        padding: 20px;
         border: 1px solid grey;
         border-radius: 4px;
         width: 180px;
+
+        .count{
+          font-size: 25px;
+          font-weight: 600;
+          margin-bottom: 20px;
+        }
+      }
+
+      .status-card:hover{
+        box-shadow: 0px 0px 7px rgb(146, 145, 145);
       }
     }
 

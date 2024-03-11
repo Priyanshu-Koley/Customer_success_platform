@@ -5,8 +5,8 @@
         <div class="row row-1">
             <select formControlName="type">
                 <option value="" selected disabled>Select project type</option>
-                <option value="Fixed budget">Fixed budget</option>
-                <option value="Monthly">Monthly</option>
+                <option value=0>Fixed budget</option>
+                <option value=1>Monthly</option>
             </select>
             <input type="number" formControlName="durationInMonths" placeholder="Duration (in months)">
             <input type="number" formControlName="budgetedHours" placeholder="Budgeted Hours">
@@ -20,7 +20,7 @@
     <table class="budget-list" >
             <thead>
                 <th>Project Type</th>
-                <th>Duration</th>
+                <th>Duration(in months)</th>
                 <th>Budgeted Hours</th>
                 <th>Delete</th>
             </thead>
@@ -28,7 +28,7 @@
                 @for(budget of budgets; track $index)
                 {
                     <tr class="budget-{{$index}} budget-row" >
-                        <td>{{budget.type}}</td>
+                        <td>{{getBudgetType(budget.type)}}</td>
                         <td>{{budget.durationInMonths}}</td>
                         <td>{{budget.budgetedHours}}</td>
                         <td>

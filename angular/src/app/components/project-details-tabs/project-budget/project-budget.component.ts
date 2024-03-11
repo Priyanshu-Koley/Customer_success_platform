@@ -4,6 +4,7 @@ import { ProjectsService } from '../../../services/projects.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { MatDialog } from '@angular/material/dialog';
+import { ProjectType } from '../../../models/project-type.model';
 
 @Component({
   selector: 'app-project-budget',
@@ -14,6 +15,7 @@ export class ProjectBudgetComponent {
   projectId!: string;
   budgetForm: any;
   budgets: any;
+  ProjectType = ProjectType;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,8 +30,8 @@ export class ProjectBudgetComponent {
 
     this.budgetForm = this.formBuilder.group({
       type: ['', [Validators.required]],
-      durationInMonths: ['', [Validators.required]],
-      budgetedHours: ['', [Validators.required]],
+      durationInMonths: ['', [Validators.required, Validators.min(1)]],
+      budgetedHours: ['', [Validators.required, Validators.min(1)]],
     });
 
     this.getBudget();
@@ -49,7 +51,9 @@ export class ProjectBudgetComponent {
   addBudget() {
     if (this.budgetForm.valid) {
       const newBudget = {
-        ...this.budgetForm.value,
+        type: this.budgetForm.value.type,
+        durationInMonths: Math.round(this.budgetForm.value.durationInMonths),
+        budgetedHours: Math.round(this.budgetForm.value.budgetedHours),
         projectId: this.projectId,
       };
 
@@ -105,5 +109,10 @@ export class ProjectBudgetComponent {
         }
       );
     }
+  }
+
+  getBudgetType(intType: number)
+  {
+    return (ProjectType as any)[intType]
   }
 }

@@ -21,23 +21,25 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
     }
 
     public DbSet<Project> Projects { get; set; }
+    public DbSet<ProjectBudget> ProjectBudgets { get; set; }
+    public DbSet<PhaseMilestone> PhaseMilestones { get; set; }
+    public DbSet<RiskProfile> RiskProfiles { get; set; }
+    public DbSet<EscalationMatrix> EscalationMatrices { get; set; }
+    public DbSet<Sprint> Sprints { get; set; }
+    public DbSet<AuditHistory> AuditHistory { get; set; }
+    public DbSet<VersionHistory> VersionHistory { get; set; }
+    public DbSet<ProjectScopeStack> ProjectScopeStacks { get; set; }
+    public DbSet<Stakeholders> Stakeholders { get; set; }
+    public DbSet<ApprovedTeam> ApprovedTeams { get; set; }
+    public DbSet<ProjectResources> ProjectResources { get; set; }
+    public DbSet<ClientFeedback> ClientFeedbacks { get; set; }
+    public DbSet<ProjectUpdates> ProjectUpdates { get; set; }
+    public DbSet<MeetingMinute> MeetingMinutes { get; set; }
+
+    public DbSet<ApplicationUser> Users { get; set; }
     public DbSet<Document> Documents { get; set; }
     public DbSet<DocumentVersion> DocumentVersions { get; set; }
     public DbSet<Organization> Organizations { get; set; }
-    public DbSet<ClientFeedback> ClientFeedbacks { get; set; }
-    public DbSet<ProjectBudget> ProjectBudgets { get; set; }
-    public DbSet<PhaseMilestone> PhaseMilestones { get; set; }
-    public DbSet<ProjectResources> ProjectResources { get; set; }
-    public DbSet<RiskProfile> RiskProfiles { get; set; }
-    public DbSet<MeetingMinute> MeetingMinutes { get; set; }
-    public DbSet<EscalationMatrix> EscalationMatrices { get; set; }
-    public DbSet<Sprint> Sprints { get; set; }
-    public DbSet<ApplicationUser> Users { get; set; }
-    public DbSet<AuditHistory> AuditHistory { get; set; }
-    public DbSet<VersionHistory> VersionHistory { get; set; }
-    public DbSet<ProjectScopeStack> ProjectScopeStack { get; set; }
-    public DbSet<Stakeholders> Stakeholders { get; set; }
-    public DbSet<ApprovedTeam> ApprovedTeams { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -54,10 +56,24 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
         builder.ConfigureTenantManagement();
 
         /* Configure your own entities here */
+        builder.Entity<ApplicationUser>(ApplicationUser =>
+        {
+            ApplicationUser.ConfigureByConvention();
+        });
+        builder.Entity<Document>(Document =>
+        {
+            Document.ConfigureByConvention();
+        });
         builder.Entity<DocumentVersion>(entity =>
         {                        
             entity.ConfigureByConvention();
         });
+        builder.Entity<Organization>(Organization =>
+        {
+            Organization.ConfigureByConvention();
+        });
+
+        
         builder.Entity<EscalationMatrix>(EscalationMatrix =>
         {            
             EscalationMatrix.ConfigureByConvention();
@@ -65,10 +81,6 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
         builder.Entity<MeetingMinute>(MeetingMinute =>
         {            
             MeetingMinute.ConfigureByConvention();
-        });
-        builder.Entity<Organization>(Organization =>
-        {
-            Organization.ConfigureByConvention();
         });
         builder.Entity<Project>(Project =>
         {
@@ -101,14 +113,6 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
         {
             ClientFeedback.ConfigureByConvention();
         });
-        builder.Entity<Document>(Document =>
-        {
-            Document.ConfigureByConvention();
-        });
-        builder.Entity<ApplicationUser>(ApplicationUser =>
-        {
-            ApplicationUser.ConfigureByConvention();
-        });
         builder.Entity<AuditHistory>(AuditHistory =>
         {
             AuditHistory.ConfigureByConvention();
@@ -132,6 +136,10 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
         builder.Entity<ApprovedTeam>(ApprovedTeam =>
         {
             ApprovedTeam.ConfigureByConvention();
+        });
+        builder.Entity<ProjectUpdates>(ProjectUpdates =>
+        {
+            ProjectUpdates.ConfigureByConvention();
         });
 
 

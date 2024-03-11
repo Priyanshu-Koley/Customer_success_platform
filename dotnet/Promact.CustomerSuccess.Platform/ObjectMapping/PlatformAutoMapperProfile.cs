@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Promact.CustomerSuccess.Platform.Entities;
-using Promact.CustomerSuccess.Platform.Services.Dtos;
+using Promact.CustomerSuccess.Platform.Services.Dtos.CreateDto;
+using Promact.CustomerSuccess.Platform.Services.Dtos.DbDto;
+using Promact.CustomerSuccess.Platform.Services.Dtos.UpdateDto;
 
 namespace Promact.CustomerSuccess.Platform.ObjectMapping;
 
@@ -46,5 +48,17 @@ public class PlatformAutoMapperProfile : Profile
         // Mapping Approved team
         CreateMap<UpdateApprovedTeamDto, ApprovedTeam>();
         CreateMap<ApprovedTeam, ApprovedTeamDto>().ReverseMap();
+        // Mapping Project Resource
+        CreateMap<UpdateProjectResourcesDto, ProjectResources>();
+        CreateMap<ProjectResources, ProjectResourcesDto>().ReverseMap();
+        // Mapping Client Feedback
+        CreateMap<UpdateClientFeedbackDto, ClientFeedback>();
+        CreateMap<ClientFeedback, ClientFeedbackDto>().ReverseMap();
+        // Mapping Project updates
+        CreateMap<UpdateProjectUpdatesDto, ProjectUpdates>();
+        CreateMap<ProjectUpdates, ProjectUpdatesDto>().ReverseMap();
+        // Mapping Meeting minute
+        CreateMap<UpdateMeetingMinuteDto, MeetingMinute>();
+        CreateMap<MeetingMinute, MeetingMinuteDto>().ReverseMap();
     }
 }

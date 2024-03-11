@@ -97,6 +97,9 @@
 
 .active{
   border-bottom: 3px solid #1985f8;
+  .tab-text{
+    color: #1985f8 !important;
+  }
   // background-color:#cce5ffbc;
 }
 
