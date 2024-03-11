@@ -1,7 +1,9 @@
 .project-overview{
     width: 77vw;
-    h3{
-        margin: 0 0 50px 0;
+    .top-heading{
+        margin: 20px 0 50px 0;
+        display: flex;
+        justify-content: space-between;
     }
 
     button{
@@ -22,7 +24,7 @@
             border-radius: 4px;
             padding: 10px;
         }
-        input{
+        input, select{
             margin: 10px 10px 0 0px;
             height: 40px;
             border: 1px solid #ccc;

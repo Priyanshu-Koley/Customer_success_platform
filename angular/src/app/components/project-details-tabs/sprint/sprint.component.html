@@ -26,10 +26,9 @@
         
       <select formControlName="status">
         <option value="" selected disabled>Select Status</option>
-        <option value="Delayed">Delayed</option>
-        <option value="On-time">On-time</option>
-        <option value="Sign-off Pending">Sign-off Pending</option>
-        <option value="On-time">Signed-off</option>
+        @for (status of sprintStatus | keyvalue; track $index) {
+          <option value={{status.key}}>{{status.value}}</option>
+        }
       </select>
       
       <input type="text" formControlName="comments" placeholder="Comments" />
@@ -54,7 +53,7 @@
         <td>{{ sprint.sprintNumber }}</td>
         <td>{{ sprint.startDate | date}}</td>
         <td>{{ sprint.endDate | date}}</td>
-        <td>{{ sprint.status }}</td>
+        <td>{{ getSprintStatus(sprint.status) }}</td>
         <td>{{ sprint.comments }}</td>
         <td>
           <button (click)="deleteSprint(sprint.id)" class="delete-sprint">

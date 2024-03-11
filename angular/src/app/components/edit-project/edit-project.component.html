@@ -1,7 +1,7 @@
 <!-- Project Overview section -->
 
 <form class="project-overview" [formGroup]="projectForm" (ngSubmit)="saveOverview()"> 
-    <h3>Project Overview</h3>
+    <h2 class="top-heading">Project Overview</h2>
 
     <div class="brief input-container">
         <label for="brief">Project Brief</label>
@@ -28,6 +28,17 @@
         <div>
             <input type="number" name="budget" id="budget" placeholder="Write project budget here" formControlName="totalBudget">
             <span>US Dollar</span>
+        </div>
+    </div>
+    <div class="input-container">
+        <label for="status">Project Status</label>
+        <div>
+            <select name="status" id="status" formControlName="status">
+                <option value="" selected disabled>Select project status</option>
+                <option value="progress">In Progress</option>
+                <option value="completed">Completed</option>
+                <option value="hold">Hold</option>
+            </select>
         </div>
     </div>
 

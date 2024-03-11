@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { ProjectsService } from '../../../services/projects.service';
+import { SprintStatus } from '../../../models/sprint-status.model';
 
 @Component({
   selector: 'app-sprint',
@@ -14,6 +15,7 @@ export class SprintComponent {
   projectId!: string;
   sprintForm: any;
   sprints: any;
+  sprintStatus = SprintStatus;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,7 +55,7 @@ export class SprintComponent {
       const newSprint = {
         ...this.sprintForm.value,
         projectId: this.projectId,
-      };      
+      };
 
       this.projectService.createSprint(newSprint).subscribe(
         (res) => {
@@ -107,5 +109,9 @@ export class SprintComponent {
         }
       );
     }
+  }
+
+  getSprintStatus(intStatus: number) {       
+    return (SprintStatus as any)[intStatus];
   }
 }

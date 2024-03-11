@@ -1,9 +1,10 @@
 .dashboard {
-  width: 76vw;
-  margin: 0 20px 20px 0;
+  padding: 20px;
+  width: 80vw;
+  min-height: 805vh;
+  border-radius: 4px;
 
   .main-dashboard {
-    width: 75vw;
 
     .status-category {
       display: flex;
@@ -17,6 +18,7 @@
         align-items: center;
         padding: 20px;
         border: 1px solid grey;
+        background-color: #ffffff;
         border-radius: 4px;
         width: 180px;
 
@@ -35,6 +37,7 @@
     .project-list {
       width: 100%;
       border-collapse: collapse;
+      background-color: #ffffff;
 
       .project-row{
         cursor: pointer;
@@ -56,10 +59,27 @@
         border: 1px solid rgba(88, 87, 87, 0.545);
       }
     
-      .action-btns{
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
+
+      .progress-status-text{
+        color: #ffffff;
+        background-color: rgb(42, 166, 42);
+        width: max-content;
+        padding: 5px;
+        border-radius: 4px;
+      }
+      .completed-status-text{
+        color: #ffffff;
+        background-color: rgb(210, 98, 98);
+        width: max-content;
+        padding: 5px;
+        border-radius: 4px;
+      }
+      .hold-status-text{
+        color: #ffffff;
+        background-color: rgb(61, 61, 61);
+        width: max-content;
+        padding: 5px;
+        border-radius: 4px;
       }
     
       button{   

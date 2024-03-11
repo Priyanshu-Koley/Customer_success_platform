@@ -39,7 +39,7 @@ namespace Promact.CustomerSuccess.Platform.Services
             Guid projectGuid = new Guid(projectId);
             var query = queryable
                 .Where(p => p.ProjectId == projectGuid)
-                .OrderBy(p => p.CreationTime);
+                .OrderBy(p => p.Level);
 
             List<EscalationMatrix> escalationMatrix = await _asyncExecuter.ToListAsync(query);
 

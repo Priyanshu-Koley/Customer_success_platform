@@ -4,6 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { ProjectsService } from '../../../services/projects.service';
+import { RiskType } from '../../../models/risk-type.model';
+import { RiskImpact } from '../../../models/risk-impact.model';
+import { RiskSeverity } from '../../../models/risk-severity.model';
 
 @Component({
   selector: 'app-risk-profile',
@@ -14,6 +17,9 @@ export class RiskProfileComponent {
   projectId!: string;
   riskForm: any;
   risks: any;
+  riskTypes = RiskType;
+  riskImpact = RiskImpact;
+  riskSeverity = RiskSeverity;
 
   constructor(
     private route: ActivatedRoute,
@@ -110,4 +116,17 @@ export class RiskProfileComponent {
       );
     }
   }
+
+  getRiskType(intType: number) {
+    return (this.riskTypes as any)[intType];
+  }
+
+  getRiskSeverity(intSeverity: number) {
+    return (this.riskSeverity as any)[intSeverity];
+  }
+
+  getRiskImpact(intImpact: number) {
+    return (this.riskImpact as any)[intImpact];
+  }
+  
 }

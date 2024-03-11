@@ -8,17 +8,12 @@
   <form [formGroup]="escalationForm" (ngSubmit)="addEscalation()">
     <h3>Add new Escalation</h3>
     <div class="row row-1">
-      <input
-        type="number"
-        placeholder="Escalation Level"
-        formControlName="level"
-      />
-
+      
       <select formControlName="escalationType">
         <option value="" selected disabled>Select Escalation Type</option>
-        <option value="Operational">Operational</option>
-        <option value="Financial">Financial</option>
-        <option value="Technical">Technical</option>
+        @for (type of types | keyvalue; track $index) {
+           <option value={{type.key}}>{{type.value}}</option> 
+        }
       </select>
 
       <input
@@ -34,7 +29,39 @@
   </form>
 
   <div class="escalation-tables" id="escalation-tables">
-    <h3>Operational Escalation Matrix</h3>
+    @for (type of types | keyvalue; track $index) {
+      <h3>{{type.value}} Escalation Matrix</h3>
+      <table class="{{type.value | lowercase}}-escalation-list escalation-list">
+        <thead>
+          <th>Escalation Level</th>
+          <th>Responsible</th>
+          <th>Delete</th>
+        </thead>
+        <tbody>
+          @for(escalation of escalations; track $index) {
+            @if(escalation.escalationType == type.key) {
+              <tr class="escalation-{{ $index }} escalation-row">
+                <td>Level-{{ escalation.level + 1}}</td>
+                <td>{{ escalation.responsible }}</td>
+                <td>
+                  <button
+                    (click)="deleteEscalation(escalation.id)"
+                    class="delete-escalation"
+                  >
+                    <i class="fa fa-trash-o"></i>
+                  </button>
+                </td>
+              </tr>
+            } 
+          }
+        </tbody>
+      </table>
+    }
+
+
+
+
+    <!-- <h3>Operational Escalation Matrix</h3>
     <table class="operational-escalation-list escalation-list">
       <thead>
         <th>Escalation Level</th>
@@ -110,6 +137,7 @@
         </tr>
         } }
       </tbody>
-    </table>
+    </table> -->
+
   </div>
 </div>

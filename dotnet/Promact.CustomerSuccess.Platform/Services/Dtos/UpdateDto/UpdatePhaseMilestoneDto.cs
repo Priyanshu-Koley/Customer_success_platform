@@ -11,5 +11,7 @@ namespace Promact.CustomerSuccess.Platform.Services.Dtos.UpdateDto
         public DateTime? RevisedCompletionDate { get; set; }
         public string? Comments { get; set; }
         public MilestoneOrPhaseStatus? Status { get; set; }
+
+        public Guid? ProjectId { get; set; }
     }
 }

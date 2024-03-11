@@ -1,7 +1,9 @@
 nav {
     display: flex;
     align-items: center;
-    height: 50px;
+    // height: 60px;
+    background-color: #ffffff;
+    padding: 10px 15px 20px 10px;
 
     .right {
         display: flex;
@@ -36,8 +38,9 @@ nav {
         padding: 5px;
         border-radius: 4px;
         margin: 0px 20px;
-        width: 60%;
+        width: 76%;
         height: 50px;
+        background-color: #ffffff;
 
         .search-input {
             border: none;

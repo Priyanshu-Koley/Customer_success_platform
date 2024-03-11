@@ -6,6 +6,6 @@ namespace Promact.CustomerSuccess.Platform.Services.Dtos.CreateDto
     {
         public required string Scope { get; set; }
         public required string Stack { get; set; }
-        public required string ProjectId { get; set; }
+        public required Guid ProjectId { get; set; }
     }
 }

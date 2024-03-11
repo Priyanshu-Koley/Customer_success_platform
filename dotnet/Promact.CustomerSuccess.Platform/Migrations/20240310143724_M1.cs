@@ -588,7 +588,7 @@ namespace Promact.CustomerSuccess.Platform.Migrations
                     Objective = table.Column<string>(type: "text", nullable: true),
                     TotalBudget = table.Column<string>(type: "text", nullable: true),
                     MembersAssociated = table.Column<int>(type: "integer", nullable: true),
-                    Status = table.Column<string>(type: "text", nullable: true, defaultValue: "Progress"),
+                    Status = table.Column<string>(type: "text", nullable: true, defaultValue: "progress"),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),

@@ -55,7 +55,11 @@
                         <tr class="project-{{$index}} project-row" >
                             <td routerLink="/details/{{project.id}}">{{project.creationTime | date}}</td>
                             <td routerLink="/details/{{project.id}}">{{project.name}}</td>
-                            <td routerLink="/details/{{project.id}}">{{project.status}}</td>
+                            <td routerLink="/details/{{project.id}}" >
+                                <div class="{{project.status}}-status-text">
+                                    {{project.status === "progress"?"In Progress":project.status| titlecase}}
+                                </div>
+                            </td>
                             <td routerLink="/details/{{project.id}}">{{project.projectManagerName}}</td>
                             <td routerLink="/details/{{project.id}}">{{project.membersAssociated}}</td>
                             <td class="action-btns">

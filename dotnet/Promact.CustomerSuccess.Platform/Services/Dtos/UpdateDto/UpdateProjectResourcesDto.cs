@@ -7,5 +7,7 @@
         public required DateTime End { get; set; }
         public required string Role { get; set; }
         public required string Comments { get; set; }
+
+        public Guid? ProjectId { get; set; }
     }
 }

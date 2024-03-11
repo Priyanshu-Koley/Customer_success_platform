@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { ProjectsService } from '../../../services/projects.service';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
+import { MilestoneOrPhaseStatus } from '../../../models/milestone-phase-status.model';
 
 @Component({
   selector: 'app-phases',
@@ -15,6 +16,7 @@ export class PhasesComponent {
   projectId!: string;
   phaseForm: any;
   phases: any;
+  phaseStatus = MilestoneOrPhaseStatus;
 
   constructor(
     private route: ActivatedRoute,
@@ -115,5 +117,10 @@ export class PhasesComponent {
 
   convertToPDF() {
     this.convertToPdf.convertToPDF('phase-table');
+  }
+
+  getPhaseStatus(intStatus: number)
+  {
+    return (this.phaseStatus as any)[intStatus];
   }
 }

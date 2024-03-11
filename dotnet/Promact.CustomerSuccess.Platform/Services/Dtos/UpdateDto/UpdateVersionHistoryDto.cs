@@ -12,5 +12,7 @@ namespace Promact.CustomerSuccess.Platform.Services.Dtos.UpdateDto
         public required string RevisionDate { get; set; }
         public required string ApprovalDate { get; set; }
         public required string ApprovedBy { get; set; }
+
+        public Guid? ProjectId { get; set; }
     }
 }

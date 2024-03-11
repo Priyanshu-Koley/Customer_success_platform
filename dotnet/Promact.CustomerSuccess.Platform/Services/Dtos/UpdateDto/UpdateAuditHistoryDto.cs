@@ -10,5 +10,7 @@ namespace Promact.CustomerSuccess.Platform.Services.Dtos.UpdateDto
         public string? ReviewedSection { get; set; }
         public string? Comment { get; set; }
         public string? ActionItem { get; set; }
+
+        public Guid? ProjectId { get; set; }
     }
 }

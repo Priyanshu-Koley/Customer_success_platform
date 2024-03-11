@@ -1,5 +1,16 @@
 <div class="project-details">
+  <div class="path-container">
+    <small class="path">
+      <button class="path-link" routerLink="/dashboard">Projects </button> <span class="angle-bracket">&rang;</span> <button (click)="activeTab=1" class="path-link">{{ project.name }}</button> <span class="angle-bracket">&rang;</span> {{ tabs[activeTab-1] }}
+    </small>
+  </div>
+  <div class="project-name-heading">
+    <h1>
+      {{project.name}}
+    </h1>
+  </div>
   <!-- Project details tabs -->
+  <button>&lang;</button>
   <div class="tabs">
     @for(tab of tabs; track $index) {
     <div
@@ -13,8 +24,10 @@
     </div>
     }
   </div>
-  <hr />
+  <button>&rang;</button>
+  <hr class="hr"/>
 
+  <!-- Audit history -->
   @if(activeTab === 1) {
   <!-- Audit History -->
   <div class="auditHistory" id="auditHistory">
@@ -90,7 +103,8 @@
       </tbody>
     </table>
   </div>
-  } @else if (activeTab === 2) {
+  } 
+  @else if (activeTab === 2) {
   <!-- Version History -->
   <app-version-history />
   } @else if (activeTab === 3) {

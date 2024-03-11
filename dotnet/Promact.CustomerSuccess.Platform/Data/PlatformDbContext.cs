@@ -87,7 +87,7 @@ public class PlatformDbContext : AbpDbContext<PlatformDbContext>
             Project.ConfigureByConvention();
 
             Project.Property(p => p.Status)
-            .HasDefaultValue("Progress");
+            .HasDefaultValue("progress");
         });
         builder.Entity<ProjectBudget>(ProjectBudget =>
         {

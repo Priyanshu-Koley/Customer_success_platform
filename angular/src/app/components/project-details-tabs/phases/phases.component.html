@@ -38,10 +38,9 @@
 
       <select formControlName="status">
         <option value="" selected disabled>Select Status</option>
-        <option value="Delayed">Delayed</option>
-        <option value="On-time">On-time</option>
-        <option value="Sign-off Pending">Sign-off Pending</option>
-        <option value="On-time">Signed-off</option>
+        @for (status of phaseStatus | keyvalue; track $index) {
+          <option value={{status.key}}>{{status.value}}</option>
+        }
       </select>
 
       <input
@@ -76,7 +75,7 @@
         <td>{{ phase.startDate | date }}</td>
         <td>{{ phase.endDate | date }}</td>
         <td>{{ phase.approvalDate | date }}</td>
-        <td>{{ phase.status }}</td>
+        <td>{{ getPhaseStatus(phase.status) }}</td>
         <td>{{ phase.revisedCompletionDate | date }}</td>
         <td>{{ phase.comments }}</td>
         <td>

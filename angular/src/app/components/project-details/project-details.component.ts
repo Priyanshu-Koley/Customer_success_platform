@@ -33,6 +33,11 @@ export class ProjectDetailsComponent {
     'Risk Profile',
     'Phases / Milestone',
     'Sprint Details',
+    'Approved Team',
+    'Resources',
+    'Client Feedback',
+    'Project Updates',
+    'MoMs'
   ];
 
   activeTab: number = 1;

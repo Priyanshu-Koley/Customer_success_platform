@@ -5,20 +5,18 @@
         <div class="row row-1">
             <select formControlName="riskType">
                 <option value="" selected disabled>Select risk type</option>
-                <option value="Financial">Financial</option>
-                <option value="Operational">Operational</option>
-                <option value="Technical">Technical</option>
-                <option value="HR">HR</option>
-                <option value="External">External</option>
+                @for (type of riskTypes | keyvalue; track $index) {
+                    <option value={{type.key}}>{{type.value}}</option>
+                }
             </select>
 
             <input type="text" formControlName="description" placeholder="Risk Description">
 
             <select formControlName="severity">
                 <option value="" selected disabled>Select Severity</option>
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
+                @for (severity of riskSeverity | keyvalue; track $index) {
+                    <option value={{severity.key}}>{{severity.value}}</option>
+                }
             </select>
 
         </div>
@@ -26,9 +24,9 @@
         <div class="row row-2">
             <select formControlName="impact">
                 <option value="" selected disabled>Select Impact</option>
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
+                @for (impact of riskImpact | keyvalue; track $index) {
+                    <option value={{impact.key}}>{{impact.value}}</option>
+                }
             </select>
             <input type="text" formControlName="remedialSteps" placeholder="Remedial Steps">
             <input type="text" formControlName="status" placeholder="Status">
@@ -62,13 +60,13 @@
                 @for(risk of risks; track $index)
                 {
                     <tr class="risk-{{$index}} risk-row" >
-                        <td>{{risk.riskType}}</td>
+                        <td>{{getRiskType(risk.riskType)}}</td>
                         <td>{{risk.description}}</td>
-                        <td>{{risk.severity}}</td>
-                        <td>{{risk.impact}}</td>
+                        <td>{{getRiskSeverity(risk.severity)}}</td>
+                        <td>{{getRiskImpact(risk.impact)}}</td>
                         <td>{{risk.remedialSteps}}</td>
                         <td>{{risk.status}}</td>
-                        <td>{{risk.closureDate}}</td>
+                        <td>{{risk.closureDate | date}}</td>
                         <td>
                             <button (click)="deleteRisk(risk.id)" class="delete-risk">
                                 <i class="fa fa-trash-o"></i>

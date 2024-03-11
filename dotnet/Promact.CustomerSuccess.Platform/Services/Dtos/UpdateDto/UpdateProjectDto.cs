@@ -18,5 +18,7 @@ namespace Promact.CustomerSuccess.Platform.Services.Dtos.UpdateDto
         public string? TotalBudget { get; set; }
         public int? MembersAssociated { get; set; }
         public string? Status { get; set; }
+
+        public Guid? ProjectId { get; set; }
     }
 }

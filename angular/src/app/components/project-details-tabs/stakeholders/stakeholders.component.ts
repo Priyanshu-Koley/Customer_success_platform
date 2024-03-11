@@ -29,7 +29,7 @@ export class StakeholdersComponent {
     this.stakeholderForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       name: ['', [Validators.required]],
-      contact: ['', [Validators.required]],
+      contact: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')]]
     });
 
     this.getStakeholders();
@@ -51,6 +51,7 @@ export class StakeholdersComponent {
       const newStakeholder = {
         ...this.stakeholderForm.value,
         projectId: this.projectId,
+        userId: this.projectId
       };
 
       this.projectService.createStakeholder(newStakeholder).subscribe(

@@ -10,6 +10,6 @@ namespace Promact.CustomerSuccess.Platform.Services.Dtos.CreateDto
         public required string ReviewedSection { get; set; }
         public required string Comment { get; set; }
         public required string ActionItem { get; set; }
-        public required string ProjectId { get; set; }
+        public required Guid ProjectId { get; set; }
     }
 }

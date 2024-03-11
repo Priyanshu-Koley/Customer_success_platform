@@ -31,6 +31,7 @@ export class EditProjectComponent {
       purpose: ['', Validators.required],
       goal: ['', Validators.required],
       objective: ['', Validators.required],
+      status: ['', Validators.required],
       totalBudget: ['', [Validators.required, Validators.min(1)]],
     });
 
@@ -63,6 +64,7 @@ export class EditProjectComponent {
       purpose: this.project.purpose || '',
       goal: this.project.goal || '',
       objective: this.project.objective || '',
+      status: this.project.status || '',
       totalBudget: this.project.totalBudget || '',
     });
   }
@@ -82,7 +84,7 @@ export class EditProjectComponent {
         objective: this.projectForm.value.objective,
         totalBudget: this.projectForm.value.totalBudget.toString(),
         membersAssociated: this.project.membersAssociated,
-        status: this.project.status,
+        status: this.projectForm.value.status,
       };
 
       this.projectService

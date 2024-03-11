@@ -5,8 +5,9 @@
         <div class="row row-1">
             <select formControlName="type">
                 <option value="" selected disabled>Select project type</option>
-                <option value=0>Fixed budget</option>
-                <option value=1>Monthly</option>
+                @for (type of ProjectType | keyvalue; track $index) {
+                    <option value={{type.key}}>{{type.value}}</option>
+                }
             </select>
             <input type="number" formControlName="durationInMonths" placeholder="Duration (in months)">
             <input type="number" formControlName="budgetedHours" placeholder="Budgeted Hours">

@@ -7,5 +7,7 @@ namespace Promact.CustomerSuccess.Platform.Services.Dtos.UpdateDto
         public EscalationMatrixLevels? Level { get; set; }
         public EscalationType? EscalationType { get; set; }
         public string? Responsible { get; set; }
+
+        public Guid? ProjectId { get; set; }
     }
 }
