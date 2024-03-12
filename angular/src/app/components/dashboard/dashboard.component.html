@@ -4,7 +4,7 @@
 
             <div class="all-projects-card status-card">
                 <div class="count">
-                    {{totalProjects}}
+                    {{lazyTotalProjects}}
                 </div>
                 <div class="title">
                     All Projects
@@ -13,7 +13,7 @@
 
             <div class="in-progress-card status-card">
                 <div class="count">
-                    {{statusOfProjects.progress}}
+                    {{lazyStatusOfProjects.progress}}
                 </div>
                 <div class="title">
                     In Progress
@@ -22,7 +22,7 @@
 
             <div class="completed-card status-card">
                 <div class="count">
-                    {{statusOfProjects.completed}}
+                    {{lazyStatusOfProjects.completed}}
                 </div>
                 <div class="title">
                     Completed
@@ -31,7 +31,7 @@
 
             <div class="hold-card status-card">
                 <div class="count">
-                    {{statusOfProjects.hold}}
+                    {{lazyStatusOfProjects.hold}}
                 </div>
                 <div class="title">
                     Hold

@@ -5,6 +5,7 @@ namespace Promact.CustomerSuccess.Platform.Entities
 {
     public class ProjectResources : AuditedAggregateRootWithUser<Guid, ApplicationUser>
     {
+        public required string Name { get; set; }
         public required double AllocationPercentage { get; set; }
         public required DateTime Start { get; set; }
         public required DateTime End { get; set; }

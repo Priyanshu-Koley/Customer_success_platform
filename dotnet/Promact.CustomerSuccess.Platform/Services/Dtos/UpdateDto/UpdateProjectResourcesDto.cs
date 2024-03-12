@@ -2,11 +2,12 @@
 {
     public class UpdateProjectResourcesDto
     {
-        public required double AllocationPercentage { get; set; }
-        public required DateTime Start { get; set; }
-        public required DateTime End { get; set; }
-        public required string Role { get; set; }
-        public required string Comments { get; set; }
+        public string? Name { get; set; }
+        public double? AllocationPercentage { get; set; }
+        public DateTime? Start { get; set; }
+        public DateTime? End { get; set; }
+        public string? Role { get; set; }
+        public string? Comments { get; set; }
 
         public Guid? ProjectId { get; set; }
     }

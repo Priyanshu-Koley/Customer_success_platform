@@ -1,0 +1,67 @@
+<div class="team">
+  <h2 class="top-heading">
+    Approved Teams
+    
+    <button class="btn btn-green" (click)="addPhase()" [disabled]="phaseNo!=getCurrentPhase()">
+        Add Phase 
+    </button>
+    
+    @if(phaseNo > 0)
+    {
+        <button class="btn btn-green" (click)="convertToPDF()">
+            Download approved teams
+        </button>
+    }
+</h2>
+    @if(phaseNo > 0)
+    {
+      Current Phase: {{phaseNo}}
+      <form [formGroup]="teamForm" (ngSubmit)="addTeam()">
+        <h3>Add new team</h3>
+        <div class="row row-1">
+            <input type="number" formControlName="numberOfResources" placeholder="Number Of Resources" />
+            <input type="text" formControlName="role" placeholder="Role" />
+            <input type="number" formControlName="availability" placeholder="Availability" />      
+        </div>
+        
+        <div class="row row-2">
+            <input type="text" formControlName="duration" placeholder="Duration" />
+            
+            <button type="submit" class="btn">Add Team</button>
+        </div>
+      </form>
+  }
+
+  @for(phase of phases; track $index)
+  {
+    <h4>Phase - {{phase}}</h4>
+
+    <table class="team-list" id="team-table">
+      <thead>
+        <th>Number Of Resources</th>
+        <th>Role</th>
+        <th>Availability</th>
+        <th>Duration</th>
+        <th>Delete</th>
+      </thead>
+      <tbody>
+        @for(team of teams; track $index) {
+            @if(team.phaseNumber == phase)
+            {
+                <tr class="team-{{ $index }} team-row">
+                <td>{{ team.numberOfResources }}</td>
+                <td>{{ team.role }}</td>
+                <td>{{ team.availability }} %</td>
+                <td>{{ team.duration }}</td>
+                <td>
+                    <button (click)="deleteTeam(team.id)" class="delete-team">
+                    <i class="fa fa-trash-o"></i>
+                    </button>
+                </td>
+                </tr>
+            }
+        }
+      </tbody>
+    </table>
+  }
+</div>

@@ -10,21 +10,26 @@
     </h1>
   </div>
   <!-- Project details tabs -->
-  <button>&lang;</button>
-  <div class="tabs">
-    @for(tab of tabs; track $index) {
-    <div
-      [class.active]="activeTab === $index + 1"
-      class="tab tab-{{ $index + 1 }}"
-      (click)="setActiveTab($index + 1)"
-    >
-      <a class="tab-text">
-        {{ tab }}
-      </a>
+  <div class="tabs-panel">
+    <button (click)="scrollLeft()" class="left-btn">&lang;</button>
+    <div class="tabs-container" id="tabs-container">
+      <div class="tabs">
+        @for(tab of tabs; track $index) {
+        <div
+          [class.active]="activeTab === $index + 1"
+          class="tab tab-{{ $index + 1 }}"
+          id="tab-{{ $index + 1 }}"
+          (click)="setActiveTab($index + 1)"
+        >
+          <a class="tab-text">
+            {{ tab }}
+          </a>
+        </div>
+        }
+      </div>
     </div>
-    }
+    <button (click)="scrollRight()" class="right-btn">&rang;</button>
   </div>
-  <button>&rang;</button>
   <hr class="hr"/>
 
   <!-- Audit history -->
@@ -129,7 +134,13 @@
   <!-- Phases and Milestone -->
   <app-phases />
   } @else if (activeTab === 10) {
-  <!-- Phases and Milestone -->
+  <!-- Sprint -->
   <app-sprint />
+  } @else if (activeTab === 11) {
+  <!-- Approved Team -->
+  <app-approved-team />
+  } @else if (activeTab === 12) {
+  <!-- Approved Team -->
+  <app-project-resources />
   }
 </div>

@@ -27,6 +27,8 @@ import { PhasesComponent } from './components/project-details-tabs/phases/phases
 import { SprintComponent } from './components/project-details-tabs/sprint/sprint.component';
 import { EscalationMatrixComponent } from './components/project-details-tabs/escalation-matrix/escalation-matrix.component';
 import { DatePipe } from '@angular/common';
+import { ApprovedTeamComponent } from './components/project-details-tabs/approved-team/approved-team.component';
+import { ProjectResourcesComponent } from './components/project-details-tabs/project-resources/project-resources.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { DatePipe } from '@angular/common';
     PhasesComponent,
     SprintComponent,
     EscalationMatrixComponent,
+    ApprovedTeamComponent,
+    ProjectResourcesComponent,
   ],
   imports: [
     BrowserModule,

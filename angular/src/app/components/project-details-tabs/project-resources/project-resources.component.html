@@ -1,0 +1,73 @@
+<div class="resource">
+  <h2 class="top-heading">
+        Project Resources
+    <button class="btn btn-green" (click)="convertToPDF()">
+        Download resources
+    </button>
+  </h2>
+  <form [formGroup]="resourceForm" (ngSubmit)="addResource()">
+    <h3>Add new resource</h3>
+    <div class="row row-1">
+      <input type="text" formControlName="name" placeholder="Resource Name" />
+
+      <input type="text" formControlName="role" placeholder="Resource Role" />
+
+      <input
+        type="text"
+        placeholder="Start Date"
+        formControlName="start"
+        onfocus="(this.type='date')"
+        onblur="(this.type='text')"
+      />
+
+    </div>
+    
+    <div class="row row-2">
+        <input
+          type="text"
+          placeholder="End Date"
+          formControlName="end"
+          onfocus="(this.type='date')"
+          onblur="(this.type='text')"
+          />
+
+          <input type="number" formControlName="allocationPercentage" placeholder="Allocation Percentage" />
+          
+    </div>
+        
+    <div class="row row-3">
+        <input type="text" formControlName="comments" placeholder="Comments" />
+        
+        <button type="submit" class="btn">Add Resource</button>
+    </div>
+  </form>
+
+  <table class="resource-list" id="resource-table">
+    <thead>
+      <th>Resource Name</th>
+      <th>Role</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Allocation Percentage</th>
+      <th>Comments</th>
+      <th>Delete</th>
+    </thead>
+    <tbody>
+      @for(resource of resources; track $index) {
+      <tr class="resource-{{ $index }} resource-row">
+        <td>{{ resource.name }}</td>
+        <td>{{ resource.role }}</td>
+        <td>{{ resource.start | date }}</td>
+        <td>{{ resource.end | date }}</td>
+        <td>{{ resource.allocationPercentage }}</td>
+        <td>{{ resource.comments }}</td>
+        <td>
+          <button (click)="deleteResource(resource.id)" class="delete-resource">
+            <i class="fa fa-trash-o"></i>
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

@@ -221,4 +221,17 @@ export class ProjectDetailsComponent {
   {
     this.convertToPdf.convertToPDF('audit-table');
   }
+
+  scrollLeft()
+  {
+    const tabsContainer = document.getElementById('tabs-container');
+    //@ts-ignore
+    tabsContainer.style.justifyContent = 'flex-start';
+  }
+  scrollRight()
+  {
+    const tabsContainer = document.getElementById('tabs-container');
+    //@ts-ignore
+    tabsContainer.style.justifyContent = 'flex-end';
+  }
 }

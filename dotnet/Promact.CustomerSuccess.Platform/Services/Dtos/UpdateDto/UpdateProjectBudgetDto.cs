@@ -2,9 +2,9 @@
 {
     public class UpdateProjectBudgetDto
     {
-        public required ProjectType Type { get; set; }
-        public required int DurationInMonths { get; set; }
-        public required int BudgetedHours { get; set; }
+        public ProjectType? Type { get; set; }
+        public int? DurationInMonths { get; set; }
+        public int? BudgetedHours { get; set; }
 
         public Guid? ProjectId { get; set; }
     }

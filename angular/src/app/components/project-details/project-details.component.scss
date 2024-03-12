@@ -34,20 +34,48 @@
       border: 1px solid #dbdada;
     }
 
+    .tabs-panel{
+      display: flex;
+      button{
+        background-color: transparent;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        color: gray;
+        font-weight: 900;
+        font-size: larger;
+        background-color: #e4f5ffc5;
+        border-radius: 4px;
+      }
+      button:hover{
+        background-color: #bed0e2be;
+        color: #000000;
+      }
+      .left-btn{
+        margin-right: 10px;
+      }
+      .right-btn{
+        margin-left: 10px;
+      }
+      .tabs-container{
+        display: flex;
+        justify-content: flex-start;
+        overflow: hidden;
+      }
+    }
     .tabs{
       display: flex;
       justify-content: space-between;
-      overflow-x: scroll;
-
       
 
       .tab{
         // margin-right: 10px;
-        padding: 15px;
+        padding:10px 15px;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
+        
 
         a{
           text-decoration: none;
@@ -55,6 +83,7 @@
           color: black;
           font-size: 12px;
           font-weight: bold;
+          width: max-content;
         }
         a:last-child{
           margin-right: 0px;
@@ -89,6 +118,7 @@
 
     .audit-list {
       width: 100%;
+      border-collapse: collapse;
 
       .audit-row{
         cursor: pointer;
@@ -100,7 +130,6 @@
       th,
       td {
         max-width: 160px;
-        border: none;
         padding: 10px;
         text-align: left;
         font-size: 14px;
