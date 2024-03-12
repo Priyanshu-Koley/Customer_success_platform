@@ -116,7 +116,7 @@ export class EscalationMatrixComponent {
   }
 
   convertToPDF() {
-    this.convertToPdf.convertToPDF('escalation-tables');
+    // this.convertToPdf.convertToPDF('escalation-tables');
   }
 
   findMaxLevels(): { [key: string]: number } {

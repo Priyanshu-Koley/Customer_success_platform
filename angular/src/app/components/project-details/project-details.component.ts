@@ -219,7 +219,7 @@ export class ProjectDetailsComponent {
 
   convertToPDF()
   {
-    this.convertToPdf.convertToPDF('audit-table');
+    this.convertToPdf.convertToPDF('audit-table', 'audit-table');
   }
 
   scrollLeft()

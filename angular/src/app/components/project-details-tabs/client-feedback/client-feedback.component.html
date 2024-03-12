@@ -1,0 +1,74 @@
+<div class="feedback">
+    <h2 class="top-heading">
+        Client Feedback
+        <button class="btn btn-green" (click)="convertToPDF()">
+        Download feedbacks
+    </button>
+</h2>
+<form [formGroup]="feedbackForm" (ngSubmit)="addFeedback()">
+    <h3>Add new feedback</h3>
+    <div class="row row-1">
+        <input
+        type="text"
+        placeholder="Feedback Date"
+        formControlName="feedbackDate"
+        onfocus="(this.type='date')"
+        onblur="(this.type='text')"
+        />
+        
+        <select formControlName="feedbackType">
+            <option value="" selected disabled>Select Type</option>
+            @for (type of feedbackTypes | keyvalue; track $index) {
+            <option value={{type.key}}>{{type.value}}</option>
+            }
+        </select>
+    
+        <input type="text" formControlName="details" placeholder="Details" />
+        
+    </div>
+    
+    <div class="row row-2">
+        <input type="text" formControlName="actionTaken" placeholder="Action Taken" />
+        
+        <input
+          type="text"
+          placeholder="Closure Date"
+          formControlName="closureDate"
+          onfocus="(this.type='date')"
+          onblur="(this.type='text')"
+        />
+
+        <button type="submit" class="btn">Add feedback</button>
+
+    </div>
+  
+    </form>
+  
+    <table class="feedback-list" id="feedback-table">
+      <thead>
+        <th>Feedback Type</th>
+        <th>Date Received</th>
+        <th>Detailed Feedback</th>
+        <th>Action Taken</th>
+        <th>Closure Date</th>
+        <th>Delete</th>
+      </thead>
+      <tbody>
+        @for(feedback of feedbacks; track $index) {
+        <tr class="feedback-{{ $index }} feedback-row">
+            <td>{{ getFeedbackTypes(feedback.feedbackType) }}</td>
+            <td>{{ feedback.feedbackDate | date }}</td>
+            <td>{{ feedback.details }}</td>
+            <td>{{ feedback.actionTaken }}</td>
+            <td>{{ feedback.closureDate | date }}</td>
+            <td>
+                <button (click)="deleteFeedback(feedback.id)" class="delete-feedback">
+                <i class="fa fa-trash-o"></i>
+                </button>
+            </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,64 +1,69 @@
-.phase{
-    margin: 0 20px 20px 0;
+.phase {
+  margin: 0 20px 20px 0;
 
-    .top-heading{
-        margin: 20px 0 50px 0;
-        display: flex;
-        justify-content: space-between;
-    }
-    
-    .row {
-        margin: 10px 0;
-        display: flex;
-        justify-content: space-between;
-    
-        input,select{
-            width: 30%;
-            padding: 10px;
-        }
-        button{
-            width: 30%;
-            margin-left: auto;
-        }
+  .top-heading {
+    margin: 20px 0 50px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .row {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+
+    input,
+    select {
+      width: 30%;
+      padding: 10px;
     }
 
-    .phase-list {
-      width: 100%;
-      border-collapse: collapse;
-
-      .phase-row{
-        cursor: pointer;
-      }
-      .phase-row:hover{
-        background-color: rgb(254, 246, 237);
-      }
-    
-      th,
-      td {
-        max-width: 160px;
-        border: none;
-        padding: 10px;
-        text-align: left;
-        font-size: 14px;
-      }
-    
-      tr,thead{
-        border: 1px solid rgba(88, 87, 87, 0.545);
-      }
-    
-          
-      .delete-phase{   
-        background: none;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        outline: inherit;
-        margin-right: 10px;
-        border-radius: 4px;
-      }
-      .delete-phase:hover{
-        background-color: rgb(240, 110, 110);
-      }
-    
+    button {
+      width: 30%;
+      margin-left: auto;
     }
+  }
+
+  .phase-list {
+    width: 100%;
+    border-collapse: collapse;
+
+    .phase-row {
+      cursor: pointer;
+    }
+
+    .phase-row:hover {
+      background-color: rgb(254, 246, 237);
+    }
+
+    th,
+    td {
+      max-width: 160px;
+      border: none;
+      padding: 10px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    tr,
+    thead {
+      border: 1px solid rgba(88, 87, 87, 0.545);
+    }
+
+
+    .delete-phase {
+      background: none;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      outline: inherit;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+
+    .delete-phase:hover {
+      background-color: rgb(240, 110, 110);
+    }
+
+  }
 }

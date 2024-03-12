@@ -1,5 +1,5 @@
 ﻿export const FeedbackType =
 {
-    0:"Positive",
-    1:"Negative"
+    0:"Appreciation",
+    1:"Complaint"
 }

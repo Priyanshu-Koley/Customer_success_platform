@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
+import { FeedbackType } from '../../../models/feedback-type.model';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
-import { ProjectsService } from '../../../services/projects.service';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
-import { MilestoneOrPhaseStatus } from '../../../models/milestone-phase-status.model';
+import { ProjectsService } from '../../../services/projects.service';
 
 @Component({
-  selector: 'app-phases',
-  templateUrl: './phases.component.html',
-  styleUrl: './phases.component.scss',
+  selector: 'app-client-feedback',
+  templateUrl: './client-feedback.component.html',
+  styleUrl: './client-feedback.component.scss'
 })
-export class PhasesComponent {
+export class ClientFeedbackComponent {
   projectId!: string;
-  phaseForm: any;
-  phases: any;
-  phaseStatus = MilestoneOrPhaseStatus;
+  feedbackForm: any;
+  feedbacks: any;
+  feedbackTypes = FeedbackType;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,23 +30,21 @@ export class PhasesComponent {
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
 
-    this.phaseForm = this.formBuilder.group({
-      title: ['', [Validators.required]],
-      startDate: ['', [Validators.required]],
-      endDate: ['', [Validators.required]],
-      approvalDate: ['', [Validators.required]],
-      status: ['', [Validators.required]],
-      revisedCompletionDate: ['', [Validators.required]],
-      comments: ['', [Validators.required]],
+    this.feedbackForm = this.formBuilder.group({
+      feedbackDate: ['', [Validators.required]],
+      feedbackType: ['', [Validators.required]],
+      details: ['', [Validators.required]],
+      actionTaken: ['', [Validators.required]],
+      closureDate: ['', [Validators.required]],
     });
 
-    this.getPhases();
+    this.getFeedbacks();
   }
 
-  getPhases() {
-    this.projectService.getPhases(this.projectId).subscribe(
+  getFeedbacks() {
+    this.projectService.getFeedbacks(this.projectId).subscribe(
       (res) => {
-        this.phases = res.items;
+        this.feedbacks = res.items;
       },
       (err) => {
         console.log(err);
@@ -54,21 +52,21 @@ export class PhasesComponent {
     );
   }
 
-  addPhase() {
-    if (this.phaseForm.valid) {
-      const newPhase = {
-        ...this.phaseForm.value,
+  addFeedback() {
+    if (this.feedbackForm.valid) {
+      const newFeedback = {
+        ...this.feedbackForm.value,
         projectId: this.projectId,
       };
 
-      this.projectService.createPhase(newPhase).subscribe(
+      this.projectService.createFeedback(newFeedback).subscribe(
         (res) => {
           console.log(res);
-          this.getPhases();
-          this.phaseForm.reset();
+          this.getFeedbacks();
+          this.feedbackForm.reset();
           this.toast.success({
             detail: 'Success',
-            summary: 'Phase added successfully',
+            summary: 'Feedback added successfully',
             duration: 4000,
           });
         },
@@ -76,7 +74,7 @@ export class PhasesComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error adding Phase',
+            summary: 'Error adding Feedback',
             duration: 4000,
           });
         }
@@ -90,16 +88,16 @@ export class PhasesComponent {
     }
   }
 
-  deletePhase(id: string) {
+  deleteFeedback(id: string) {
     const confirmDelete = confirm('Are you sure you want to delete ?');
     if (confirmDelete) {
-      this.projectService.deletePhase(id).subscribe(
+      this.projectService.deleteFeedback(id).subscribe(
         (res) => {
           console.log(res);
-          this.getPhases();
+          this.getFeedbacks();
           this.toast.success({
             detail: 'Success',
-            summary: 'Phase deleted successfully',
+            summary: 'Feedback deleted successfully',
             duration: 4000,
           });
         },
@@ -107,7 +105,7 @@ export class PhasesComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error deleting Phase',
+            summary: 'Error deleting Feedback',
             duration: 4000,
           });
         }
@@ -116,11 +114,11 @@ export class PhasesComponent {
   }
 
   convertToPDF() {
-    // this.convertToPdf.convertToPDF('phase-table');
+    // this.convertToPdf.convertToPDF('feedbacks-table');
   }
 
-  getPhaseStatus(intStatus: number)
+  getFeedbackTypes(intType: number)
   {
-    return (this.phaseStatus as any)[intStatus];
+    return (this.feedbackTypes as any)[intType];
   }
 }

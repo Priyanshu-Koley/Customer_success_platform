@@ -29,6 +29,7 @@ import { EscalationMatrixComponent } from './components/project-details-tabs/esc
 import { DatePipe } from '@angular/common';
 import { ApprovedTeamComponent } from './components/project-details-tabs/approved-team/approved-team.component';
 import { ProjectResourcesComponent } from './components/project-details-tabs/project-resources/project-resources.component';
+import { ClientFeedbackComponent } from './components/project-details-tabs/client-feedback/client-feedback.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { ProjectResourcesComponent } from './components/project-details-tabs/pro
     EscalationMatrixComponent,
     ApprovedTeamComponent,
     ProjectResourcesComponent,
+    ClientFeedbackComponent,
   ],
   imports: [
     BrowserModule,

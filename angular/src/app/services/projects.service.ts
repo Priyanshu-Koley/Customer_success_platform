@@ -243,4 +243,22 @@ export class ProjectsService {
     const url = `${this.apiUrl}/project-resources/${id}/project-resources`;
     return this.http.delete<any>(url);
   }
+
+  // Client Feedback
+  getFeedbacks(id: string): Observable<any> {
+    const url = `${this.apiUrl}/client-feedback/client-feedback-by-project-id/${id}`;
+    return this.http.get<any>(url);
+  }
+  createFeedback(escalation: any): Observable<any> {
+    const url = `${this.apiUrl}/client-feedback/client-feedback`;
+    return this.http.post<any>(url, escalation);
+  }
+  updateFeedback(id: string, escalation: any): Observable<any> {
+    const url = `${this.apiUrl}/client-feedback/${id}/client-feedback`;
+    return this.http.put<any>(url, escalation);
+  }
+  deleteFeedback(id: string): Observable<any> {
+    const url = `${this.apiUrl}/client-feedback/${id}/client-feedback`;
+    return this.http.delete<any>(url);
+  }
 }

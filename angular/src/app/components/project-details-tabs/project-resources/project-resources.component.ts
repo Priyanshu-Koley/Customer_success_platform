@@ -113,6 +113,6 @@ export class ProjectResourcesComponent {
   }
 
   convertToPDF() {
-    this.convertToPdf.convertToPDF('resources-table');
+    // this.convertToPdf.convertToPDF('resources-table');
   }
 }

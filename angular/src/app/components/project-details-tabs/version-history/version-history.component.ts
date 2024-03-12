@@ -117,6 +117,6 @@ export class VersionHistoryComponent {
   }
 
   convertToPDF() {
-    this.convertToPdf.convertToPDF('version-history-table');
+    // this.convertToPdf.convertToPDF('version-history-table');
   }
 }
