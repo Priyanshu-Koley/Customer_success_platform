@@ -1,0 +1,36 @@
+<div class="modal">
+
+  <h3 mat-dialog-title>Update version history</h3>
+  <form [formGroup]="updateVersionForm" (ngSubmit)="updateVersion()">
+    <div class="row row-1">
+            <input matInput type="number" formControlName="version" placeholder="Version">
+            <input matInput type="text" formControlName="type" placeholder="Type">
+            <input matInput type="text" formControlName="change" placeholder="Change">
+        </div>
+        <div class="row row-2">
+            <input matInput type="text" formControlName="changeReason" placeholder="Change Reason">
+            <input matInput type="text" formControlName="createdBy" placeholder="Created By">
+            <input
+                matInput
+                type="text"
+                placeholder="Revision Date"
+                formControlName="revisionDate"
+                onfocus="(this.type='date')"
+                onblur="(this.type='text')"
+            />
+        </div>
+        <div class="row row-3">
+            <input
+                matInput
+                type="text"
+                placeholder="Approval Date"
+                formControlName="approvalDate"
+                onfocus="(this.type='date')"
+                onblur="(this.type='text')"
+            />
+            <input matInput type="text" formControlName="approvedBy" placeholder="Approved By">
+        </div>
+    <button mat-button type="submit" class="update-btn">Update Version</button>
+    <button mat-button type="button" (click)="onClose()" class="cancel-btn">Cancel</button>
+  </form>
+</div>

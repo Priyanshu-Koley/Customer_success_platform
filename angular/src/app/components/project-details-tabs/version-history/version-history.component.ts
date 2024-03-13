@@ -6,6 +6,7 @@ import { NgToastService } from 'ng-angular-popup';
 // import { UpdateversionModalComponent } from '../update-version-modal/update-version-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
+import { UpdateVersionHistoryComponent } from '../../update-modals/update-version-history/update-version-history.component';
 
 @Component({
   selector: 'app-version-history',
@@ -116,7 +117,31 @@ export class VersionHistoryComponent {
     }
   }
 
+  openUpdateVersionModal(index: number) {
+    const versionToUpdate = {
+      ...this.versions[index],
+      projectId: this.projectId,
+    };
+    const dialogRef = this.dialog.open(UpdateVersionHistoryComponent, {
+      width: '70%',
+      data: versionToUpdate,
+      hasBackdrop: true,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log('Form Data:', result);
+
+      // this.sendEmail(result);
+      this.getVersionHistory();
+    });
+  }
+
   convertToPDF() {
-    // this.convertToPdf.convertToPDF('version-history-table');
+    this.convertToPdf.convertToPDF(
+      'version-history-table',
+      'version-history-table'
+    );
   }
 }

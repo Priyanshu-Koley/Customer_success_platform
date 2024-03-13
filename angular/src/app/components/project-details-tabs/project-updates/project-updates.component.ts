@@ -3,20 +3,18 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
-import { ProjectsService } from '../../../services/projects.service';
-import { SprintStatus } from '../../../models/sprint-status.model';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
+import { ProjectsService } from '../../../services/projects.service';
 
 @Component({
-  selector: 'app-sprint',
-  templateUrl: './sprint.component.html',
-  styleUrl: './sprint.component.scss',
+  selector: 'app-project-updates',
+  templateUrl: './project-updates.component.html',
+  styleUrl: './project-updates.component.scss',
 })
-export class SprintComponent {
+export class ProjectUpdatesComponent {
   projectId!: string;
-  sprintForm: any;
-  sprints: any;
-  sprintStatus = SprintStatus;
+  updateForm: any;
+  updates: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,21 +28,17 @@ export class SprintComponent {
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
 
-    this.sprintForm = this.formBuilder.group({
-      sprintNumber: ['', [Validators.required]],
-      startDate: ['', [Validators.required]],
-      endDate: ['', [Validators.required]],
-      status: ['', [Validators.required]],
-      comments: ['', [Validators.required]],
+    this.updateForm = this.formBuilder.group({
+      generalUpdates: ['', [Validators.required]],
     });
 
-    this.getSprints();
+    this.getUpdates();
   }
 
-  getSprints() {
-    this.projectService.getSprints(this.projectId).subscribe(
+  getUpdates() {
+    this.projectService.getUpdates(this.projectId).subscribe(
       (res) => {
-        this.sprints = res.items;
+        this.updates = res.items;
       },
       (err) => {
         console.log(err);
@@ -52,21 +46,23 @@ export class SprintComponent {
     );
   }
 
-  addSprint() {
-    if (this.sprintForm.valid) {
-      const newSprint = {
-        ...this.sprintForm.value,
+  addUpdate() {
+    if (this.updateForm.valid) {
+      const newUpdate = {
+        ...this.updateForm.value,
+        date: new Date().toJSON().slice(0, 10),
         projectId: this.projectId,
       };
+      
 
-      this.projectService.createSprint(newSprint).subscribe(
+      this.projectService.createUpdate(newUpdate).subscribe(
         (res) => {
           console.log(res);
-          this.getSprints();
-          this.sprintForm.reset();
+          this.getUpdates();
+          this.updateForm.reset();
           this.toast.success({
             detail: 'Success',
-            summary: 'Sprint added successfully',
+            summary: 'Update added successfully',
             duration: 4000,
           });
         },
@@ -74,7 +70,7 @@ export class SprintComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error adding Sprint',
+            summary: 'Error adding Update',
             duration: 4000,
           });
         }
@@ -88,16 +84,16 @@ export class SprintComponent {
     }
   }
 
-  deleteSprint(id: string) {
+  deleteUpdate(id: string) {
     const confirmDelete = confirm('Are you sure you want to delete ?');
     if (confirmDelete) {
-      this.projectService.deleteSprint(id).subscribe(
+      this.projectService.deleteUpdate(id).subscribe(
         (res) => {
           console.log(res);
-          this.getSprints();
+          this.getUpdates();
           this.toast.success({
             detail: 'Success',
-            summary: 'Sprint deleted successfully',
+            summary: 'Update deleted successfully',
             duration: 4000,
           });
         },
@@ -105,7 +101,7 @@ export class SprintComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error deleting Sprint',
+            summary: 'Error deleting Update',
             duration: 4000,
           });
         }
@@ -113,14 +109,8 @@ export class SprintComponent {
     }
   }
 
-  getSprintStatus(intStatus: number) {
-    return (SprintStatus as any)[intStatus];
+  convertToPDF() {
+    this.convertToPdf.convertToPDF('update-table', 'update-table');
   }
 
-  convertToPDF() {
-    this.convertToPdf.convertToPDF(
-      'version-history-table',
-      'version-history-table'
-    );
-  }
 }

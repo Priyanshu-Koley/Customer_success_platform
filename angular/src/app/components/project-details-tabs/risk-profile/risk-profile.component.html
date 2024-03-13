@@ -1,5 +1,9 @@
 <div class="risk">
-    <h2 class="top-heading">Risk Profile</h2>
+    <h2 class="top-heading">Risk Profile
+        <button class="btn btn-green" (click)="convertToPDF()">
+            Download Risk Profile
+        </button>
+    </h2>
     <form [formGroup]="riskForm" (ngSubmit)="addRisk()">
         <h3>Add new risk profile</h3>
         <div class="row row-1">
@@ -46,7 +50,7 @@
         
     </form>
 
-    <table class="risk-list" >
+    <table class="risk-list" id="risk-profile">
             <thead>
                 <th>Risk Type</th>
                 <th>Description</th>

@@ -63,15 +63,18 @@ export class ConvertToPdfService {
     }
   }
 
-  public convertToPDF(tableId:string, fileName:string = "data"){   
-
-    const doc = new jsPDF()
+  public convertToPDF(tableId:string, fileName:string = "data"){
+    const doc = new jsPDF();
     this.getData(tableId);
     autoTable(doc, {
-      theme: "grid",
+      theme: 'grid',
       head: [this.tableHeadings],
       body: [...this.tableData],
-    })
-    doc.save(`${fileName}.pdf`)
+    });
+    doc.save(`${fileName}.pdf`);
+
+    // reset the tableHeadings and tableData
+    this.tableHeadings = [];
+    this.tableData = [];
   }
 }

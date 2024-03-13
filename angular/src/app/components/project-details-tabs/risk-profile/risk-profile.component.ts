@@ -7,6 +7,7 @@ import { ProjectsService } from '../../../services/projects.service';
 import { RiskType } from '../../../models/risk-type.model';
 import { RiskImpact } from '../../../models/risk-impact.model';
 import { RiskSeverity } from '../../../models/risk-severity.model';
+import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 
 @Component({
   selector: 'app-risk-profile',
@@ -26,7 +27,8 @@ export class RiskProfileComponent {
     private projectService: ProjectsService,
     private formBuilder: FormBuilder,
     private toast: NgToastService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private convertToPdf: ConvertToPdfService
   ) {}
 
   ngOnInit() {
@@ -128,5 +130,8 @@ export class RiskProfileComponent {
   getRiskImpact(intImpact: number) {
     return (this.riskImpact as any)[intImpact];
   }
-  
+
+  convertToPDF() {
+    this.convertToPdf.convertToPDF('risk-profile-table', 'risk-profile-table');
+  }
 }

@@ -261,4 +261,40 @@ export class ProjectsService {
     const url = `${this.apiUrl}/client-feedback/${id}/client-feedback`;
     return this.http.delete<any>(url);
   }
+
+  // Project Updates
+  getUpdates(id: string): Observable<any> {
+    const url = `${this.apiUrl}/project-updates/project-updates-by-project-id/${id}`;
+    return this.http.get<any>(url);
+  }
+  createUpdate(escalation: any): Observable<any> {
+    const url = `${this.apiUrl}/project-updates/project-updates`;
+    return this.http.post<any>(url, escalation);
+  }
+  updateUpdate(id: string, escalation: any): Observable<any> {
+    const url = `${this.apiUrl}/project-updates/${id}/project-updates`;
+    return this.http.put<any>(url, escalation);
+  }
+  deleteUpdate(id: string): Observable<any> {
+    const url = `${this.apiUrl}/project-updates/${id}/project-updates`;
+    return this.http.delete<any>(url);
+  }
+
+  // Project Updates
+  getMoms(id: string): Observable<any> {
+    const url = `${this.apiUrl}/meeting-minute/meeting-minute-by-project-id/${id}`;
+    return this.http.get<any>(url);
+  }
+  createMom(escalation: any): Observable<any> {
+    const url = `${this.apiUrl}/meeting-minute/meeting-minute`;
+    return this.http.post<any>(url, escalation);
+  }
+  updateMom(id: string, escalation: any): Observable<any> {
+    const url = `${this.apiUrl}/meeting-minute/${id}/meeting-minute`;
+    return this.http.put<any>(url, escalation);
+  }
+  deleteMom(id: string): Observable<any> {
+    const url = `${this.apiUrl}/meeting-minute/${id}/meeting-minute`;
+    return this.http.delete<any>(url);
+  }
 }

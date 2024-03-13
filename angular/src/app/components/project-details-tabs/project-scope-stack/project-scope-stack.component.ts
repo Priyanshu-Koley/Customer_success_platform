@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { ProjectsService } from '../../../services/projects.service';
+import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 
 @Component({
   selector: 'app-project-scope-stack',
@@ -20,7 +21,8 @@ export class ProjectScopeStackComponent {
     private projectService: ProjectsService,
     private formBuilder: FormBuilder,
     private toast: NgToastService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private convertToPdf: ConvertToPdfService
   ) {}
 
   ngOnInit() {
@@ -104,5 +106,9 @@ export class ProjectScopeStackComponent {
         }
       );
     }
+  }
+
+  convertToPDF() {
+    this.convertToPdf.convertToPDF('stack-table', 'stack-table');
   }
 }

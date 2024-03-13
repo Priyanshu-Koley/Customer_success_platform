@@ -1,5 +1,9 @@
 <div class="budget">
-    <h2 class="top-heading">Project Budget</h2>
+    <h2 class="top-heading">Project Budget
+        <button class="btn btn-green" (click)="convertToPDF()">
+            Download Project Budget
+        </button>
+    </h2>
     <form [formGroup]="budgetForm" (ngSubmit)="addBudget()">
         <h3>Add new budget</h3>
         <div class="row row-1">
@@ -18,7 +22,7 @@
         
     </form>
 
-    <table class="budget-list" >
+    <table class="budget-list" id="budget-table">
             <thead>
                 <th>Project Type</th>
                 <th>Duration(in months)</th>
@@ -29,9 +33,9 @@
                 @for(budget of budgets; track $index)
                 {
                     <tr class="budget-{{$index}} budget-row" >
-                        <td>{{getBudgetType(budget.type)}}</td>
-                        <td>{{budget.durationInMonths}}</td>
-                        <td>{{budget.budgetedHours}}</td>
+                        <td (click)="openUpdateBudgetModal($index)">{{getBudgetType(budget.type)}}</td>
+                        <td (click)="openUpdateBudgetModal($index)">{{budget.durationInMonths}}</td>
+                        <td (click)="openUpdateBudgetModal($index)">{{budget.budgetedHours}}</td>
                         <td>
                             <button (click)="deleteBudget(budget.id)" class="delete-budget">
                                 <i class="fa fa-trash-o"></i>

@@ -116,7 +116,7 @@ export class PhasesComponent {
   }
 
   convertToPDF() {
-    // this.convertToPdf.convertToPDF('phase-table');
+    this.convertToPdf.convertToPDF('phase-table', 'phase-table');
   }
 
   getPhaseStatus(intStatus: number)

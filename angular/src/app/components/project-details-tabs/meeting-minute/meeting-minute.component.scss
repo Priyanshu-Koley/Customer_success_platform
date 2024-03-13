@@ -1,4 +1,4 @@
-.budget{
+.mom{
     margin: 0 20px 20px 0;
 
     .top-heading{
@@ -18,18 +18,17 @@
         }
         button{
             width: 30%;
-            margin-left: auto;
         }
     }
 
-    .budget-list {
+    .mom-list {
       width: 100%;
       border-collapse: collapse;
 
-      .budget-row{
+      .mom-row{
         cursor: pointer;
       }
-      .budget-row:hover{
+      .mom-row:hover{
         background-color: rgb(254, 246, 237);
       }
     
@@ -47,7 +46,7 @@
       }
     
           
-      .delete-budget{   
+      .delete-mom{   
         background: none;
         border: none;
         padding: 10px;
@@ -56,7 +55,7 @@
         margin-right: 10px;
         border-radius: 4px;
       }
-      .delete-budget:hover{
+      .delete-mom:hover{
         background-color: rgb(240, 110, 110);
       }
     

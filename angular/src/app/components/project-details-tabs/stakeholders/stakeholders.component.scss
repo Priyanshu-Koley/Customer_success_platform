@@ -1,63 +1,63 @@
-.stakeholders{
-    margin: 0 20px 20px 0;
+.stakeholders {
+  margin: 0 20px 20px 0;
 
-    .top-heading{
-        margin: 20px 0 50px 0;
-        text-align: center;
+  .top-heading {
+    margin: 20px 0 50px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .row {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+
+    input {
+      width: 30%;
+      padding: 10px;
     }
-    
-    .row {
-        margin: 10px 0;
-        display: flex;
-        justify-content: space-between;
-    
-        input{
-            width: 30%;
-            padding: 10px;
-        }
-        button{
-            width: 30%;
-            margin-left: auto;
-        }
+    button {
+      width: 30%;
+      margin-left: auto;
+    }
+  }
+
+  .stakeholders-list {
+    width: 100%;
+    border-collapse: collapse;
+
+    .stakeholder-row {
+      cursor: pointer;
+    }
+    .stakeholder-row:hover {
+      background-color: rgb(254, 246, 237);
     }
 
-    .stakeholders-list {
-      width: 100%;
-      border-collapse: collapse;
-
-      .stakeholder-row{
-        cursor: pointer;
-      }
-      .stakeholder-row:hover{
-        background-color: rgb(254, 246, 237);
-      }
-    
-      th,
-      td {
-        max-width: 160px;
-        border: none;
-        padding: 10px;
-        text-align: left;
-        font-size: 14px;
-      }
-    
-      tr,thead{
-        border: 1px solid rgba(88, 87, 87, 0.545);
-      }
-    
-          
-      .delete-stakeholder{   
-        background: none;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        outline: inherit;
-        margin-right: 10px;
-        border-radius: 4px;
-      }
-      .delete-stakeholder:hover{
-        background-color: rgb(240, 110, 110);
-      }
-    
+    th,
+    td {
+      max-width: 160px;
+      border: none;
+      padding: 10px;
+      text-align: left;
+      font-size: 14px;
     }
+
+    tr,
+    thead {
+      border: 1px solid rgba(88, 87, 87, 0.545);
+    }
+
+    .delete-stakeholder {
+      background: none;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      outline: inherit;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+    .delete-stakeholder:hover {
+      background-color: rgb(240, 110, 110);
+    }
+  }
 }

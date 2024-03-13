@@ -1,0 +1,38 @@
+<div class="update">
+    <h2 class="top-heading">
+        Project Updates
+        <button class="btn btn-green" (click)="convertToPDF()">
+        Download Updates
+    </button>
+    </h2>
+    <form [formGroup]="updateForm" (ngSubmit)="addUpdate()">
+        <h3>Add new update</h3>
+        <div class="row row-1">
+            <input type="text" formControlName="generalUpdates" placeholder="General Updates" />
+            
+            <button type="submit" class="btn">Add update</button>
+        </div>
+    </form>
+  
+    <table class="update-list" id="update-table">
+      <thead>
+        <th>Date</th>
+        <th>General Updates</th>
+        <th>Delete</th>
+      </thead>
+      <tbody>
+        @for(update of updates; track $index) {
+        <tr class="update-{{ $index }} update-row">
+            <td>{{ update.date | date }}</td>
+            <td>{{ update.generalUpdates }}</td>
+            <td>
+                <button (click)="deleteUpdate(update.id)" class="delete-update">
+                <i class="fa fa-trash-o"></i>
+                </button>
+            </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  

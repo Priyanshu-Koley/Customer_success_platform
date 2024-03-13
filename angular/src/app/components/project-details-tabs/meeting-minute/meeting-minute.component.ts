@@ -3,20 +3,18 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
-import { ProjectsService } from '../../../services/projects.service';
-import { SprintStatus } from '../../../models/sprint-status.model';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
+import { ProjectsService } from '../../../services/projects.service';
 
 @Component({
-  selector: 'app-sprint',
-  templateUrl: './sprint.component.html',
-  styleUrl: './sprint.component.scss',
+  selector: 'app-meeting-minute',
+  templateUrl: './meeting-minute.component.html',
+  styleUrl: './meeting-minute.component.scss',
 })
-export class SprintComponent {
+export class MeetingMinuteComponent {
   projectId!: string;
-  sprintForm: any;
-  sprints: any;
-  sprintStatus = SprintStatus;
+  momForm: any;
+  moms: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,21 +28,20 @@ export class SprintComponent {
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
 
-    this.sprintForm = this.formBuilder.group({
-      sprintNumber: ['', [Validators.required]],
-      startDate: ['', [Validators.required]],
-      endDate: ['', [Validators.required]],
-      status: ['', [Validators.required]],
+    this.momForm = this.formBuilder.group({
+      meetingDate: ['', [Validators.required]],
+      durationInMinutes: ['', [Validators.required, Validators.min(1)]],
+      moMLink: ['', [Validators.required]],
       comments: ['', [Validators.required]],
     });
 
-    this.getSprints();
+    this.getMoms();
   }
 
-  getSprints() {
-    this.projectService.getSprints(this.projectId).subscribe(
+  getMoms() {
+    this.projectService.getMoms(this.projectId).subscribe(
       (res) => {
-        this.sprints = res.items;
+        this.moms = res.items;
       },
       (err) => {
         console.log(err);
@@ -52,21 +49,21 @@ export class SprintComponent {
     );
   }
 
-  addSprint() {
-    if (this.sprintForm.valid) {
-      const newSprint = {
-        ...this.sprintForm.value,
+  addMom() {
+    if (this.momForm.valid) {
+      const newMom = {
+        ...this.momForm.value,
         projectId: this.projectId,
       };
 
-      this.projectService.createSprint(newSprint).subscribe(
+      this.projectService.createMom(newMom).subscribe(
         (res) => {
           console.log(res);
-          this.getSprints();
-          this.sprintForm.reset();
+          this.getMoms();
+          this.momForm.reset();
           this.toast.success({
             detail: 'Success',
-            summary: 'Sprint added successfully',
+            summary: 'MoM added successfully',
             duration: 4000,
           });
         },
@@ -74,7 +71,7 @@ export class SprintComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error adding Sprint',
+            summary: 'Error adding MoM',
             duration: 4000,
           });
         }
@@ -88,16 +85,16 @@ export class SprintComponent {
     }
   }
 
-  deleteSprint(id: string) {
+  deleteMom(id: string) {
     const confirmDelete = confirm('Are you sure you want to delete ?');
     if (confirmDelete) {
-      this.projectService.deleteSprint(id).subscribe(
+      this.projectService.deleteMom(id).subscribe(
         (res) => {
           console.log(res);
-          this.getSprints();
+          this.getMoms();
           this.toast.success({
             detail: 'Success',
-            summary: 'Sprint deleted successfully',
+            summary: 'MoM deleted successfully',
             duration: 4000,
           });
         },
@@ -105,7 +102,7 @@ export class SprintComponent {
           console.log(err);
           this.toast.error({
             detail: 'Error',
-            summary: 'Error deleting Sprint',
+            summary: 'Error deleting MoM',
             duration: 4000,
           });
         }
@@ -113,14 +110,7 @@ export class SprintComponent {
     }
   }
 
-  getSprintStatus(intStatus: number) {
-    return (SprintStatus as any)[intStatus];
-  }
-
   convertToPDF() {
-    this.convertToPdf.convertToPDF(
-      'version-history-table',
-      'version-history-table'
-    );
+    this.convertToPdf.convertToPDF('mom-table', 'mom-table');
   }
 }

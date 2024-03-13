@@ -1,9 +1,6 @@
 <div class="escalation">
   <h2 class="top-heading">
     Escalation Matrix
-    <button class="btn btn-green" (click)="convertToPDF()">
-      Download escalation matrixes
-    </button>
   </h2>
   <form [formGroup]="escalationForm" (ngSubmit)="addEscalation()">
     <h3>Add new Escalation</h3>
@@ -30,8 +27,12 @@
 
   <div class="escalation-tables" id="escalation-tables">
     @for (type of types | keyvalue; track $index) {
-      <h3>{{type.value}} Escalation Matrix</h3>
-      <table class="{{type.value | lowercase}}-escalation-list escalation-list">
+      <h3 class="heading">{{type.value}} Escalation Matrix 
+        <button class="btn btn-green" (click)="convertToPDF(type.value)">
+          Download {{type.value}} Escalation Matrix
+        </button>
+      </h3>
+      <table class="{{type.value | lowercase}}-escalation-list escalation-list" id="{{type.value|lowercase}}-escalation-matrix-table">
         <thead>
           <th>Escalation Level</th>
           <th>Responsible</th>

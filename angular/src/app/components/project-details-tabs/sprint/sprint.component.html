@@ -1,5 +1,9 @@
 <div class="sprint">
-  <h2 class="top-heading">Sprint wise details</h2>
+  <h2 class="top-heading">Sprint wise details
+    <button class="btn btn-green" (click)="convertToPDF()">
+      Download Sprint wise details
+    </button>
+  </h2>
   <form [formGroup]="sprintForm" (ngSubmit)="addSprint()">
     <h3>Add new sprint</h3>
     <div class="row row-1">

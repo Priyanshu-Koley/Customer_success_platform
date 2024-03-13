@@ -30,6 +30,10 @@ import { DatePipe } from '@angular/common';
 import { ApprovedTeamComponent } from './components/project-details-tabs/approved-team/approved-team.component';
 import { ProjectResourcesComponent } from './components/project-details-tabs/project-resources/project-resources.component';
 import { ClientFeedbackComponent } from './components/project-details-tabs/client-feedback/client-feedback.component';
+import { ProjectUpdatesComponent } from './components/project-details-tabs/project-updates/project-updates.component';
+import { MeetingMinuteComponent } from './components/project-details-tabs/meeting-minute/meeting-minute.component';
+import { UpdateVersionHistoryComponent } from './components/update-modals/update-version-history/update-version-history.component';
+import { UpdateProjectBudgetComponent } from './components/update-modals/update-project-budget/update-project-budget.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +45,7 @@ import { ClientFeedbackComponent } from './components/project-details-tabs/clien
     EditProjectComponent,
     ProjectDetailsComponent,
     UpdateAuditModalComponent,
+    UpdateVersionHistoryComponent,
     VersionHistoryComponent,
     ProjectBudgetComponent,
     ProjectScopeStackComponent,
@@ -52,6 +57,9 @@ import { ClientFeedbackComponent } from './components/project-details-tabs/clien
     ApprovedTeamComponent,
     ProjectResourcesComponent,
     ClientFeedbackComponent,
+    ProjectUpdatesComponent,
+    MeetingMinuteComponent,
+    UpdateProjectBudgetComponent,
   ],
   imports: [
     BrowserModule,

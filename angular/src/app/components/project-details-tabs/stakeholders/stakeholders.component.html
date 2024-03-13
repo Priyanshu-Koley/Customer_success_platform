@@ -1,5 +1,9 @@
 <div class="stakeholders">
-    <h2 class="top-heading">Stakeholders</h2>
+    <h2 class="top-heading">Stakeholders
+        <button class="btn btn-green" (click)="convertToPDF()">
+            Download Stakeholders List
+        </button>
+    </h2>
     <form [formGroup]="stakeholderForm" (ngSubmit)="addStakeholder()">
         <h3>Add new Stakeholder</h3>
         <div class="row row-1">
@@ -13,7 +17,7 @@
         
     </form>
 
-    <table class="stakeholders-list" >
+    <table class="stakeholders-list" id="stakeholders-table">
             <thead>
                 <th>Title</th>
                 <th>Name</th>

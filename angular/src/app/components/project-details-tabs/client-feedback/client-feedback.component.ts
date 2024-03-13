@@ -114,7 +114,7 @@ export class ClientFeedbackComponent {
   }
 
   convertToPDF() {
-    // this.convertToPdf.convertToPDF('feedbacks-table');
+    this.convertToPdf.convertToPDF('feedback-table', 'feedback-table');
   }
 
   getFeedbackTypes(intType: number)

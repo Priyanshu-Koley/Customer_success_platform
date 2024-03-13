@@ -1,0 +1,17 @@
+<div class="modal">
+  <h3 mat-dialog-title>Update project budget</h3>
+  <form [formGroup]="updateBudgetForm" (ngSubmit)="updateBudget()">
+    <div class="row row-1">
+            <select formControlName="type">
+                <option value="" selected disabled>Select project type</option>
+                @for (type of ProjectType | keyvalue; track $index) {
+                    <option value={{type.key}}>{{type.value}}</option>
+                }
+            </select>
+            <input type="number" formControlName="durationInMonths" placeholder="Duration (in months)">
+            <input type="number" formControlName="budgetedHours" placeholder="Budgeted Hours">
+        </div>
+    <button mat-button type="submit" class="update-btn">Update Budget</button>
+    <button mat-button type="button" (click)="onClose()" class="cancel-btn">Cancel</button>
+  </form>
+</div>

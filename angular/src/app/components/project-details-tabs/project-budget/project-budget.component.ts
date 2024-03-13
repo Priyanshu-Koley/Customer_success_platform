@@ -5,6 +5,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { MatDialog } from '@angular/material/dialog';
 import { ProjectType } from '../../../models/project-type.model';
+import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
+import { UpdateProjectBudgetComponent } from '../../update-modals/update-project-budget/update-project-budget.component';
 
 @Component({
   selector: 'app-project-budget',
@@ -22,7 +24,8 @@ export class ProjectBudgetComponent {
     private projectService: ProjectsService,
     private formBuilder: FormBuilder,
     private toast: NgToastService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private convertToPdf: ConvertToPdfService
   ) {}
 
   ngOnInit() {
@@ -111,8 +114,29 @@ export class ProjectBudgetComponent {
     }
   }
 
-  getBudgetType(intType: number)
-  {
-    return (ProjectType as any)[intType]
+  openUpdateBudgetModal(index: number) {
+    const budgetToUpdate = { ...this.budgets[index], projectId: this.projectId };
+    const dialogRef = this.dialog.open(UpdateProjectBudgetComponent, {
+      width: '70%',
+      data: budgetToUpdate,
+      hasBackdrop: true,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log('Form Data:', result);
+
+      // this.sendEmail(result);
+      this.getBudget();
+    });
+  }
+
+  convertToPDF() {
+    this.convertToPdf.convertToPDF('budget-table', 'budget-table');
+  }
+
+  getBudgetType(intType: number) {
+    return (ProjectType as any)[intType];
   }
 }

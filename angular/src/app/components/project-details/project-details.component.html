@@ -42,7 +42,7 @@
         class="btn btn-green"
         (click)="convertToPDF()"
       >
-        Download audit history
+        Download Audit History
       </button>
     </h2>
     <form [formGroup]="auditForm" (ngSubmit)="addAudit()">
@@ -145,5 +145,11 @@
   } @else if (activeTab === 13) {
   <!-- Approved Team -->
   <app-client-feedback />
+  } @else if (activeTab === 14) {
+  <!-- Approved Team -->
+  <app-project-updates />
+  } @else if (activeTab === 15) {
+  <!-- Approved Team -->
+  <app-meeting-minute />
   }
 </div>

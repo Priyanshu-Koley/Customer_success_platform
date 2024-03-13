@@ -1,47 +1,80 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
-*{
-  font-family: 'Montserrat', sans-serif;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    box-sizing: border-box;
+* {
+  font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 
-    transition: all .4s;
+  transition: all 0.4s;
 }
-body{
+body {
   background-color: #f7f6f6;
   margin: 0;
 }
-.btn{
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
+.btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
 }
-.btn:hover{
-    background-color: #0056b3;
+.btn:hover {
+  background-color: #0056b3;
 }
 
-.btn:disabled{
-  cursor:not-allowed;
+.btn:disabled {
+  cursor: not-allowed;
   background-color: #bababa !important;
-
 }
-.btn:disabled:hover{
+.btn:disabled:hover {
   background-color: #9a9999 !important;
 }
 
-.btn-green{
+.btn-green {
   background-color: rgb(99, 192, 99) !important;
 }
-.btn-green:hover{
+.btn-green:hover {
   background-color: rgb(68, 155, 68) !important;
 }
 // html, body { height: 100%; }
 
+// CSS for update modal
 
+.modal {
+  background-color: rgb(254, 254, 254);
+  padding: 20px;
 
+  h3 {
+    color: black;
+    font-weight: bolder;
+  }
+  .row {
+    margin: 20px;
+
+    input,select {
+      margin-right: 20px;
+      padding: 10px;
+      width: 30%;
+      padding: 10px;
+    }
+  }
+  .update-btn {
+    background-color: #0073ea;
+    margin: 0 20px;
+    font-weight: bold;
+  }
+  .update-btn:hover {
+    background-color: #0564c9;
+  }
+  .cancel-btn {
+    background-color: crimson;
+    font-weight: bold;
+  }
+  .cancel-btn:hover {
+    background-color: rgb(200, 16, 53);
+  }
+}

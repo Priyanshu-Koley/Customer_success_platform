@@ -118,7 +118,7 @@ export class ApprovedTeamComponent {
   }
 
   convertToPDF() {
-    // this.convertToPdf.convertToPDF('team-table');
+    this.convertToPdf.convertToPDF('team-table', 'team-table');
   }
 
   addPhase()
