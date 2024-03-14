@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { ProjectsService } from '../../../services/projects.service';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
+import { UpdateProjectScopeStackComponent } from '../../update-modals/update-project-scope-stack/update-project-scope-stack.component';
 
 @Component({
   selector: 'app-project-scope-stack',
@@ -106,6 +107,24 @@ export class ProjectScopeStackComponent {
         }
       );
     }
+  }
+
+  openUpdateStackModal(index: number) {
+    const stackToUpdate = { ...this.stacks[index], projectId: this.projectId };
+    const dialogRef = this.dialog.open(UpdateProjectScopeStackComponent, {
+      width: '70%',
+      data: stackToUpdate,
+      hasBackdrop: true,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log('Form Data:', result);
+
+      // this.sendEmail(result);
+      if (result) this.getStack();
+    });
   }
 
   convertToPDF() {

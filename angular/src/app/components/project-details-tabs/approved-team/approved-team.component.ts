@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgToastService } from 'ng-angular-popup';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
+import { UpdateApprovedTeamComponent } from '../../update-modals/update-approved-team/update-approved-team.component';
 
 @Component({
   selector: 'app-approved-team',
@@ -16,7 +17,7 @@ export class ApprovedTeamComponent {
   teamForm: any;
   teams: any = [];
   phaseNo: number = 0;
-  phases:number[] = [];
+  phases: number[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -38,8 +39,6 @@ export class ApprovedTeamComponent {
     });
 
     this.getTeams();
-    
-    
   }
 
   getTeams() {
@@ -117,28 +116,42 @@ export class ApprovedTeamComponent {
     }
   }
 
+  openUpdateTeamModal(index: number) {
+    const teamToUpdate = { ...this.teams[index], projectId: this.projectId };
+    const dialogRef = this.dialog.open(UpdateApprovedTeamComponent, {
+      width: '70%',
+      data: teamToUpdate,
+      hasBackdrop: true,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log('Form Data:', result);
+
+      // this.sendEmail(result);
+      if (result) this.getTeams();
+    });
+  }
+
   convertToPDF() {
     this.convertToPdf.convertToPDF('team-table', 'team-table');
   }
 
-  addPhase()
-  {
+  addPhase() {
     this.phaseNo++;
   }
 
-  getCurrentPhase()
-  {
+  getCurrentPhase() {
     if (this.teams.length === 0) return 0; // Return undefined if array is empty
 
     return this.teams.reduce((max: number, team: { [x: string]: any }) => {
       return team['phaseNumber'] > max ? team['phaseNumber'] : max;
     }, this.teams[0]['phaseNumber']);
   }
-  getPhases()
-  {
+  getPhases() {
     this.phases = [];
-    for (let i = 1; i <= this.phaseNo; i++)
-    {
+    for (let i = 1; i <= this.phaseNo; i++) {
       this.phases.push(i);
     }
   }

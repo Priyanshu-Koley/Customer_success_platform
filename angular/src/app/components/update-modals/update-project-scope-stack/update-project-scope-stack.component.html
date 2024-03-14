@@ -1,0 +1,18 @@
+<div class="modal">
+  <h3 mat-dialog-title id="modal-heading" >Update project scope and stack</h3>
+  <form [formGroup]="updateStackForm" (ngSubmit)="updateStack()">
+    <div class="row row-1">
+            <select formControlName="stack">
+                <option value="" selected disabled>Select Stack</option>
+                <option value="Backend">Backend</option>
+                <option value="Frontend">Frontend</option>
+                <option value="Mobile App">Mobile App</option>
+                <option value="Database">Database</option>
+                <option value="Infrastructure and Services">Infrastructure and Services</option>
+            </select>
+            <input type="text" formControlName="scope" placeholder="Project Scope">
+        </div>
+    <button mat-button type="submit" class="update-btn">Update scope and stack</button>
+    <button mat-button type="button" (click)="onClose()" class="cancel-btn">Cancel</button>
+  </form>
+</div>

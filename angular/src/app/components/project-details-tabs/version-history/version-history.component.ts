@@ -134,7 +134,7 @@ export class VersionHistoryComponent {
       console.log('Form Data:', result);
 
       // this.sendEmail(result);
-      this.getVersionHistory();
+      if (result) this.getVersionHistory();
     });
   }
 

@@ -73,6 +73,7 @@ export class EditProjectComponent {
     if (this.projectForm.valid) {
 
       const updatedProject = {
+        creationTime: this.project.creationTime,
         name: this.project.name,
         description: this.project.description,
         projectManagerName: this.project.projectManagerName,

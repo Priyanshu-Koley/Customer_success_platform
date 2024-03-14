@@ -1,0 +1,12 @@
+<div class="modal">
+  <h3 mat-dialog-title id="modal-heading" >Update stakeholder</h3>
+  <form [formGroup]="updateStakeholderForm" (ngSubmit)="updateStakeholder()">
+    <div class="row row-1">
+            <input type="text" formControlName="title" placeholder="Title">
+            <input type="text" formControlName="name" placeholder="Stakeholder's Name">
+            <input type="email" formControlName="contact" placeholder="Stakeholder's Contact Email">
+    </div>
+    <button mat-button type="submit" class="update-btn">Update stakeholder</button>
+    <button mat-button type="button" (click)="onClose()" class="cancel-btn">Cancel</button>
+  </form>
+</div>

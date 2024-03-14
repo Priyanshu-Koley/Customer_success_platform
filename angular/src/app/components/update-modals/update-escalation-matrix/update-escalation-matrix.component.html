@@ -1,0 +1,16 @@
+<div class="modal">
+  <h3 mat-dialog-title id="modal-heading" >Update escalation matrix</h3>
+  <form [formGroup]="updateEscalationForm" (ngSubmit)="updateEscalation()">
+    <div class="row row-1">
+
+      <input
+        type="text"
+        formControlName="responsible"
+        placeholder="Responsible name"
+      />
+
+    </div>
+    <button mat-button type="submit" class="update-btn">Update responsible name</button>
+    <button mat-button type="button" (click)="onClose()" class="cancel-btn">Cancel</button>
+  </form>
+</div>

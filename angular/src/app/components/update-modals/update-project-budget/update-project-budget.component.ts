@@ -53,6 +53,7 @@ export class UpdateProjectBudgetComponent {
             summary: 'Budget updated successfully',
             duration: 4000,
           });
+          this.dialogRef.close(updatedBudget);
         },
         (err) => {
           console.log(err);
@@ -63,7 +64,12 @@ export class UpdateProjectBudgetComponent {
           });
         }
       );
-      this.dialogRef.close(updatedBudget);
+    } else {
+      this.toast.error({
+        detail: 'Invalid input',
+        summary: 'Please fill all the fields with valid data',
+        duration: 4000,
+      });
     }
   }
 

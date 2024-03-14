@@ -55,12 +55,12 @@
     <tbody>
       @for(resource of resources; track $index) {
       <tr class="resource-{{ $index }} resource-row">
-        <td>{{ resource.name }}</td>
-        <td>{{ resource.role }}</td>
-        <td>{{ resource.start | date }}</td>
-        <td>{{ resource.end | date }}</td>
-        <td>{{ resource.allocationPercentage }}</td>
-        <td>{{ resource.comments }}</td>
+        <td (click)="openUpdateResourceModal($index)">{{ resource.name }}</td>
+        <td (click)="openUpdateResourceModal($index)">{{ resource.role }}</td>
+        <td (click)="openUpdateResourceModal($index)">{{ resource.start | date }}</td>
+        <td (click)="openUpdateResourceModal($index)">{{ resource.end | date }}</td>
+        <td (click)="openUpdateResourceModal($index)">{{ resource.allocationPercentage }}</td>
+        <td (click)="openUpdateResourceModal($index)">{{ resource.comments }}</td>
         <td>
           <button (click)="deleteResource(resource.id)" class="delete-resource">
             <i class="fa fa-trash-o"></i>

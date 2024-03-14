@@ -1,0 +1,17 @@
+<div class="modal">
+  <h3 mat-dialog-title id="modal-heading">Update Project Updates</h3>
+  <form [formGroup]="updateProjectUpdateForm" (ngSubmit)="updateProjectUpdate()">
+    <div class="row row-1">
+      <input
+        type="text"
+        formControlName="generalUpdates"
+        placeholder="General Updates"
+      />
+    </div>
+
+    <button mat-button type="submit" class="update-btn">Update Project Updates</button>
+    <button mat-button type="button" (click)="onClose()" class="cancel-btn">
+      Cancel
+    </button>
+  </form>
+</div>

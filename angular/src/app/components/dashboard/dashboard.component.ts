@@ -3,6 +3,8 @@ import { Project } from '../../models/project.model';
 import { ProjectsService } from '../../services/projects.service';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
+import { UpdateProjectComponent } from '../update-modals/update-project/update-project.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,6 +31,7 @@ export class DashboardComponent {
   constructor(
     private projectService: ProjectsService,
     private router: Router,
+    private dialog: MatDialog,
     private toast: NgToastService
   ) {}
 
@@ -74,6 +77,25 @@ export class DashboardComponent {
     }
   }
 
+  openUpdateProjectModal(index: number) {
+    const projectToUpdate = { ...this.projects[index] };
+    const dialogRef = this.dialog.open(UpdateProjectComponent, {
+      width: '70%',
+      data: projectToUpdate,
+      hasBackdrop: true,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log('Form Data:', result);
+
+      // this.sendEmail(result);
+      if(result)
+        this.getAllProjects();
+    });
+  }
+
   statusCounter(tempProjects: any): void {
     this.totalProjects = 0;
     this.statusOfProjects = {
@@ -106,8 +128,7 @@ export class DashboardComponent {
     };
 
     const lazyInterval1 = setInterval(() => {
-      if (this.lazyTotalProjects < this.totalProjects)
-       this.lazyTotalProjects++;
+      if (this.lazyTotalProjects < this.totalProjects) this.lazyTotalProjects++;
       else clearInterval(lazyInterval1);
     }, 250);
 

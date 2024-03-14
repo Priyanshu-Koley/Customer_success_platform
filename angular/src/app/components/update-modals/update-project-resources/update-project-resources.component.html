@@ -1,0 +1,38 @@
+<div class="modal">
+  <h3 mat-dialog-title id="modal-heading">Update Resource</h3>
+  <form [formGroup]="updateResourceForm" (ngSubmit)="updateResource()">
+    <div class="row row-1">
+      <input type="text" formControlName="name" placeholder="Resource Name" />
+
+      <input type="text" formControlName="role" placeholder="Resource Role" />
+
+      <input
+        type="text"
+        placeholder="Start Date"
+        formControlName="start"
+        onfocus="(this.type='date')"
+        onblur="(this.type='text')"
+      />
+
+    </div>
+    
+    <div class="row row-2">
+        <input
+          type="text"
+          placeholder="End Date"
+          formControlName="end"
+          onfocus="(this.type='date')"
+          onblur="(this.type='text')"
+          />
+
+          <input type="number" formControlName="allocationPercentage" placeholder="Allocation Percentage" />
+          
+          <input type="text" formControlName="comments" placeholder="Comments" />
+    </div>
+        
+    <button mat-button type="submit" class="update-btn">Update Resource</button>
+    <button mat-button type="button" (click)="onClose()" class="cancel-btn">
+      Cancel
+    </button>
+  </form>
+</div>

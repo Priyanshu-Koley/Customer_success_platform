@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { ProjectsService } from '../../../services/projects.service';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
+import { UpdateEscalationMatrixComponent } from '../../update-modals/update-escalation-matrix/update-escalation-matrix.component';
+import { UpdateStakeholdersComponent } from '../../update-modals/update-stakeholders/update-stakeholders.component';
 
 @Component({
   selector: 'app-stakeholders',
@@ -114,6 +116,24 @@ export class StakeholdersComponent {
         }
       );
     }
+  }
+
+  openUpdateStakeholderModal(index: number) {
+    const stakeholderToUpdate = { ...this.stakeholders[index], projectId: this.projectId };
+    const dialogRef = this.dialog.open(UpdateStakeholdersComponent, {
+      width: '70%',
+      data: stakeholderToUpdate,
+      hasBackdrop: true,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log('Form Data:', result);
+
+      // this.sendEmail(result);
+      if (result) this.getStakeholders();
+    });
   }
 
   convertToPDF() {

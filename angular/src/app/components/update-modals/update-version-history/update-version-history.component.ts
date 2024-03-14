@@ -49,6 +49,7 @@ export class UpdateVersionHistoryComponent {
               summary: 'Version updated successfully',
               duration: 4000,
             });
+            this.dialogRef.close(updatedVersion);
           },
           (err) => {
             console.log(err);
@@ -59,7 +60,12 @@ export class UpdateVersionHistoryComponent {
             });
           }
         );
-      this.dialogRef.close(updatedVersion);
+    } else {
+      this.toast.error({
+        detail: 'Invalid input',
+        summary: 'Please fill all the fields with valid data',
+        duration: 4000,
+      });
     }
   }
 

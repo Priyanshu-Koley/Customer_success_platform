@@ -63,7 +63,7 @@
                             <td routerLink="/details/{{project.id}}">{{project.projectManagerName}}</td>
                             <td routerLink="/details/{{project.id}}">{{project.membersAssociated}}</td>
                             <td class="action-btns">
-                                <button class="edit" routerLink="/edit" [state]="project" >Edit</button>
+                                <button class="edit" (click)="openUpdateProjectModal($index)" >Edit</button>
                                 <button class="delete" (click)="deleteProject(project.id,project.name)" >Delete</button>
                             </td>
                         </tr>

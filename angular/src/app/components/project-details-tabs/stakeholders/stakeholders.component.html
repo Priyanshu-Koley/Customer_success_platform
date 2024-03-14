@@ -28,9 +28,9 @@
                 @for(stakeholder of stakeholders; track $index)
                 {
                     <tr class="stakeholder-{{$index}} stakeholder-row" >
-                        <td>{{stakeholder.title}}</td>
-                        <td>{{stakeholder.name}}</td>
-                        <td>{{stakeholder.contact}}</td>
+                        <td (click)="openUpdateStakeholderModal($index)">{{stakeholder.title}}</td>
+                        <td (click)="openUpdateStakeholderModal($index)">{{stakeholder.name}}</td>
+                        <td (click)="openUpdateStakeholderModal($index)">{{stakeholder.contact}}</td>
                         <td>
                             <button (click)="deleteStakeholder(stakeholder.id)" class="delete-stakeholder">
                                 <i class="fa fa-trash-o"></i>

@@ -1,0 +1,30 @@
+<div class="modal">
+  <h3 mat-dialog-title id="modal-heading">Update team</h3>
+  <form [formGroup]="updateTeamForm" (ngSubmit)="updateTeam()">
+
+    <div class="row row-1">
+      <input
+        type="number"
+        formControlName="numberOfResources"
+        placeholder="Number Of Resources"
+      />
+
+      <input type="text" formControlName="role" placeholder="Role" />
+    </div>
+
+    <div class="row row-2">
+      <input
+        type="number"
+        formControlName="availability"
+        placeholder="Availability"
+      />
+
+      <input type="text" formControlName="duration" placeholder="Duration" />
+    </div>
+
+    <button mat-button type="submit" class="update-btn">Update Team</button>
+    <button mat-button type="button" (click)="onClose()" class="cancel-btn">
+      Cancel
+    </button>
+  </form>
+</div>

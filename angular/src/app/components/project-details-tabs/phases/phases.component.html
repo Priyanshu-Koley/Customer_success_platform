@@ -72,13 +72,13 @@
     <tbody>
       @for(phase of phases; track $index) {
       <tr class="phase-{{ $index }} phase-row">
-        <td>{{ phase.title }}</td>
-        <td>{{ phase.startDate | date }}</td>
-        <td>{{ phase.endDate | date }}</td>
-        <td>{{ phase.approvalDate | date }}</td>
-        <td>{{ getPhaseStatus(phase.status) }}</td>
-        <td>{{ phase.revisedCompletionDate | date }}</td>
-        <td>{{ phase.comments }}</td>
+        <td (click)="openUpdatePhaseModal($index)">{{ phase.title }}</td>
+        <td (click)="openUpdatePhaseModal($index)">{{ phase.startDate | date }}</td>
+        <td (click)="openUpdatePhaseModal($index)">{{ phase.endDate | date }}</td>
+        <td (click)="openUpdatePhaseModal($index)">{{ phase.approvalDate | date }}</td>
+        <td (click)="openUpdatePhaseModal($index)">{{ getPhaseStatus(phase.status) }}</td>
+        <td (click)="openUpdatePhaseModal($index)">{{ phase.revisedCompletionDate | date }}</td>
+        <td (click)="openUpdatePhaseModal($index)">{{ phase.comments }}</td>
         <td>
           <button (click)="deletePhase(phase.id)" class="delete-phase">
             <i class="fa fa-trash-o"></i>

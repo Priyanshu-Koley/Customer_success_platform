@@ -42,8 +42,8 @@
           @for(escalation of escalations; track $index) {
             @if(escalation.escalationType == type.key) {
               <tr class="escalation-{{ $index }} escalation-row">
-                <td>Level-{{ escalation.level + 1}}</td>
-                <td>{{ escalation.responsible }}</td>
+                <td (click)="openUpdateEscalationModal($index)">Level-{{ escalation.level + 1}}</td>
+                <td (click)="openUpdateEscalationModal($index)">{{ escalation.responsible }}</td>
                 <td>
                   <button
                     (click)="deleteEscalation(escalation.id)"

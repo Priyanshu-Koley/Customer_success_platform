@@ -34,6 +34,15 @@ import { ProjectUpdatesComponent } from './components/project-details-tabs/proje
 import { MeetingMinuteComponent } from './components/project-details-tabs/meeting-minute/meeting-minute.component';
 import { UpdateVersionHistoryComponent } from './components/update-modals/update-version-history/update-version-history.component';
 import { UpdateProjectBudgetComponent } from './components/update-modals/update-project-budget/update-project-budget.component';
+import { UpdateProjectScopeStackComponent } from './components/update-modals/update-project-scope-stack/update-project-scope-stack.component';
+import { UpdateEscalationMatrixComponent } from './components/update-modals/update-escalation-matrix/update-escalation-matrix.component';
+import { UpdateStakeholdersComponent } from './components/update-modals/update-stakeholders/update-stakeholders.component';
+import { UpdateRiskProfileComponent } from './components/update-modals/update-risk-profile/update-risk-profile.component';
+import { UpdatePhasesComponent } from './components/update-modals/update-phases/update-phases.component';
+import { UpdateApprovedTeamComponent } from './components/update-modals/update-approved-team/update-approved-team.component';
+import { UpdateProjectResourcesComponent } from './components/update-modals/update-project-resources/update-project-resources.component';
+import { UpdateProjectUpdatesComponent } from './components/update-modals/update-project-updates/update-project-updates.component';
+import { UpdateProjectComponent } from './components/update-modals/update-project/update-project.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +69,15 @@ import { UpdateProjectBudgetComponent } from './components/update-modals/update-
     ProjectUpdatesComponent,
     MeetingMinuteComponent,
     UpdateProjectBudgetComponent,
+    UpdateProjectScopeStackComponent,
+    UpdateEscalationMatrixComponent,
+    UpdateStakeholdersComponent,
+    UpdateRiskProfileComponent,
+    UpdatePhasesComponent,
+    UpdateApprovedTeamComponent,
+    UpdateProjectResourcesComponent,
+    UpdateProjectUpdatesComponent,
+    UpdateProjectComponent,
   ],
   imports: [
     BrowserModule,

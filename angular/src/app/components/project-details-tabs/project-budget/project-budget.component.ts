@@ -128,7 +128,7 @@ export class ProjectBudgetComponent {
       console.log('Form Data:', result);
 
       // this.sendEmail(result);
-      this.getBudget();
+      if (result) this.getBudget();
     });
   }
 

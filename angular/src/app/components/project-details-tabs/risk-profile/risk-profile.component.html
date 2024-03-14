@@ -50,7 +50,7 @@
         
     </form>
 
-    <table class="risk-list" id="risk-profile">
+    <table class="risk-list" id="risk-profile-table">
             <thead>
                 <th>Risk Type</th>
                 <th>Description</th>
@@ -64,13 +64,13 @@
                 @for(risk of risks; track $index)
                 {
                     <tr class="risk-{{$index}} risk-row" >
-                        <td>{{getRiskType(risk.riskType)}}</td>
-                        <td>{{risk.description}}</td>
-                        <td>{{getRiskSeverity(risk.severity)}}</td>
-                        <td>{{getRiskImpact(risk.impact)}}</td>
-                        <td>{{risk.remedialSteps}}</td>
-                        <td>{{risk.status}}</td>
-                        <td>{{risk.closureDate | date}}</td>
+                        <td (click)="openUpdateRiskModal($index)">{{getRiskType(risk.riskType)}}</td>
+                        <td (click)="openUpdateRiskModal($index)">{{risk.description}}</td>
+                        <td (click)="openUpdateRiskModal($index)">{{getRiskSeverity(risk.severity)}}</td>
+                        <td (click)="openUpdateRiskModal($index)">{{getRiskImpact(risk.impact)}}</td>
+                        <td (click)="openUpdateRiskModal($index)">{{risk.remedialSteps}}</td>
+                        <td (click)="openUpdateRiskModal($index)">{{risk.status}}</td>
+                        <td (click)="openUpdateRiskModal($index)">{{risk.closureDate | date}}</td>
                         <td>
                             <button (click)="deleteRisk(risk.id)" class="delete-risk">
                                 <i class="fa fa-trash-o"></i>

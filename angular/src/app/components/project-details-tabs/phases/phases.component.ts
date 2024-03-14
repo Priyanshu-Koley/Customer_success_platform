@@ -6,6 +6,7 @@ import { NgToastService } from 'ng-angular-popup';
 import { ProjectsService } from '../../../services/projects.service';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 import { MilestoneOrPhaseStatus } from '../../../models/milestone-phase-status.model';
+import { UpdatePhasesComponent } from '../../update-modals/update-phases/update-phases.component';
 
 @Component({
   selector: 'app-phases',
@@ -115,12 +116,29 @@ export class PhasesComponent {
     }
   }
 
+  openUpdatePhaseModal(index: number) {
+    const phaseToUpdate = { ...this.phases[index], projectId: this.projectId };
+    const dialogRef = this.dialog.open(UpdatePhasesComponent, {
+      width: '70%',
+      data: phaseToUpdate,
+      hasBackdrop: true,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log('Form Data:', result);
+
+      // this.sendEmail(result);
+      if (result) this.getPhases();
+    });
+  }
+
   convertToPDF() {
     this.convertToPdf.convertToPDF('phase-table', 'phase-table');
   }
 
-  getPhaseStatus(intStatus: number)
-  {
+  getPhaseStatus(intStatus: number) {
     return (this.phaseStatus as any)[intStatus];
   }
 }

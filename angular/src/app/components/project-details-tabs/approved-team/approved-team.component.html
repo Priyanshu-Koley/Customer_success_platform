@@ -49,11 +49,11 @@
             @if(team.phaseNumber == phase)
             {
                 <tr class="team-{{ $index }} team-row">
-                <td>{{ team.numberOfResources }}</td>
-                <td>{{ team.role }}</td>
-                <td>{{ team.availability }} %</td>
-                <td>{{ team.duration }}</td>
-                <td>
+                <td (click)="openUpdateTeamModal($index)">{{ team.numberOfResources }}</td>
+                <td (click)="openUpdateTeamModal($index)">{{ team.role }}</td>
+                <td (click)="openUpdateTeamModal($index)">{{ team.availability }} %</td>
+                <td (click)="openUpdateTeamModal($index)">{{ team.duration }}</td>
+                <td (click)="openUpdateTeamModal($index)">
                     <button (click)="deleteTeam(team.id)" class="delete-team">
                     <i class="fa fa-trash-o"></i>
                     </button>

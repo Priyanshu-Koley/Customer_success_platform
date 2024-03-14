@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 import { ProjectsService } from '../../../services/projects.service';
+import { UpdateProjectUpdatesComponent } from '../../update-modals/update-project-updates/update-project-updates.component';
 
 @Component({
   selector: 'app-project-updates',
@@ -53,7 +54,6 @@ export class ProjectUpdatesComponent {
         date: new Date().toJSON().slice(0, 10),
         projectId: this.projectId,
       };
-      
 
       this.projectService.createUpdate(newUpdate).subscribe(
         (res) => {
@@ -109,8 +109,25 @@ export class ProjectUpdatesComponent {
     }
   }
 
+  openUpdateProjectUpdateModal(index: number) {
+    const projectUpdateToUpdate = { ...this.updates[index], projectId: this.projectId };
+    const dialogRef = this.dialog.open(UpdateProjectUpdatesComponent, {
+      width: '70%',
+      data: projectUpdateToUpdate,
+      hasBackdrop: true,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log('Form Data:', result);
+
+      // this.sendEmail(result);
+      if (result) this.getUpdates();
+    });
+  }
+
   convertToPDF() {
     this.convertToPdf.convertToPDF('update-table', 'update-table');
   }
-
 }

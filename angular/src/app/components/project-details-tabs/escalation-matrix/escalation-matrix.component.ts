@@ -6,6 +6,7 @@ import { NgToastService } from 'ng-angular-popup';
 import { ProjectsService } from '../../../services/projects.service';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 import { EscalationType } from '../../../models/escalation-type.model';
+import { UpdateEscalationMatrixComponent } from '../../update-modals/update-escalation-matrix/update-escalation-matrix.component';
 
 @Component({
   selector: 'app-escalation-matrix',
@@ -26,7 +27,7 @@ export class EscalationMatrixComponent {
     private toast: NgToastService,
     private dialog: MatDialog,
     private convertToPdf: ConvertToPdfService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
@@ -37,13 +38,12 @@ export class EscalationMatrixComponent {
     });
 
     this.getEscalations();
-      
   }
 
   getEscalations() {
     this.projectService.getEscalations(this.projectId).subscribe(
       (res) => {
-        this.escalations = res.items;        
+        this.escalations = res.items;
         this.currentLevels = this.findMaxLevels();
       },
       (err) => {
@@ -56,10 +56,9 @@ export class EscalationMatrixComponent {
     if (this.escalationForm.valid) {
       const newEscalation = {
         ...this.escalationForm.value,
-        level: this.currentLevels[this.escalationForm.value.escalationType]+1,
+        level: this.currentLevels[this.escalationForm.value.escalationType] + 1,
         projectId: this.projectId,
       };
-      
 
       this.projectService.createEscalation(newEscalation).subscribe(
         (res) => {
@@ -115,6 +114,24 @@ export class EscalationMatrixComponent {
     }
   }
 
+  openUpdateEscalationModal(index: number) {
+    const escalationToUpdate = { ...this.escalations[index], projectId: this.projectId };
+    const dialogRef = this.dialog.open(UpdateEscalationMatrixComponent, {
+      width: '70%',
+      data: escalationToUpdate,
+      hasBackdrop: true,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log('Form Data:', result);
+
+      // this.sendEmail(result);
+      if (result) this.getEscalations();
+    });
+  }
+
   convertToPDF(type: string) {
     this.convertToPdf.convertToPDF(
       `${type.toLowerCase()}-escalation-matrix-table`,
@@ -123,10 +140,10 @@ export class EscalationMatrixComponent {
   }
 
   findMaxLevels(): { [key: string]: number } {
-  const maxLevels: { [key: string]: number } = {};
-  
-  let types = this.escalations;
-  let totalNumberOfTypes = Object.keys(EscalationType).length;
+    const maxLevels: { [key: string]: number } = {};
+
+    let types = this.escalations;
+    let totalNumberOfTypes = Object.keys(EscalationType).length;
 
     // Initialize maxLevels with default values
     for (let i = 0; i < totalNumberOfTypes; i++) {
@@ -136,12 +153,13 @@ export class EscalationMatrixComponent {
     // Iterate over the array of objects to find max levels for each type
     for (const item of types) {
       const typeKey = item.escalationType.toString();
-      if (!maxLevels.hasOwnProperty(typeKey) || maxLevels[typeKey] < item.level) {
+      if (
+        !maxLevels.hasOwnProperty(typeKey) ||
+        maxLevels[typeKey] < item.level
+      ) {
         maxLevels[typeKey] = item.level;
       }
     }
     return maxLevels;
-    
   }
-
 }

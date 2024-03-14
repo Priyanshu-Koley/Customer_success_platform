@@ -1,0 +1,57 @@
+<div class="modal">
+  <h3 mat-dialog-title id="modal-heading">Update risk profile</h3>
+  <form [formGroup]="updateRiskForm" (ngSubmit)="updateRisk()">
+    <div class="row row-1">
+      <select formControlName="riskType">
+        <option value="" selected disabled>Select risk type</option>
+        @for (type of riskTypes | keyvalue; track $index) {
+        <option value="{{ type.key }}">{{ type.value }}</option>
+        }
+      </select>
+
+      <input
+        type="text"
+        formControlName="description"
+        placeholder="Risk Description"
+      />
+
+      <select formControlName="severity">
+        <option value="" selected disabled>Select Severity</option>
+        @for (severity of riskSeverity | keyvalue; track $index) {
+        <option value="{{ severity.key }}">{{ severity.value }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="row row-2">
+      <select formControlName="impact">
+        <option value="" selected disabled>Select Impact</option>
+        @for (impact of riskImpact | keyvalue; track $index) {
+        <option value="{{ impact.key }}">{{ impact.value }}</option>
+        }
+      </select>
+      <input
+        type="text"
+        formControlName="remedialSteps"
+        placeholder="Remedial Steps"
+      />
+      <input type="text" formControlName="status" placeholder="Status" />
+    </div>
+
+    <div class="row row-3">
+      <input
+        type="text"
+        placeholder="Closure Date"
+        formControlName="closureDate"
+        onfocus="(this.type='date')"
+        onblur="(this.type='text')"
+      />
+    </div>
+    <button mat-button type="submit" class="update-btn">
+      Update risk profile
+    </button>
+    <button mat-button type="button" (click)="onClose()" class="cancel-btn">
+      Cancel
+    </button>
+  </form>
+</div>

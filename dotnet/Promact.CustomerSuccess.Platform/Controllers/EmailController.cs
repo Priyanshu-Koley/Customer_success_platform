@@ -24,7 +24,7 @@ namespace API.Controllers
         public string Key = "oinq humj srsb kqry";
 
         // Company name used in email templates
-        public string CompanyName = "Promact Infotech";
+        public string CompanyName = "Promact Infotech Pvt Ltd";
 
         // Endpoint for sending audit updation email
         [HttpPost("AuditChange")]
@@ -44,13 +44,13 @@ namespace API.Controllers
                     <body style="font-family: Arial, sans-serif; font-size: 15px; line-height: 1.6; background-color: #f4f4f4; margin: 0; padding: 20px 0px;">
                         <div style="max-width: 600px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
                             <p>Hello {emailData.Name},</p>
-                            <h1 style="color: #333;">Audit Updated !</h1>
-                            <p style="color: #555;">On {emailData.ChangedAudit.AuditDate} Mr/Mrs. {emailData.ChangedAudit.ReviewedBy} reviewed {emailData.ChangedAudit.ReviewedSection} and had given a comment "{emailData.ChangedAudit.Comment}".</p>
-                            <p style="color: #555;">The status of the project is {emailData.ChangedAudit.Status}.</p>
-                            <p style="color: #555;">The action items are {emailData.ChangedAudit.ActionItem}.</p>
+                            <h1 style="color: #333;">Please note that audit has been completed and here is the audit summary:</h1>
+                            <p style="color: #555;">On {emailData.ChangedAudit.AuditDate} Mr/Mrs. {emailData.ChangedAudit.ReviewedBy} reviewed "{emailData.ChangedAudit.ReviewedSection}" and had commented "{emailData.ChangedAudit.Comment}".</p>
+                            <p style="color: #555;">The status of the project is: {emailData.ChangedAudit.Status}.</p>
+                            <p style="color: #555;">The action items are: {emailData.ChangedAudit.ActionItem}.</p>
                             <p style="color: #555;">Please click the button bellow to view the details.</p>
                             <a href="http://localhost:4200/details/{emailData.ChangedAudit.ProjectId}" style="display: inline-block; padding: 10px 15px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 4px;">View details</a>
-                            <p style="color: #555;">Best regards,<br>{CompanyName}</p>
+                            <p style="color: #555;">Thanks and Regards,<br>{CompanyName}</p>
                         </div>
                     </body>
                 </html>

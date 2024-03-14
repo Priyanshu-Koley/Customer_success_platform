@@ -1,51 +1,58 @@
 .sidebar {
-    width:14.5vw;
-    height: 90%;
-    margin-right: 20px;
-    background-color: #ffffff;
+  width: 14.5vw;
+  height: 80vh;
+  margin-right: 20px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 25px 10px;
+  box-shadow: 0px 0px 10px rgb(184, 184, 184);
+  position: fixed;
+
+  .new-project {
+    background-color: #0073ea;
+    color: white;
+    padding: 10px 20px;
     border-radius: 4px;
-    padding: 25px 10px;
-    
-    .new-project {
-        background-color: #0073ea;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 4px;
-        width: 180px;
-        margin-bottom: 10px;
-    }
+    width: 180px;
+    margin-bottom: 10px;
+  }
 
-    a{
-        text-decoration: none;
-        color: #000000;
-    }
+  a {
+    text-decoration: none;
+    color: #000000;
+  }
 
-    .projects-link {
-        padding: 10px 20px;
-        border-radius: 4px;
-        width: 180px;
-        margin-bottom: 10px;
-    }
+  .projects-link {
+    padding: 10px 20px;
+    border-radius: 4px;
+    width: 180px;
+    margin-bottom: 10px;
+  }
 
-    .project-managers-link {
-        padding: 10px 0px 10px 20px;
-        border-radius: 4px;
-        width: 180px;
-    }
+  .project-managers-link {
+    padding: 10px 0px 10px 20px;
+    border-radius: 4px;
+    width: 180px;
+  }
 
-    .link, .link-btn {
-        cursor: pointer;
-    }
+  .link,
+  .link-btn {
+    cursor: pointer;
+  }
 
-    .link:hover {
-        background-color: #cce5ff;
-    }
+  .link:hover {
+    background-color: #cce5ff;
+  }
 
-    .link-btn:hover {
-        background-color: #0464ca;
-    }
+  .link-btn:hover {
+    background-color: #0464ca;
+  }
 
-    .active {
-        background-color: #cce5ffbc;
-    }
+  .active {
+    background-color: #cce5ffbc;
+  }
+}
+
+.sidebar:hover {
+  box-shadow: 0px 0px 10px rgb(64, 64, 64);
 }

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 import { ProjectsService } from '../../../services/projects.service';
+import { UpdateProjectResourcesComponent } from '../../update-modals/update-project-resources/update-project-resources.component';
 
 @Component({
   selector: 'app-project-resources',
@@ -110,6 +111,24 @@ export class ProjectResourcesComponent {
         }
       );
     }
+  }
+
+  openUpdateResourceModal(index: number) {
+    const resourceToUpdate = { ...this.resources[index], projectId: this.projectId };
+    const dialogRef = this.dialog.open(UpdateProjectResourcesComponent, {
+      width: '70%',
+      data: resourceToUpdate,
+      hasBackdrop: true,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log('Form Data:', result);
+
+      // this.sendEmail(result);
+      if (result) this.getResources();
+    });
   }
 
   convertToPDF() {

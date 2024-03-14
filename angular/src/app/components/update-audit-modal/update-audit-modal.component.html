@@ -1,6 +1,6 @@
 <div class="modal">
 
-  <h3 mat-dialog-title>Update audit history</h3>
+  <h3 mat-dialog-title id="modal-heading">Update audit history</h3>
   <form [formGroup]="updateAuditForm" (ngSubmit)="updateAudit()">
     <div class="row row-1">
       <input matInput formControlName="reviewedBy" placeholder="Reviewed By">

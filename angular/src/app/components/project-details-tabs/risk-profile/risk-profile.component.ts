@@ -8,6 +8,7 @@ import { RiskType } from '../../../models/risk-type.model';
 import { RiskImpact } from '../../../models/risk-impact.model';
 import { RiskSeverity } from '../../../models/risk-severity.model';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
+import { UpdateRiskProfileComponent } from '../../update-modals/update-risk-profile/update-risk-profile.component';
 
 @Component({
   selector: 'app-risk-profile',
@@ -117,6 +118,24 @@ export class RiskProfileComponent {
         }
       );
     }
+  }
+
+  openUpdateRiskModal(index: number) {
+    const riskToUpdate = { ...this.risks[index], projectId: this.projectId };
+    const dialogRef = this.dialog.open(UpdateRiskProfileComponent, {
+      width: '70%',
+      data: riskToUpdate,
+      hasBackdrop: true,
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log('Form Data:', result);
+
+      // this.sendEmail(result);
+      if (result) this.getRisks();
+    });
   }
 
   getRiskType(intType: number) {

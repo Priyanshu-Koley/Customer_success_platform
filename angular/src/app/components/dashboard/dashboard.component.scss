@@ -1,11 +1,10 @@
 .dashboard {
-  padding: 20px;
+  padding: 2px 20px 20px 20px;
   width: 80vw;
-  min-height: 805vh;
   border-radius: 4px;
+  margin-left: calc(14.5vw + 20px);
 
   .main-dashboard {
-
     .status-category {
       display: flex;
       justify-content: space-between;
@@ -17,20 +16,21 @@
         justify-content: center;
         align-items: center;
         padding: 20px;
-        border: 1px solid grey;
+        border: 0px solid grey;
         background-color: #ffffff;
         border-radius: 4px;
         width: 180px;
+        box-shadow: 0px 0px 7px rgb(146, 145, 145);
 
-        .count{
+        .count {
           font-size: 25px;
           font-weight: 600;
           margin-bottom: 20px;
         }
       }
 
-      .status-card:hover{
-        box-shadow: 0px 0px 7px rgb(146, 145, 145);
+      .status-card:hover {
+        box-shadow: 0px 0px 10px rgb(64, 64, 64);
       }
     }
 
@@ -38,14 +38,15 @@
       width: 100%;
       border-collapse: collapse;
       background-color: #ffffff;
+      box-shadow: 0px 0px 10px rgb(184, 184, 184);
 
-      .project-row{
+      .project-row {
         cursor: pointer;
       }
-      .project-row:hover{
+      .project-row:hover {
         background-color: rgb(254, 246, 237);
       }
-    
+
       th,
       td {
         max-width: 160px;
@@ -54,35 +55,35 @@
         text-align: left;
         font-size: 14px;
       }
-    
-      tr,thead{
+
+      tr,
+      thead {
         border: 1px solid rgba(88, 87, 87, 0.545);
       }
-    
 
-      .progress-status-text{
+      .progress-status-text {
         color: #ffffff;
         background-color: rgb(42, 166, 42);
         width: max-content;
         padding: 5px;
         border-radius: 4px;
       }
-      .completed-status-text{
+      .completed-status-text {
         color: #ffffff;
         background-color: rgb(210, 98, 98);
         width: max-content;
         padding: 5px;
         border-radius: 4px;
       }
-      .hold-status-text{
+      .hold-status-text {
         color: #ffffff;
         background-color: rgb(61, 61, 61);
         width: max-content;
         padding: 5px;
         border-radius: 4px;
       }
-    
-      button{   
+
+      button {
         background: none;
         border: none;
         padding: 0;
@@ -90,23 +91,18 @@
         outline: inherit;
         margin-right: 10px;
       }
-    
     }
-
+    .project-list:hover {
+      box-shadow: 0px 0px 10px rgb(64, 64, 64);
+    }
   }
 }
 
-
-
-
-
-
-  
-  .empty-project-list{
-    p{
-      text-align: center;
-      color: rgb(166, 15, 45);
-      font-weight: bold;
-      margin-top: 50px;
-    }
+.empty-project-list {
+  p {
+    text-align: center;
+    color: rgb(166, 15, 45);
+    font-weight: bold;
+    margin-top: 50px;
   }
+}

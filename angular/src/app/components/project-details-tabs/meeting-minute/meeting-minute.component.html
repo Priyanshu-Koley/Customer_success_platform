@@ -43,7 +43,7 @@
         <tr class="mom-{{ $index }} mom-row">
             <td>{{ mom.meetingDate | date }}</td>
             <td>{{ mom.durationInMinutes }}</td>
-            <td>{{ mom.moMLink }}</td>
+            <td><a href="{{mom.moMLink}}" target="_blank">{{ mom.moMLink }}</a></td>
             <td>{{ mom.comments }}</td>
             <td>
                 <button (click)="deleteMom(mom.id)" class="delete-mom">

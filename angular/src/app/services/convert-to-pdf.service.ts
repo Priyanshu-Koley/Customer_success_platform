@@ -70,6 +70,35 @@ export class ConvertToPdfService {
       theme: 'grid',
       head: [this.tableHeadings],
       body: [...this.tableData],
+      startY: 15,
+
+      margin: { horizontal: 10 },
+      styles: { overflow: 'linebreak' },
+      bodyStyles: { valign: 'top' },
+      columnStyles: {
+        //@ts-ignore
+        email: { columnWidth: 'wrap' },
+      },
+      showHead: 'everyPage',
+      didDrawPage: function (data) {
+        // Header
+        doc.setFontSize(16);
+        doc.setTextColor('#161C22');
+        doc.text(`${fileName.replaceAll('-',' ').toUpperCase()}`, data.settings.margin.left,10);
+
+        // Footer
+        doc.setFontSize(8);
+
+        let pageSize = doc.internal.pageSize;
+        let pageHeight = pageSize.height
+          ? pageSize.height
+          : pageSize.getHeight();
+        let pageWidth = pageSize.width
+          ? pageSize.width
+          : pageSize.getWidth();
+        doc.text('Customer success platform', data.settings.margin.left, pageHeight - 10);
+        doc.text(data.pageNumber.toString(),pageWidth-12 , pageHeight - 10);
+      },
     });
     doc.save(`${fileName}.pdf`);
 

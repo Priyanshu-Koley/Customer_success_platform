@@ -23,8 +23,8 @@
       <tbody>
         @for(update of updates; track $index) {
         <tr class="update-{{ $index }} update-row">
-            <td>{{ update.date | date }}</td>
-            <td>{{ update.generalUpdates }}</td>
+            <td (click)="openUpdateProjectUpdateModal($index)">{{ update.date | date }}</td>
+            <td (click)="openUpdateProjectUpdateModal($index)">{{ update.generalUpdates }}</td>
             <td>
                 <button (click)="deleteUpdate(update.id)" class="delete-update">
                 <i class="fa fa-trash-o"></i>

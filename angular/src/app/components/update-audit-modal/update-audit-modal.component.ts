@@ -49,6 +49,7 @@ export class UpdateAuditModalComponent {
             summary: 'Audit updated successfully',
             duration: 4000,
           });
+          this.dialogRef.close(updatedAudit);
         },
         (err) => {
           console.log(err);
@@ -59,7 +60,6 @@ export class UpdateAuditModalComponent {
           });
         }
       );     
-      this.dialogRef.close(updatedAudit);
     }
   }
 

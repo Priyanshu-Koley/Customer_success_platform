@@ -1,0 +1,57 @@
+<div class="modal">
+  <h3 mat-dialog-title id="modal-heading">Update phases / milestone</h3>
+  <form [formGroup]="updatePhaseForm" (ngSubmit)="updatePhase()">
+    <div class="row row-1">
+      <input type="text" formControlName="title" placeholder="Title" />
+
+      <input
+        type="text"
+        placeholder="Start Date"
+        formControlName="startDate"
+        onfocus="(this.type='date')"
+        onblur="(this.type='text')"
+      />
+
+      <input
+        type="text"
+        placeholder="End Date"
+        formControlName="endDate"
+        onfocus="(this.type='date')"
+        onblur="(this.type='text')"
+      />
+    </div>
+
+    <div class="row row-2">
+      <input
+        type="text"
+        placeholder="Approval Date"
+        formControlName="approvalDate"
+        onfocus="(this.type='date')"
+        onblur="(this.type='text')"
+      />
+
+      <select formControlName="status">
+        <option value="" selected disabled>Select Status</option>
+        @for (status of phaseStatus | keyvalue; track $index) {
+        <option value="{{ status.key }}">{{ status.value }}</option>
+        }
+      </select>
+
+      <input
+        type="text"
+        placeholder="Revised Completion Date"
+        formControlName="revisedCompletionDate"
+        onfocus="(this.type='date')"
+        onblur="(this.type='text')"
+      />
+    </div>
+
+    <div class="row row-3">
+      <input type="text" formControlName="comments" placeholder="Comments" />
+    </div>
+    <button mat-button type="submit" class="update-btn">Update Phase</button>
+    <button mat-button type="button" (click)="onClose()" class="cancel-btn">
+      Cancel
+    </button>
+  </form>
+</div>

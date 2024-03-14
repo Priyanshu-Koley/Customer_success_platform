@@ -166,9 +166,10 @@ export class ProjectDetailsComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       console.log('Form Data:', result);
-
-      this.sendEmail(result);
-      this.getAuditHistory();
+      if (result){
+        this.sendEmail(result);
+        this.getAuditHistory();
+      } 
     });
   }
 

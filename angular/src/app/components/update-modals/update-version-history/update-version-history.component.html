@@ -1,6 +1,6 @@
 <div class="modal">
 
-  <h3 mat-dialog-title>Update version history</h3>
+  <h3 mat-dialog-title id="modal-heading">Update version history</h3>
   <form [formGroup]="updateVersionForm" (ngSubmit)="updateVersion()">
     <div class="row row-1">
             <input matInput type="number" formControlName="version" placeholder="Version">
