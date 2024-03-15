@@ -8,21 +8,28 @@
             </div>
         </div>
     </div>
-
-    <div class="right">
-        <div class="search-bar">
-            <input type="search" name="search" id="search" class="search-input" placeholder="Search">
-            <button class="search-btn">
-                <i class="fa fa-search search-icon"></i>
-            </button>
-        </div>
     
-        <div class="user-profile">
-            <img src="../../../assets/images/profile.png" alt="Profile Picture" class="profile-img">
-            <div class="user-details">
-                <span class="user-name">Priyanshu Koley</span>
-                <span class="user-role">Admin</span>
+    @if(auth.isAuthenticated$ | async )
+    {
+        <div class="right">
+            <div class="search-bar">
+                <input type="search" name="search" id="search" class="search-input" placeholder="Search">
+                <button class="search-btn">
+                    <i class="fa fa-search search-icon"></i>
+                </button>
+            </div>
+        
+            <div class="user-profile" *ngIf="auth.user$ | async as user">
+                <img src="{{user.picture}}" alt="Profile Picture" class="profile-img">
+                <div class="user-details">
+                    <span class="user-name">{{ user.name }}</span>
+                    <button class="btn btn-logout" (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })">
+                        Log out 
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </button>
+                    <!-- <span class="user-role">{{ user.email }}</span> -->
+                </div>
             </div>
         </div>
-    </div>
+    }
  </nav>

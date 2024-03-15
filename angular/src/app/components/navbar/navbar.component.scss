@@ -11,6 +11,7 @@ nav {
     width: 100%;
     justify-content: end;
     align-items: center;
+
   }
 
   .logo {
@@ -36,7 +37,7 @@ nav {
     padding: 5px;
     border-radius: 4px;
     margin: 0px 20px;
-    width: 76%;
+    width: 70%;
     height: 50px;
     background-color: #ffffff;
 
@@ -80,6 +81,8 @@ nav {
 
     .profile-img {
       width: 50px;
+      height: 50px;
+      border-radius: 50%;
     }
 
     .user-details {
@@ -90,6 +93,13 @@ nav {
 
       .user-name {
         font-weight: 600;
+      }
+      .btn-logout{
+        background-color: rgb(223, 83, 111);
+        padding: 5px;
+        width: 80px;
+        margin: auto;
+        margin-top: 5px;
       }
     }
   }

@@ -1,7 +1,13 @@
 <app-navbar />
 <div class="main-content">
-    <app-sidebar/>
-    <router-outlet/>
+    @if(auth.isAuthenticated$ | async)
+    {
+        <app-sidebar/>
+        <router-outlet/>
+    }
+    @else{
+        <app-landing-page/>
+    }
 </div>
 
 <ng-toast/>

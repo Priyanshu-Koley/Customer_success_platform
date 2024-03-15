@@ -44,6 +44,10 @@ import { UpdateProjectResourcesComponent } from './components/update-modals/upda
 import { UpdateProjectUpdatesComponent } from './components/update-modals/update-project-updates/update-project-updates.component';
 import { UpdateProjectComponent } from './components/update-modals/update-project/update-project.component';
 
+
+import { AuthModule } from '@auth0/auth0-angular';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +82,7 @@ import { UpdateProjectComponent } from './components/update-modals/update-projec
     UpdateProjectResourcesComponent,
     UpdateProjectUpdatesComponent,
     UpdateProjectComponent,
+    LandingPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,11 +93,19 @@ import { UpdateProjectComponent } from './components/update-modals/update-projec
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
+    AuthModule.forRoot({
+      domain: 'dev-0dw7km0b5mi1uoc6.us.auth0.com',
+      clientId: 'lwSuzJYmMmrrldmodQi4F2j1alfWC4PJ',
+      authorizationParams: {
+        redirect_uri: window.location.origin,
+      },
+      cacheLocation: 'localstorage'
+    }),
   ],
   providers: [
     provideAnimationsAsync(),
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
-    DatePipe
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })
