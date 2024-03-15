@@ -47,6 +47,7 @@ import { UpdateProjectComponent } from './components/update-modals/update-projec
 
 import { AuthModule } from '@auth0/auth0-angular';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
       },
       cacheLocation: 'localstorage'
     }),
+    MatProgressSpinnerModule
   ],
   providers: [
     provideAnimationsAsync(),

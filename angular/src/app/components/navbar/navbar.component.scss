@@ -95,11 +95,16 @@ nav {
         font-weight: 600;
       }
       .btn-logout{
-        background-color: rgb(223, 83, 111);
+        background-color: #df536f;
         padding: 5px;
         width: 80px;
         margin: auto;
         margin-top: 5px;
+      }
+
+      .btn-logout:hover{
+        box-shadow: 0 0 5px black;
+        background-color: #b9425a;
       }
     }
   }

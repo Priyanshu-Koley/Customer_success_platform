@@ -32,8 +32,14 @@
   </div>
   <hr class="hr"/>
 
-  <!-- Audit history -->
-  @if(activeTab === 1) {
+  <!-- Loading spinner -->
+  @if(loading)
+  {
+    <div class="spinner-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
+  @else if(activeTab === 1) {
   <!-- Audit History -->
   <div class="auditHistory" id="auditHistory">
     <h2 class="top-heading">

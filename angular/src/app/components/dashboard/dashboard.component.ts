@@ -28,22 +28,26 @@ export class DashboardComponent {
     hold: 0,
   };
 
+  loading: boolean = false;
+
   constructor(
     private projectService: ProjectsService,
     private router: Router,
     private dialog: MatDialog,
     private toast: NgToastService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getAllProjects();
   }
 
   getAllProjects(): void {
+    this.loading = true;
     this.projectService.getProjects().subscribe((response) => {
       this.projects = response.items;
       this.statusCounter(response.items);
       this.lazyCounter();
+      this.loading = false;
     });
   }
 
@@ -91,7 +95,7 @@ export class DashboardComponent {
       console.log('Form Data:', result);
 
       // this.sendEmail(result);
-      if(result)
+      if (result)
         this.getAllProjects();
     });
   }

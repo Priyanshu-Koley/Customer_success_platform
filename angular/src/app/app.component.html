@@ -1,5 +1,6 @@
 <app-navbar />
 <div class="main-content">
+    
     @if(auth.isAuthenticated$ | async)
     {
         <app-sidebar/>

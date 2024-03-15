@@ -10,12 +10,12 @@ export class LandingPageComponent {
   constructor(public auth: AuthService)
   {}
 
-  // ngOnInit(): void {
-  //   this.auth.isAuthenticated$.subscribe((isAuthenticated) => {
-  //     if (!isAuthenticated) {
-  //      this.auth.loginWithRedirect();
-  //     }
-  //   });
-  // }
+  ngOnInit(): void {
+    this.auth.isAuthenticated$.subscribe((isAuthenticated) => {
+      if (!isAuthenticated) {
+       this.auth.loginWithRedirect();
+      }
+    });
+  }
 
 }

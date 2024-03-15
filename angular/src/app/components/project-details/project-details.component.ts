@@ -41,6 +41,7 @@ export class ProjectDetailsComponent {
   ];
 
   activeTab: number = 1;
+  loading: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,7 +52,7 @@ export class ProjectDetailsComponent {
     private http: HttpClient,
     private datePipe: DatePipe,
     private convertToPdf: ConvertToPdfService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
@@ -77,6 +78,7 @@ export class ProjectDetailsComponent {
   }
 
   getAuditHistory() {
+    this.loading = true;
     this.projectService.getAuditHistory(this.projectId).subscribe(
       (res) => {
         this.audits = res.items;
@@ -85,6 +87,7 @@ export class ProjectDetailsComponent {
         console.log(err);
       }
     );
+    this.loading = false;
   }
 
   addAudit() {
@@ -166,10 +169,10 @@ export class ProjectDetailsComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       console.log('Form Data:', result);
-      if (result){
+      if (result) {
         this.sendEmail(result);
         this.getAuditHistory();
-      } 
+      }
     });
   }
 
@@ -218,19 +221,16 @@ export class ProjectDetailsComponent {
       });
   }
 
-  convertToPDF()
-  {
+  convertToPDF() {
     this.convertToPdf.convertToPDF('audit-table', 'audit-table');
   }
 
-  scrollLeft()
-  {
+  scrollLeft() {
     const tabsContainer = document.getElementById('tabs-container');
     //@ts-ignore
     tabsContainer.style.justifyContent = 'flex-start';
   }
-  scrollRight()
-  {
+  scrollRight() {
     const tabsContainer = document.getElementById('tabs-container');
     //@ts-ignore
     tabsContainer.style.justifyContent = 'flex-end';

@@ -22,7 +22,7 @@
             <div class="user-profile" *ngIf="auth.user$ | async as user">
                 <img src="{{user.picture}}" alt="Profile Picture" class="profile-img">
                 <div class="user-details">
-                    <span class="user-name">{{ user.name }}</span>
+                    <span class="user-name">{{ user.name | titlecase}}</span>
                     <button class="btn btn-logout" (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })">
                         Log out 
                         <i class="fa fa-sign-out" aria-hidden="true"></i>

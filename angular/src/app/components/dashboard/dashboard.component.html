@@ -1,75 +1,82 @@
 <div class="dashboard">
-    <div class="main-dashboard">
-        <div class="status-category">
-
-            <div class="all-projects-card status-card">
-                <div class="count">
-                    {{lazyTotalProjects}}
-                </div>
-                <div class="title">
-                    All Projects
-                </div>
-            </div>
-
-            <div class="in-progress-card status-card">
-                <div class="count">
-                    {{lazyStatusOfProjects.progress}}
-                </div>
-                <div class="title">
-                    In Progress
-                </div>
-            </div>
-
-            <div class="completed-card status-card">
-                <div class="count">
-                    {{lazyStatusOfProjects.completed}}
-                </div>
-                <div class="title">
-                    Completed
-                </div>
-            </div>
-
-            <div class="hold-card status-card">
-                <div class="count">
-                    {{lazyStatusOfProjects.hold}}
-                </div>
-                <div class="title">
-                    Hold
-                </div>
-            </div>
-
+    @if (loading) {
+        <div class="spinner-container">
+            <mat-spinner></mat-spinner>
         </div>
-        <div class="project-list-container">
-            <table class="project-list">
-                <thead>
-                    <th>Project Start</th>
-                    <th>Project Name</th>
-                    <th>Status</th>
-                    <th>Project Manager</th>
-                    <th>Members</th>
-                    <th>Actions</th>
-                </thead>
-                <tbody>
-                    @for(project of projects; track $index)
-                    {
-                        <tr class="project-{{$index}} project-row" >
-                            <td routerLink="/details/{{project.id}}">{{project.creationTime | date}}</td>
-                            <td routerLink="/details/{{project.id}}">{{project.name}}</td>
-                            <td routerLink="/details/{{project.id}}" >
-                                <div class="{{project.status}}-status-text">
-                                    {{project.status === "progress"?"In Progress":project.status| titlecase}}
-                                </div>
-                            </td>
-                            <td routerLink="/details/{{project.id}}">{{project.projectManagerName}}</td>
-                            <td routerLink="/details/{{project.id}}">{{project.membersAssociated}}</td>
-                            <td class="action-btns">
-                                <button class="edit" (click)="openUpdateProjectModal($index)" >Edit</button>
-                                <button class="delete" (click)="deleteProject(project.id,project.name)" >Delete</button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+    }
+    @else{
+        <div class="main-dashboard">
+            <div class="status-category">
+    
+                <div class="all-projects-card status-card">
+                    <div class="count">
+                        {{lazyTotalProjects}}
+                    </div>
+                    <div class="title">
+                        All Projects
+                    </div>
+                </div>
+    
+                <div class="in-progress-card status-card">
+                    <div class="count">
+                        {{lazyStatusOfProjects.progress}}
+                    </div>
+                    <div class="title">
+                        In Progress
+                    </div>
+                </div>
+    
+                <div class="completed-card status-card">
+                    <div class="count">
+                        {{lazyStatusOfProjects.completed}}
+                    </div>
+                    <div class="title">
+                        Completed
+                    </div>
+                </div>
+    
+                <div class="hold-card status-card">
+                    <div class="count">
+                        {{lazyStatusOfProjects.hold}}
+                    </div>
+                    <div class="title">
+                        Hold
+                    </div>
+                </div>
+    
+            </div>
+            <div class="project-list-container">
+                <table class="project-list">
+                    <thead>
+                        <th>Project Start</th>
+                        <th>Project Name</th>
+                        <th>Status</th>
+                        <th>Project Manager</th>
+                        <th>Members</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        @for(project of projects; track $index)
+                        {
+                            <tr class="project-{{$index}} project-row" >
+                                <td routerLink="/details/{{project.id}}">{{project.creationTime | date}}</td>
+                                <td routerLink="/details/{{project.id}}">{{project.name}}</td>
+                                <td routerLink="/details/{{project.id}}" >
+                                    <div class="{{project.status}}-status-text">
+                                        {{project.status === "progress"?"In Progress":project.status| titlecase}}
+                                    </div>
+                                </td>
+                                <td routerLink="/details/{{project.id}}">{{project.projectManagerName}}</td>
+                                <td routerLink="/details/{{project.id}}">{{project.membersAssociated}}</td>
+                                <td class="action-btns">
+                                    <button class="edit" (click)="openUpdateProjectModal($index)" >Edit</button>
+                                    <button class="delete" (click)="deleteProject(project.id,project.name)" >Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+    }
 </div>
