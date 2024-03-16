@@ -1,0 +1,25 @@
+<div class="create-user-page">
+  <h2 class="top-heading">    Create User    </h2>
+    
+    <form [formGroup]="userForm" (ngSubmit)="addUser()" class="create-user-form">
+    
+        <div class="row row-1">
+            <input type="text" formControlName="name" placeholder="Name" />
+            <input type="email" formControlName="email" placeholder="Email Id" />      
+        </div>
+        
+        <div class="row row-2">
+            <input mat-input type="password" formControlName="password" placeholder="Password" />
+            
+            <select name="role" id="role" formControlName="role">
+                <option selected disabled value="">Select role of the user</option>
+                @for (role of roles|keyvalue; track $index) {
+                    <option value={{role.key}}>{{role.value}}</option>
+                }
+            </select>
+        </div>
+        
+        <button type="submit" class="btn">Create User</button>
+    </form>
+
+</div>

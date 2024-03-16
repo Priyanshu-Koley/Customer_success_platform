@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { UserRoleService } from './services/user-role.service';
 
 
 @Component({
@@ -8,7 +9,17 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor(public auth: AuthService) { }
+  userId: string = '';
+  constructor(public auth: AuthService,  private role: UserRoleService) { 
+    
+    this.auth.user$.subscribe((user) => {
+      //@ts-ignore
+      this.userId = user.sub;
+      role.getRole(this.userId);
+    });
 
-  title = 'angular';
+
+  }
+
+
 }

@@ -23,10 +23,12 @@
                 <img src="{{user.picture}}" alt="Profile Picture" class="profile-img">
                 <div class="user-details">
                     <span class="user-name">{{ user.name | titlecase}}</span>
+                    <small class="user-role">{{ userRoleName }}</small>
                     <button class="btn btn-logout" (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })">
                         Log out 
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
                     </button>
+                   
                     <!-- <span class="user-role">{{ user.email }}</span> -->
                 </div>
             </div>

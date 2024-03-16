@@ -1,0 +1,40 @@
+.create-user-page{
+    margin: 0 0 0 calc(14.5vw + 30px);
+    background-color: white;
+    padding: 30px;
+    width: 75vw;
+    height: 400px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(55, 54, 54, 0.464);
+
+    .top-heading{
+        margin: 0px 0 50px 0;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .create-user-form
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 250px;
+    }
+    
+    .row {
+        margin: 10px 0;
+        display: flex;
+        justify-content: space-between;
+    
+        input,select{
+            width: 45%;
+            padding: 10px;
+        }
+        button{
+            width: 30%;
+            margin-left: auto;
+        }
+    }
+
+    
+}
