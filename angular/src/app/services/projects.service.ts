@@ -8,7 +8,8 @@ import { ApiResponse } from '../models/api-response.model';
   providedIn: 'root',
 })
 export class ProjectsService {
-  private apiUrl = 'https://localhost:44347/api/app';
+  private PORT = 44347
+  private apiUrl =`https://localhost:${this.PORT}/api/app`;
 
   // private projectsApiUrl = 'https://localhost:44347/api/app/project';
   // private auditHistoryApiUrl = 'https://localhost:44347/api/app/audit-history';

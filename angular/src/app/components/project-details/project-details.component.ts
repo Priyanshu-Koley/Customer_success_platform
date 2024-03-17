@@ -23,6 +23,7 @@ export class ProjectDetailsComponent {
   project: Project = {} as Project;
   auditForm: any;
   audits: any;
+  PORT:string = "44347";
 
   tabs: string[] = [
     'Audit History',
@@ -207,7 +208,7 @@ export class ProjectDetailsComponent {
     };
 
     this.http
-      .post('https://localhost:44347/api/Email/AuditChange', emailData, {
+      .post(`https://localhost:${this.PORT}/api/Email/AuditChange`, emailData, {
         responseType: 'text',
       })
       .subscribe({
