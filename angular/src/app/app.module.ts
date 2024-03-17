@@ -49,6 +49,8 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CreateUserComponent } from './components/create-user/create-user.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { ProjectManagerListComponent } from './components/project-manager-list/project-manager-list.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,8 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
     UpdateProjectComponent,
     LandingPageComponent,
     CreateUserComponent,
+    UserListComponent,
+    ProjectManagerListComponent,
   ],
   imports: [
     BrowserModule,

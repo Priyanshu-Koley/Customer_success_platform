@@ -1,11 +1,12 @@
 <div class="team">
   <h2 class="top-heading">
     Approved Teams
-    
+    @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+    {
     <button class="btn btn-green" (click)="addPhase()" [disabled]="phaseNo!=getCurrentPhase()">
         Add Phase 
     </button>
-    
+    }
     @if(phaseNo > 0)
     {
         <button class="btn btn-green" (click)="convertToPDF()">
@@ -16,6 +17,8 @@
     @if(phaseNo > 0)
     {
       Current Phase: {{phaseNo}}
+      @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+      {
       <form [formGroup]="teamForm" (ngSubmit)="addTeam()">
         <h3>Add new team</h3>
         <div class="row row-1">
@@ -30,6 +33,7 @@
             <button type="submit" class="btn">Add Team</button>
         </div>
       </form>
+      }
   }
 
   @for(phase of phases; track $index)
@@ -42,22 +46,28 @@
         <th>Role</th>
         <th>Availability</th>
         <th>Duration</th>
+        @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+        {
         <th>Delete</th>
+        }
       </thead>
       <tbody>
         @for(team of teams; track $index) {
             @if(team.phaseNumber == phase)
             {
                 <tr class="team-{{ $index }} team-row">
-                <td (click)="openUpdateTeamModal($index)">{{ team.numberOfResources }}</td>
-                <td (click)="openUpdateTeamModal($index)">{{ team.role }}</td>
-                <td (click)="openUpdateTeamModal($index)">{{ team.availability }} %</td>
-                <td (click)="openUpdateTeamModal($index)">{{ team.duration }}</td>
-                <td (click)="openUpdateTeamModal($index)">
-                    <button (click)="deleteTeam(team.id)" class="delete-team">
-                    <i class="fa fa-trash-o"></i>
-                    </button>
-                </td>
+                  <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'" (click)="openUpdateTeamModal($index)">{{ team.numberOfResources }}</td>
+                  <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'" (click)="openUpdateTeamModal($index)">{{ team.role }}</td>
+                  <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'" (click)="openUpdateTeamModal($index)">{{ team.availability }} %</td>
+                  <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'" (click)="openUpdateTeamModal($index)">{{ team.duration }}</td>
+                  @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+                  {
+                  <td (click)="openUpdateTeamModal($index)">
+                      <button (click)="deleteTeam(team.id)" class="delete-team">
+                      <i class="fa fa-trash-o"></i>
+                      </button>
+                  </td>
+                  }
                 </tr>
             }
         }

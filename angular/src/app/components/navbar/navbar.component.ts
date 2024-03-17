@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { UserRoleService } from '../../services/user-role.service';
+import { Roles } from '../../models/roles.model';
 
 @Component({
   selector: 'app-navbar',
@@ -9,8 +10,8 @@ import { UserRoleService } from '../../services/user-role.service';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  userId: string = '';
-  userRoleName: string = '';
+  userId: string = Roles.Client;
+  userRoleName: string = "Client";
 
   constructor(
     public auth: AuthService,

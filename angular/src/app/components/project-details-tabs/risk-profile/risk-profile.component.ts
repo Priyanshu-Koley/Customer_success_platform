@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +9,7 @@ import { RiskImpact } from '../../../models/risk-impact.model';
 import { RiskSeverity } from '../../../models/risk-severity.model';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 import { UpdateRiskProfileComponent } from '../../update-modals/update-risk-profile/update-risk-profile.component';
+import { Roles } from '../../../models/roles.model';
 
 @Component({
   selector: 'app-risk-profile',
@@ -16,12 +17,14 @@ import { UpdateRiskProfileComponent } from '../../update-modals/update-risk-prof
   styleUrl: './risk-profile.component.scss',
 })
 export class RiskProfileComponent {
+  @Input({required: true}) userRoleId: string = '';
   projectId!: string;
   riskForm: any;
   risks: any;
   riskTypes = RiskType;
   riskImpact = RiskImpact;
   riskSeverity = RiskSeverity;
+  roles = Roles;
 
   constructor(
     private route: ActivatedRoute,

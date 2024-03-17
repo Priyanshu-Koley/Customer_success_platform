@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 import { Project } from '../../models/project.model';
 import { DatePipe } from '@angular/common';
 import { ConvertToPdfService } from '../../services/convert-to-pdf.service';
+import { Roles } from '../../models/roles.model';
+import { UserRoleService } from '../../services/user-role.service';
 
 @Component({
   selector: 'app-project-details',
@@ -43,6 +45,10 @@ export class ProjectDetailsComponent {
   activeTab: number = 1;
   loading: boolean = false;
 
+  userRoleId: string = '';
+  userRoleName: string = '';
+  roles = Roles;
+
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectsService,
@@ -51,11 +57,20 @@ export class ProjectDetailsComponent {
     private dialog: MatDialog,
     private http: HttpClient,
     private datePipe: DatePipe,
-    private convertToPdf: ConvertToPdfService
+    private convertToPdf: ConvertToPdfService,
+    private role: UserRoleService
   ) { }
 
   ngOnInit() {
+    this.loading = true;
     this.projectId = this.route.snapshot.params['id'];
+
+    this.role.userRoleSubject.subscribe((data) => {
+      this.userRoleId = data.id;
+      this.userRoleName = data.name;
+    })
+
+    this.userRoleId = this.role.userRoleId;
 
     this.auditForm = this.formBuilder.group({
       reviewedBy: ['', [Validators.required]],
@@ -78,16 +93,15 @@ export class ProjectDetailsComponent {
   }
 
   getAuditHistory() {
-    this.loading = true;
     this.projectService.getAuditHistory(this.projectId).subscribe(
       (res) => {
         this.audits = res.items;
+          this.loading = false;
       },
       (err) => {
         console.log(err);
       }
     );
-    this.loading = false;
   }
 
   addAudit() {

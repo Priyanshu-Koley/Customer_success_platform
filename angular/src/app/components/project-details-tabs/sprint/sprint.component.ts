@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -6,6 +6,7 @@ import { NgToastService } from 'ng-angular-popup';
 import { ProjectsService } from '../../../services/projects.service';
 import { SprintStatus } from '../../../models/sprint-status.model';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
+import { Roles } from '../../../models/roles.model';
 
 @Component({
   selector: 'app-sprint',
@@ -13,10 +14,12 @@ import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
   styleUrl: './sprint.component.scss',
 })
 export class SprintComponent {
+  @Input({required: true}) userRoleId: string = '';
   projectId!: string;
   sprintForm: any;
   sprints: any;
   sprintStatus = SprintStatus;
+  roles = Roles;
 
   constructor(
     private route: ActivatedRoute,

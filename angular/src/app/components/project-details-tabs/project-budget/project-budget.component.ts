@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectsService } from '../../../services/projects.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProjectType } from '../../../models/project-type.model';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 import { UpdateProjectBudgetComponent } from '../../update-modals/update-project-budget/update-project-budget.component';
+import { Roles } from '../../../models/roles.model';
 
 @Component({
   selector: 'app-project-budget',
@@ -14,10 +15,12 @@ import { UpdateProjectBudgetComponent } from '../../update-modals/update-project
   styleUrl: './project-budget.component.scss',
 })
 export class ProjectBudgetComponent {
+  @Input({required: true}) userRoleId: string = '';
   projectId!: string;
   budgetForm: any;
   budgets: any;
   ProjectType = ProjectType;
+  roles = Roles;
 
   constructor(
     private route: ActivatedRoute,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectsService } from '../../../services/projects.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -7,6 +7,7 @@ import { NgToastService } from 'ng-angular-popup';
 import { MatDialog } from '@angular/material/dialog';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 import { UpdateVersionHistoryComponent } from '../../update-modals/update-version-history/update-version-history.component';
+import { Roles } from '../../../models/roles.model';
 
 @Component({
   selector: 'app-version-history',
@@ -14,9 +15,11 @@ import { UpdateVersionHistoryComponent } from '../../update-modals/update-versio
   styleUrl: './version-history.component.scss',
 })
 export class VersionHistoryComponent {
+  @Input({required:true})userRoleId:string = '';
   projectId!: string;
   versionForm: any;
   versions: any;
+  roles = Roles;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,6 +31,7 @@ export class VersionHistoryComponent {
   ) {}
 
   ngOnInit() {
+    
     this.projectId = this.route.snapshot.params['id'];
 
     this.versionForm = this.formBuilder.group({

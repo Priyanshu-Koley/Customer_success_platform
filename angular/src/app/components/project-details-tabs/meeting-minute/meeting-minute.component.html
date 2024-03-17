@@ -5,6 +5,8 @@
         Download MoMs
     </button>
     </h2>
+    @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+    {
     <form [formGroup]="momForm" (ngSubmit)="addMom()">
         <h3>Add new MoM</h3>
         <div class="row row-1">
@@ -29,14 +31,17 @@
 
         </div>
     </form>
-  
+    }
     <table class="mom-list" id="mom-table">
       <thead>
         <th>Meeting Date</th>
         <th>Duration (in minutes)</th>
         <th>MoM Link</th>
         <th>Comments</th>
+        @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+        {
         <th>Delete</th>
+        }
       </thead>
       <tbody>
         @for(mom of moms; track $index) {
@@ -45,11 +50,14 @@
             <td>{{ mom.durationInMinutes }}</td>
             <td><a href="{{mom.moMLink}}" target="_blank">{{ mom.moMLink }}</a></td>
             <td>{{ mom.comments }}</td>
+            @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+            {
             <td>
                 <button (click)="deleteMom(mom.id)" class="delete-mom">
                 <i class="fa fa-trash-o"></i>
                 </button>
             </td>
+            }
         </tr>
         }
       </tbody>

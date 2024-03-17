@@ -5,6 +5,7 @@ import { map } from 'rxjs';
 import { ProjectsService } from '../../services/projects.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
+import { Roles } from '../../models/roles.model';
 
 @Component({
   selector: 'app-edit-project',
@@ -15,6 +16,8 @@ export class EditProjectComponent {
   project: Project = {} as Project;
   projectForm!: FormGroup;
   @Input() projectId: string = '';
+  @Input({required:true}) userRoleId: string = '';
+  roles = Roles;
 
   constructor(
     private route: ActivatedRoute,

@@ -1,51 +1,87 @@
 <!-- Project Overview section -->
+@if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'])
+{
+    <form class="project-overview" [formGroup]="projectForm" (ngSubmit)="saveOverview()"> 
+        <h2 class="top-heading">Project Overview</h2>
+    
+        <div class="brief input-container">
+            <label for="brief">Project Brief</label>
+            <textarea type="text" placeholder="Write project brief here" id="brief" formControlName="brief">
+            </textarea>
+        </div>
+        <div class="purpose input-container">
+            <label for="purpose">Purpose</label>
+            <textarea name="purpose" id="purpose" placeholder="Write project purpose here" formControlName="purpose">
+            </textarea>
+        </div>
+        <div class="goal input-container">
+            <label for="goal">Goals</label>
+            <textarea name="goal" id="goal" placeholder="Write project goals here" formControlName="goal">
+            </textarea>
+        </div>
+        <div class="objective input-container">
+            <label for="objective">Objectives</label>
+            <textarea name="objective" id="objective" placeholder="Write project objectives here" formControlName="objective">
+            </textarea>
+        </div>
+        <div class="budget input-container">
+            <label for="budget">Budget</label>
+            <div>
+                <input type="number" name="budget" id="budget" placeholder="Write project budget here" formControlName="totalBudget"> 
+                <span>US Dollar</span>
+            </div>
+        </div>
+        <div class="input-container">
+            <label for="status">Project Status</label>
+            <div>
+                <select name="status" id="status" formControlName="status" >
+                    <option value="" selected disabled>Select project status</option>
+                    <option value="progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                    <option value="hold">Hold</option>
+                </select>
+            </div>
+        </div>
+        @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+        {
+            <div>
+                <button class="btn save-btn" type="submit" >Save</button>
+            </div>
+        }
+    </form>
+}
+@else{
+    <div class="project-overview">
+        <h2 class="top-heading">Project Overview</h2>
+        <div class="brief display-container">
+            <h4>Project Brief</h4>
+            <p>{{projectForm.value.brief}}</p>
+        </div>
+        
+        <div class="purpose display-container">
+            <h4>Purpose</h4>
+            <p>{{projectForm.value.purpose}}</p>
+        </div>
 
-<form class="project-overview" [formGroup]="projectForm" (ngSubmit)="saveOverview()"> 
-    <h2 class="top-heading">Project Overview</h2>
+        <div class="goal display-container">
+            <h4>Goals</h4>
+            <p>{{projectForm.value.goal}}</p>
+        </div>
 
-    <div class="brief input-container">
-        <label for="brief">Project Brief</label>
-        <textarea type="text" placeholder="Write project brief here" id="brief" formControlName="brief">
-        </textarea>
-    </div>
-    <div class="purpose input-container">
-        <label for="purpose">Purpose</label>
-        <textarea name="purpose" id="purpose" placeholder="Write project purpose here" formControlName="purpose">
-        </textarea>
-    </div>
-    <div class="goal input-container">
-        <label for="goal">Goals</label>
-        <textarea name="goal" id="goal" placeholder="Write project goals here" formControlName="goal">
-        </textarea>
-    </div>
-    <div class="objective input-container">
-        <label for="objective">Objectives</label>
-        <textarea name="objective" id="objective" placeholder="Write project objectives here" formControlName="objective">
-        </textarea>
-    </div>
-    <div class="budget input-container">
-        <label for="budget">Budget</label>
-        <div>
-            <input type="number" name="budget" id="budget" placeholder="Write project budget here" formControlName="totalBudget">
-            <span>US Dollar</span>
+        <div class="objective display-container">
+            <h4>Objectives</h4>
+            <p>{{projectForm.value.objective}}</p>
+        </div>
+        <div class="budget display-container">
+            <h4>Budget</h4>
+            <p>{{projectForm.value.totalBudget}}</p>
+        </div>
+        <div class="status display-container">
+            <h4>Status</h4>
+            <p>{{projectForm.value.status | titlecase}}</p>
         </div>
     </div>
-    <div class="input-container">
-        <label for="status">Project Status</label>
-        <div>
-            <select name="status" id="status" formControlName="status">
-                <option value="" selected disabled>Select project status</option>
-                <option value="progress">In Progress</option>
-                <option value="completed">Completed</option>
-                <option value="hold">Hold</option>
-            </select>
-        </div>
-    </div>
-
-    <div>
-        <button class="btn save-btn" type="submit" >Save</button>
-    </div>
-</form>
+}
 
 
 

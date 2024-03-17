@@ -5,51 +5,33 @@
       Download Phases
     </button>
   </h2>
+  @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+  {
   <form [formGroup]="phaseForm" (ngSubmit)="addPhase()">
     <h3>Add new phase / milestone</h3>
     <div class="row row-1">
       <input type="text" formControlName="title" placeholder="Title" />
 
-      <input
-        type="text"
-        placeholder="Start Date"
-        formControlName="startDate"
-        onfocus="(this.type='date')"
-        onblur="(this.type='text')"
-      />
+      <input type="text" placeholder="Start Date" formControlName="startDate" onfocus="(this.type='date')"
+        onblur="(this.type='text')" />
 
-      <input
-        type="text"
-        placeholder="End Date"
-        formControlName="endDate"
-        onfocus="(this.type='date')"
-        onblur="(this.type='text')"
-      />
+      <input type="text" placeholder="End Date" formControlName="endDate" onfocus="(this.type='date')"
+        onblur="(this.type='text')" />
     </div>
 
     <div class="row row-2">
-      <input
-        type="text"
-        placeholder="Approval Date"
-        formControlName="approvalDate"
-        onfocus="(this.type='date')"
-        onblur="(this.type='text')"
-      />
+      <input type="text" placeholder="Approval Date" formControlName="approvalDate" onfocus="(this.type='date')"
+        onblur="(this.type='text')" />
 
       <select formControlName="status">
         <option value="" selected disabled>Select Status</option>
         @for (status of phaseStatus | keyvalue; track $index) {
-          <option value={{status.key}}>{{status.value}}</option>
+        <option value={{status.key}}>{{status.value}}</option>
         }
       </select>
 
-      <input
-        type="text"
-        placeholder="Revised Completion Date"
-        formControlName="revisedCompletionDate"
-        onfocus="(this.type='date')"
-        onblur="(this.type='text')"
-      />
+      <input type="text" placeholder="Revised Completion Date" formControlName="revisedCompletionDate"
+        onfocus="(this.type='date')" onblur="(this.type='text')" />
     </div>
 
     <div class="row row-3">
@@ -57,6 +39,7 @@
       <button type="submit" class="btn">Add phase</button>
     </div>
   </form>
+  }
 
   <table class="phase-list" id="phase-table">
     <thead>
@@ -67,23 +50,43 @@
       <th>Status</th>
       <th>Revised Completion Date</th>
       <th>Comments</th>
+      @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+      {
       <th>Delete</th>
+      }
     </thead>
     <tbody>
       @for(phase of phases; track $index) {
       <tr class="phase-{{ $index }} phase-row">
-        <td (click)="openUpdatePhaseModal($index)">{{ phase.title }}</td>
-        <td (click)="openUpdatePhaseModal($index)">{{ phase.startDate | date }}</td>
-        <td (click)="openUpdatePhaseModal($index)">{{ phase.endDate | date }}</td>
-        <td (click)="openUpdatePhaseModal($index)">{{ phase.approvalDate | date }}</td>
-        <td (click)="openUpdatePhaseModal($index)">{{ getPhaseStatus(phase.status) }}</td>
-        <td (click)="openUpdatePhaseModal($index)">{{ phase.revisedCompletionDate | date }}</td>
-        <td (click)="openUpdatePhaseModal($index)">{{ phase.comments }}</td>
+        <td
+          [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+          (click)="openUpdatePhaseModal($index)">{{ phase.title }}</td>
+        <td
+          [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+          (click)="openUpdatePhaseModal($index)">{{ phase.startDate | date }}</td>
+        <td
+          [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+          (click)="openUpdatePhaseModal($index)">{{ phase.endDate | date }}</td>
+        <td
+          [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+          (click)="openUpdatePhaseModal($index)">{{ phase.approvalDate | date }}</td>
+        <td
+          [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+          (click)="openUpdatePhaseModal($index)">{{ getPhaseStatus(phase.status) }}</td>
+        <td
+          [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+          (click)="openUpdatePhaseModal($index)">{{ phase.revisedCompletionDate | date }}</td>
+        <td
+          [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+          (click)="openUpdatePhaseModal($index)">{{ phase.comments }}</td>
+        @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+        {
         <td>
           <button (click)="deletePhase(phase.id)" class="delete-phase">
             <i class="fa fa-trash-o"></i>
           </button>
         </td>
+        }
       </tr>
       }
     </tbody>

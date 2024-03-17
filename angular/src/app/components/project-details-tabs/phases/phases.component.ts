@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +7,7 @@ import { ProjectsService } from '../../../services/projects.service';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 import { MilestoneOrPhaseStatus } from '../../../models/milestone-phase-status.model';
 import { UpdatePhasesComponent } from '../../update-modals/update-phases/update-phases.component';
+import { Roles } from '../../../models/roles.model';
 
 @Component({
   selector: 'app-phases',
@@ -14,10 +15,12 @@ import { UpdatePhasesComponent } from '../../update-modals/update-phases/update-
   styleUrl: './phases.component.scss',
 })
 export class PhasesComponent {
+  @Input({required: true}) userRoleId: string = '';
   projectId!: string;
   phaseForm: any;
   phases: any;
   phaseStatus = MilestoneOrPhaseStatus;
+  roles = Roles;
 
   constructor(
     private route: ActivatedRoute,

@@ -2,61 +2,68 @@
   <h2 class="top-heading">
     Escalation Matrix
   </h2>
+  @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+  {
   <form [formGroup]="escalationForm" (ngSubmit)="addEscalation()">
     <h3>Add new Escalation</h3>
     <div class="row row-1">
-      
+
       <select formControlName="escalationType">
         <option value="" selected disabled>Select Escalation Type</option>
         @for (type of types | keyvalue; track $index) {
-           <option value={{type.key}}>{{type.value}}</option> 
+        <option value={{type.key}}>{{type.value}}</option>
         }
       </select>
 
-      <input
-        type="text"
-        formControlName="responsible"
-        placeholder="Responsible name"
-      />
+      <input type="text" formControlName="responsible" placeholder="Responsible name" />
     </div>
 
     <div class="row row-2">
       <button type="submit" class="btn">Add escalation</button>
     </div>
   </form>
+  }
 
   <div class="escalation-tables" id="escalation-tables">
     @for (type of types | keyvalue; track $index) {
-      <h3 class="heading">{{type.value}} Escalation Matrix 
-        <button class="btn btn-green" (click)="convertToPDF(type.value)">
-          Download {{type.value}} Escalation Matrix
-        </button>
-      </h3>
-      <table class="{{type.value | lowercase}}-escalation-list escalation-list" id="{{type.value|lowercase}}-escalation-matrix-table">
-        <thead>
-          <th>Escalation Level</th>
-          <th>Responsible</th>
-          <th>Delete</th>
-        </thead>
-        <tbody>
-          @for(escalation of escalations; track $index) {
-            @if(escalation.escalationType == type.key) {
-              <tr class="escalation-{{ $index }} escalation-row">
-                <td (click)="openUpdateEscalationModal($index)">Level-{{ escalation.level + 1}}</td>
-                <td (click)="openUpdateEscalationModal($index)">{{ escalation.responsible }}</td>
-                <td>
-                  <button
-                    (click)="deleteEscalation(escalation.id)"
-                    class="delete-escalation"
-                  >
-                    <i class="fa fa-trash-o"></i>
-                  </button>
-                </td>
-              </tr>
-            } 
+    <h3 class="heading">{{type.value}} Escalation Matrix
+      <button class="btn btn-green" (click)="convertToPDF(type.value)">
+        Download {{type.value}} Escalation Matrix
+      </button>
+    </h3>
+    <table class="{{type.value | lowercase}}-escalation-list escalation-list"
+      id="{{type.value|lowercase}}-escalation-matrix-table">
+      <thead>
+        <th>Escalation Level</th>
+        <th>Responsible</th>
+        @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+        {
+        <th>Delete</th>
+        }
+      </thead>
+      <tbody>
+        @for(escalation of escalations; track $index) {
+        @if(escalation.escalationType == type.key) {
+        <tr class="escalation-{{ $index }} escalation-row">
+          <td
+            [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+            (click)="openUpdateEscalationModal($index)">Level-{{ escalation.level + 1}}</td>
+          <td
+            [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+            (click)="openUpdateEscalationModal($index)">{{ escalation.responsible }}</td>
+          @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+          {
+          <td>
+            <button (click)="deleteEscalation(escalation.id)" class="delete-escalation">
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </td>
           }
-        </tbody>
-      </table>
+        </tr>
+        }
+        }
+      </tbody>
+    </table>
     }
 
 

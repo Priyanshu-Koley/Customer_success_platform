@@ -1,7 +1,9 @@
 <div class="project-details">
   <div class="path-container">
     <small class="path">
-      <button class="path-link" routerLink="/dashboard">Projects </button> <span class="angle-bracket">&rang;</span> <button (click)="activeTab=1" class="path-link">{{ project.name }}</button> <span class="angle-bracket">&rang;</span> {{ tabs[activeTab-1] }}
+      <button class="path-link" routerLink="/dashboard">Projects </button> <span class="angle-bracket">&rang;</span>
+      <button (click)="activeTab=1" class="path-link">{{ project.name }}</button> <span
+        class="angle-bracket">&rang;</span> {{ tabs[activeTab-1] }}
     </small>
   </div>
   <div class="project-name-heading">
@@ -15,12 +17,8 @@
     <div class="tabs-container" id="tabs-container">
       <div class="tabs">
         @for(tab of tabs; track $index) {
-        <div
-          [class.active]="activeTab === $index + 1"
-          class="tab tab-{{ $index + 1 }}"
-          id="tab-{{ $index + 1 }}"
-          (click)="setActiveTab($index + 1)"
-        >
+        <div [class.active]="activeTab === $index + 1" class="tab tab-{{ $index + 1 }}" id="tab-{{ $index + 1 }}"
+          (click)="setActiveTab($index + 1)">
           <a class="tab-text">
             {{ tab }}
           </a>
@@ -30,56 +28,40 @@
     </div>
     <!-- <button (click)="scrollRight()" class="right-btn">&rang;</button> -->
   </div>
-  <hr class="hr"/>
+  <hr class="hr" />
 
   <!-- Loading spinner -->
   @if(loading)
   {
-    <div class="spinner-container">
-      <mat-spinner></mat-spinner>
-    </div>
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
   }
   @else if(activeTab === 1) {
   <!-- Audit History -->
   <div class="auditHistory" id="auditHistory">
     <h2 class="top-heading">
       Audit History
-      <button
-        class="btn btn-green"
-        (click)="convertToPDF()"
-      >
+      <button class="btn btn-green" (click)="convertToPDF()">
         Download Audit History
       </button>
     </h2>
-    <form [formGroup]="auditForm" (ngSubmit)="addAudit()">
-      <h3>Add new audit</h3>
-      <div class="row row-1">
-        <input
-          type="text"
-          formControlName="reviewedBy"
-          placeholder="Reviewed By"
-        />
-        <input type="text" formControlName="status" placeholder="Status" />
-        <input
-          type="text"
-          formControlName="reviewedSection"
-          placeholder="Reviewed Section"
-        />
-      </div>
-      <div class="row row-2">
-        <input
-          type="text"
-          formControlName="comment"
-          placeholder="Comments / Queries"
-        />
-        <input
-          type="text"
-          formControlName="actionItem"
-          placeholder="Action Item"
-        />
-        <button type="submit" class="btn">Add Audit</button>
-      </div>
-    </form>
+    @if(userRoleId === roles.Admin || userRoleId === roles.Auditor )
+    {
+      <form [formGroup]="auditForm" (ngSubmit)="addAudit()">
+        <h3>Add new audit</h3>
+        <div class="row row-1">
+          <input type="text" formControlName="reviewedBy" placeholder="Reviewed By" />
+          <input type="text" formControlName="status" placeholder="Status" />
+          <input type="text" formControlName="reviewedSection" placeholder="Reviewed Section" />
+        </div>
+        <div class="row row-2">
+          <input type="text" formControlName="comment" placeholder="Comments / Queries" />
+          <input type="text" formControlName="actionItem" placeholder="Action Item" />
+          <button type="submit" class="btn">Add Audit</button>
+        </div>
+      </form>
+    }
 
     <table class="audit-list" id="audit-table">
       <thead>
@@ -89,73 +71,85 @@
         <th>Reviewed Section</th>
         <th>Comment/Queries</th>
         <th>Action Item</th>
+        @if(userRoleId === roles.Admin || userRoleId === roles.Auditor )
+        {
         <th>Delete</th>
+        }
       </thead>
       <tbody>
         @for(audit of audits; track $index) {
         <tr class="audit-{{ $index }} audit-row">
-          <td (click)="openUpdateAuditModal($index)">
+          <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles.Auditor ? 'auto' : 'none'"
+            (click)="openUpdateAuditModal($index)">
             {{ audit.auditDate | date }}
           </td>
-          <td (click)="openUpdateAuditModal($index)">{{ audit.reviewedBy }}</td>
-          <td (click)="openUpdateAuditModal($index)">{{ audit.status }}</td>
-          <td (click)="openUpdateAuditModal($index)">
+          <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles.Auditor ? 'auto' : 'none'"
+            (click)="openUpdateAuditModal($index)">{{ audit.reviewedBy }}</td>
+          <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles.Auditor ? 'auto' : 'none'"
+            (click)="openUpdateAuditModal($index)">{{ audit.status }}</td>
+          <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles.Auditor ? 'auto' : 'none'"
+            (click)="openUpdateAuditModal($index)">
             {{ audit.reviewedSection }}
           </td>
-          <td (click)="openUpdateAuditModal($index)">{{ audit.comment }}</td>
-          <td (click)="openUpdateAuditModal($index)">{{ audit.actionItem }}</td>
+          <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles.Auditor ? 'auto' : 'none'"
+            (click)="openUpdateAuditModal($index)">{{ audit.comment }}</td>
+          <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles.Auditor ? 'auto' : 'none'"
+            (click)="openUpdateAuditModal($index)">{{ audit.actionItem }}</td>
+          @if(userRoleId === roles.Admin || userRoleId === roles.Auditor )
+          {
           <td>
             <button (click)="deleteAudit(audit.id)" class="delete-audit">
               <i class="fa fa-trash-o"></i>
             </button>
           </td>
+          }
         </tr>
         }
       </tbody>
     </table>
   </div>
-  } 
+  }
   @else if (activeTab === 2) {
   <!-- Version History -->
-  <app-version-history />
+  <app-version-history userRoleId="{{userRoleId}}"/>
   } @else if (activeTab === 3) {
   <!-- Project Budget -->
-  <app-project-budget />
+  <app-project-budget userRoleId="{{userRoleId}}"/>
   } @else if (activeTab === 4) {
   <!-- Project Overview -->
-  <app-edit-project [projectId]="projectId" />
+  <app-edit-project [projectId]="projectId" userRoleId="{{userRoleId}}"/>
   } @else if (activeTab === 5) {
   <!-- Project scope & stack -->
-  <app-project-scope-stack />
+  <app-project-scope-stack userRoleId="{{userRoleId}}"/>
   } @else if (activeTab === 6) {
   <!-- Escalation matrix -->
-  <app-escalation-matrix />
+  <app-escalation-matrix userRoleId="{{userRoleId}}"/>
   } @else if (activeTab === 7) {
   <!-- Stakeholders -->
-  <app-stakeholders />
+  <app-stakeholders userRoleId="{{userRoleId}}"/>
   } @else if (activeTab === 8) {
   <!-- Risk profile -->
-  <app-risk-profile />
+  <app-risk-profile userRoleId="{{userRoleId}}"/>
   } @else if (activeTab === 9) {
   <!-- Phases and Milestone -->
-  <app-phases />
+  <app-phases userRoleId="{{userRoleId}}"/>
   } @else if (activeTab === 10) {
   <!-- Sprint -->
-  <app-sprint />
+  <app-sprint userRoleId="{{userRoleId}}"/>
   } @else if (activeTab === 11) {
   <!-- Approved Team -->
-  <app-approved-team />
+  <app-approved-team userRoleId="{{userRoleId}}"/>
   } @else if (activeTab === 12) {
-  <!-- Approved Team -->
-  <app-project-resources />
+  <!-- Project Resources -->
+  <app-project-resources userRoleId="{{userRoleId}}"/>
   } @else if (activeTab === 13) {
-  <!-- Approved Team -->
-  <app-client-feedback />
+  <!-- Client Feedback -->
+  <app-client-feedback userRoleId="{{userRoleId}}"/>
   } @else if (activeTab === 14) {
-  <!-- Approved Team -->
-  <app-project-updates />
+  <!-- Project Updates -->
+  <app-project-updates userRoleId="{{userRoleId}}"/>
   } @else if (activeTab === 15) {
-  <!-- Approved Team -->
-  <app-meeting-minute />
+  <!-- MoM -->
+  <app-meeting-minute userRoleId="{{userRoleId}}"/>
   }
 </div>

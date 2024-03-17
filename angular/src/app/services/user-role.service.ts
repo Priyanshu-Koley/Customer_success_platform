@@ -16,6 +16,8 @@ export class UserRoleService {
 
   getRole(userId: string) {
     this.userId = userId;
+    console.log(userId);
+    
     async function fetchRole() {
       const myHeaders = new Headers();
       myHeaders.append('Accept', 'application/json');

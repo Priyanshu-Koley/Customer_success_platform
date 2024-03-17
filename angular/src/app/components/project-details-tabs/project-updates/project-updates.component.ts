@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -6,6 +6,7 @@ import { NgToastService } from 'ng-angular-popup';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 import { ProjectsService } from '../../../services/projects.service';
 import { UpdateProjectUpdatesComponent } from '../../update-modals/update-project-updates/update-project-updates.component';
+import { Roles } from '../../../models/roles.model';
 
 @Component({
   selector: 'app-project-updates',
@@ -13,9 +14,11 @@ import { UpdateProjectUpdatesComponent } from '../../update-modals/update-projec
   styleUrl: './project-updates.component.scss',
 })
 export class ProjectUpdatesComponent {
+  @Input({required: true}) userRoleId: string = '';
   projectId!: string;
   updateForm: any;
   updates: any;
+  roles = Roles;
 
   constructor(
     private route: ActivatedRoute,

@@ -5,6 +5,8 @@
         Download Resources
     </button>
   </h2>
+  @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+  {
   <form [formGroup]="resourceForm" (ngSubmit)="addResource()">
     <h3>Add new resource</h3>
     <div class="row row-1">
@@ -41,7 +43,7 @@
         <button type="submit" class="btn">Add Resource</button>
     </div>
   </form>
-
+  }
   <table class="resource-list" id="resource-table">
     <thead>
       <th>Resource Name</th>
@@ -50,22 +52,28 @@
       <th>End Date</th>
       <th>Allocation Percentage</th>
       <th>Comments</th>
+      @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+      {
       <th>Delete</th>
+      }
     </thead>
     <tbody>
       @for(resource of resources; track $index) {
       <tr class="resource-{{ $index }} resource-row">
-        <td (click)="openUpdateResourceModal($index)">{{ resource.name }}</td>
-        <td (click)="openUpdateResourceModal($index)">{{ resource.role }}</td>
-        <td (click)="openUpdateResourceModal($index)">{{ resource.start | date }}</td>
-        <td (click)="openUpdateResourceModal($index)">{{ resource.end | date }}</td>
-        <td (click)="openUpdateResourceModal($index)">{{ resource.allocationPercentage }}</td>
-        <td (click)="openUpdateResourceModal($index)">{{ resource.comments }}</td>
+        <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'" (click)="openUpdateResourceModal($index)">{{ resource.name }}</td>
+        <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'" (click)="openUpdateResourceModal($index)">{{ resource.role }}</td>
+        <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'" (click)="openUpdateResourceModal($index)">{{ resource.start | date }}</td>
+        <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'" (click)="openUpdateResourceModal($index)">{{ resource.end | date }}</td>
+        <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'" (click)="openUpdateResourceModal($index)">{{ resource.allocationPercentage }}</td>
+        <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'" (click)="openUpdateResourceModal($index)">{{ resource.comments }}</td>
+        @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+        {
         <td>
           <button (click)="deleteResource(resource.id)" class="delete-resource">
             <i class="fa fa-trash-o"></i>
           </button>
         </td>
+       }
       </tr>
       }
     </tbody>

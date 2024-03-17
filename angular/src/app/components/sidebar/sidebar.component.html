@@ -1,23 +1,39 @@
 <div class="sidebar">
-    <a routerLink="/create">
-        <div class="new-project link-btn">
-            <span class="add-icon">+</span> New Project
-        </div>
-    </a>
-
-    <a routerLink="/createUser">
-        <div class="new-user link-btn">
-            <span class="add-icon">+</span> Create User
-        </div>
-    </a>
+    @if(userRoleId === roles.Admin || userRoleId === roles.Auditor)
+    {
+        <a routerLink="/create">
+            <div class="new-project link-btn">
+                <span class="add-icon">+</span> New Project
+            </div>
+        </a>
+    }
+    @if(userRoleId === roles.Admin)
+    {
+        <a routerLink="/createUser">
+            <div class="new-user link-btn">
+                <span class="add-icon">+</span> Create User
+            </div>
+        </a>
+    }
     
-    <a routerLink="/dashboard">
-        <div class="projects-link link active">
+    <a routerLink="/dashboard" (click)="activePage = 1">
+        <div class="projects-link link" [class.active]="activePage === 1">
             Projects
         </div>
     </a>
+    
+    @if(userRoleId === roles.Admin)
+    {
+        <a routerLink="/users" (click)="activePage = 2">
+            <div class="users-link link" [class.active]="activePage === 2">
+                Users
+            </div>
+        </a>
 
-    <div class="project-managers-link link">
-        Project Managers
-    </div>
+        <a routerLink="/project-managers" (click)="activePage = 3">
+            <div class="project-managers-link link" [class.active]="activePage === 3">
+                Project Managers
+            </div>
+        </a>
+    }
 </div>

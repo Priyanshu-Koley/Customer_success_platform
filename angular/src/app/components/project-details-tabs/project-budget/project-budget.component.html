@@ -4,13 +4,15 @@
             Download Project Budget
         </button>
     </h2>
+    @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+    {
     <form [formGroup]="budgetForm" (ngSubmit)="addBudget()">
         <h3>Add new budget</h3>
         <div class="row row-1">
             <select formControlName="type">
                 <option value="" selected disabled>Select project type</option>
                 @for (type of ProjectType | keyvalue; track $index) {
-                    <option value={{type.key}}>{{type.value}}</option>
+                <option value={{type.key}}>{{type.value}}</option>
                 }
             </select>
             <input type="number" formControlName="durationInMonths" placeholder="Duration (in months)">
@@ -19,30 +21,40 @@
         <div class="row row-2">
             <button type="submit" class="btn">Add Budget</button>
         </div>
-        
+
     </form>
+    }
 
     <table class="budget-list" id="budget-table">
-            <thead>
-                <th>Project Type</th>
-                <th>Duration(in months)</th>
-                <th>Budgeted Hours</th>
+        <thead>
+            <th>Project Type</th>
+            <th>Duration(in months)</th>
+            <th>Budgeted Hours</th>
+            @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+            {
                 <th>Delete</th>
-            </thead>
-            <tbody>
-                @for(budget of budgets; track $index)
+            }
+        </thead>
+        <tbody>
+            @for(budget of budgets; track $index)
+            {
+            <tr class="budget-{{$index}} budget-row">
+                <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+                    (click)="openUpdateBudgetModal($index)">{{getBudgetType(budget.type)}}</td>
+                <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+                    (click)="openUpdateBudgetModal($index)">{{budget.durationInMonths}}</td>
+                <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+                    (click)="openUpdateBudgetModal($index)">{{budget.budgetedHours}}</td>
+                @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
                 {
-                    <tr class="budget-{{$index}} budget-row" >
-                        <td (click)="openUpdateBudgetModal($index)">{{getBudgetType(budget.type)}}</td>
-                        <td (click)="openUpdateBudgetModal($index)">{{budget.durationInMonths}}</td>
-                        <td (click)="openUpdateBudgetModal($index)">{{budget.budgetedHours}}</td>
-                        <td>
-                            <button (click)="deleteBudget(budget.id)" class="delete-budget">
-                                <i class="fa fa-trash-o"></i>
-                            </button>
-                        </td>
-                    </tr>
+                    <td>
+                        <button (click)="deleteBudget(budget.id)" class="delete-budget">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </td>
                 }
-            </tbody>
-        </table>
+            </tr>
+            }
+        </tbody>
+    </table>
 </div>

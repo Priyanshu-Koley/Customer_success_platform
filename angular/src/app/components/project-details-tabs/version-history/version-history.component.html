@@ -1,9 +1,11 @@
 <div class="version-history">
     <h2 class="top-heading">Version History
         <button class="btn btn-green" (click)="convertToPDF()">
-        Download Version History
+            Download Version History
         </button>
     </h2>
+    @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+    {
     <form [formGroup]="versionForm" (ngSubmit)="addVersion()">
         <h3>Add new version</h3>
         <div class="row row-1">
@@ -14,59 +16,64 @@
         <div class="row row-2">
             <input type="text" formControlName="changeReason" placeholder="Change Reason">
             <input type="text" formControlName="createdBy" placeholder="Created By">
-            <input
-                type="text"
-                placeholder="Revision Date"
-                formControlName="revisionDate"
-                onfocus="(this.type='date')"
-                onblur="(this.type='text')"
-            />
+            <input type="text" placeholder="Revision Date" formControlName="revisionDate" onfocus="(this.type='date')"
+                onblur="(this.type='text')" />
         </div>
         <div class="row row-3">
-            <input
-                type="text"
-                placeholder="Approval Date"
-                formControlName="approvalDate"
-                onfocus="(this.type='date')"
-                onblur="(this.type='text')"
-            />
+            <input type="text" placeholder="Approval Date" formControlName="approvalDate" onfocus="(this.type='date')"
+                onblur="(this.type='text')" />
             <input type="text" formControlName="approvedBy" placeholder="Approved By">
             <button type="submit" class="btn">Add version</button>
         </div>
-        
+
     </form>
+    }
 
     <table class="version-list" id="version-history-table">
-            <thead>
-                <th>Version</th>
-                <th>Type</th>
-                <th>Change</th>
-                <th>Change Reason</th>
-                <th>Created By</th>
-                <th>Revision Date</th>
-                <th>Approval Date</th>
-                <th>Approved By</th>
+        <thead>
+            <th>Version</th>
+            <th>Type</th>
+            <th>Change</th>
+            <th>Change Reason</th>
+            <th>Created By</th>
+            <th>Revision Date</th>
+            <th>Approval Date</th>
+            <th>Approved By</th>
+            @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+            {
                 <th>Delete</th>
-            </thead>
-            <tbody>
-                @for(version of versions; track $index)
-                {
-                    <tr class="version-{{$index}} version-row" >
-                        <td (click)="openUpdateVersionModal($index)">{{version.version}}</td>
-                        <td (click)="openUpdateVersionModal($index)">{{version.type}}</td>
-                        <td (click)="openUpdateVersionModal($index)">{{version.change}}</td>
-                        <td (click)="openUpdateVersionModal($index)">{{version.changeReason}}</td>
-                        <td (click)="openUpdateVersionModal($index)">{{version.createdBy}}</td>
-                        <td (click)="openUpdateVersionModal($index)">{{version.revisionDate | date}}</td>
-                        <td (click)="openUpdateVersionModal($index)">{{version.approvalDate | date}}</td>
-                        <td (click)="openUpdateVersionModal($index)">{{version.approvedBy}}</td>
-                        <td>
-                            <button (click)="deleteVersion(version.id)" class="delete-version">
-                                <i class="fa fa-trash-o"></i>
-                            </button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            }
+        </thead>
+        <tbody>
+            @for(version of versions; track $index)
+            {
+                <tr class="version-{{$index}} version-row">
+                    <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+                        (click)="openUpdateVersionModal($index)">{{version.version}}</td>
+                    <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+                        (click)="openUpdateVersionModal($index)">{{version.type}}</td>
+                    <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+                        (click)="openUpdateVersionModal($index)">{{version.change}}</td>
+                    <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+                        (click)="openUpdateVersionModal($index)">{{version.changeReason}}</td>
+                    <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+                        (click)="openUpdateVersionModal($index)">{{version.createdBy}}</td>
+                    <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+                        (click)="openUpdateVersionModal($index)">{{version.revisionDate | date}}</td>
+                    <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+                        (click)="openUpdateVersionModal($index)">{{version.approvalDate | date}}</td>
+                    <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+                        (click)="openUpdateVersionModal($index)">{{version.approvedBy}}</td>
+                    @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+                    {
+                    <td>
+                        <button (click)="deleteVersion(version.id)" class="delete-version">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

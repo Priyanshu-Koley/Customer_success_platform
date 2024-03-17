@@ -5,6 +5,7 @@ import { NgToastService } from 'ng-angular-popup';
 import { Roles } from '../../models/roles.model';
 import { v4 as uuidv4 } from 'uuid';
 import { AssignRoleService } from '../../services/assign-role.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-user',
@@ -22,7 +23,8 @@ export class CreateUserComponent {
     private userService: CreateUserService,
     private formBuilder: FormBuilder,
     private toast: NgToastService,
-    private assignRole: AssignRoleService
+    private assignRole: AssignRoleService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -70,6 +72,7 @@ export class CreateUserComponent {
               duration: 4000,
             });
             this.assignRole.assignRole(this.userForm.value.role, newUser.user_id);
+            this.router.navigate(['/users'])
           }
           //@ts-ignore
           else if (response.status === 409) {

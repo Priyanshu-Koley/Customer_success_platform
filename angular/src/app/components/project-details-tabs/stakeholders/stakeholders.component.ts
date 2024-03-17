@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +7,7 @@ import { ProjectsService } from '../../../services/projects.service';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 import { UpdateEscalationMatrixComponent } from '../../update-modals/update-escalation-matrix/update-escalation-matrix.component';
 import { UpdateStakeholdersComponent } from '../../update-modals/update-stakeholders/update-stakeholders.component';
+import { Roles } from '../../../models/roles.model';
 
 @Component({
   selector: 'app-stakeholders',
@@ -14,9 +15,11 @@ import { UpdateStakeholdersComponent } from '../../update-modals/update-stakehol
   styleUrl: './stakeholders.component.scss',
 })
 export class StakeholdersComponent {
+  @Input({required: true}) userRoleId: string = '';
   projectId!: string;
   stakeholderForm: any;
   stakeholders: any;
+  roles = Roles;
 
   constructor(
     private route: ActivatedRoute,

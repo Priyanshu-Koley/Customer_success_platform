@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FeedbackType } from '../../../models/feedback-type.model';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 import { ProjectsService } from '../../../services/projects.service';
+import { Roles } from '../../../models/roles.model';
 
 @Component({
   selector: 'app-client-feedback',
@@ -13,10 +14,12 @@ import { ProjectsService } from '../../../services/projects.service';
   styleUrl: './client-feedback.component.scss'
 })
 export class ClientFeedbackComponent {
+  @Input({required: true}) userRoleId: string = '';
   projectId!: string;
   feedbackForm: any;
   feedbacks: any;
   feedbackTypes = FeedbackType;
+  roles = Roles;
 
   constructor(
     private route: ActivatedRoute,

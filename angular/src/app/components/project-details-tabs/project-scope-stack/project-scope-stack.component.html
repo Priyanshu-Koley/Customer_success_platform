@@ -4,6 +4,8 @@
             Download Project Scope and Stack
         </button>
     </h2>
+    @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+    {
     <form [formGroup]="stackForm" (ngSubmit)="addStack()">
         <h3>Add new Scope and Stack</h3>
         <div class="row row-1">
@@ -20,28 +22,37 @@
         <div class="row row-2">
             <button type="submit" class="btn">Add Scope and Stack</button>
         </div>
-        
+
     </form>
+    }
 
     <table class="stack-list" id="stack-table">
-            <thead>
-                <th>Project Stack (Tech)</th>
-                <th>Project Scope</th>
+        <thead>
+            <th>Project Stack (Tech)</th>
+            <th>Project Scope</th>
+            @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+            {
                 <th>Delete</th>
-            </thead>
-            <tbody>
-                @for(stack of stacks; track $index)
+            }
+        </thead>
+        <tbody>
+            @for(stack of stacks; track $index)
+            {
+            <tr class="stack-{{$index}} stack-row">
+                <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+                    (click)="openUpdateStackModal($index)">{{stack.stack}}</td>
+                <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'"
+                    (click)="openUpdateStackModal($index)">{{stack.scope}}</td>
+                @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
                 {
-                    <tr class="stack-{{$index}} stack-row" >
-                        <td (click)="openUpdateStackModal($index)">{{stack.stack}}</td>
-                        <td (click)="openUpdateStackModal($index)">{{stack.scope}}</td>
-                        <td>
-                            <button (click)="deleteStack(stack.id)" class="delete-stack">
-                                <i class="fa fa-trash-o"></i>
-                            </button>
-                        </td>
-                    </tr>
+                    <td>
+                        <button (click)="deleteStack(stack.id)" class="delete-stack">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </td>
                 }
-            </tbody>
-        </table>
+            </tr>
+            }
+        </tbody>
+    </table>
 </div>

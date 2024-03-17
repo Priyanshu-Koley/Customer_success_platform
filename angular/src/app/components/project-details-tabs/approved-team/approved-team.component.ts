@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectsService } from '../../../services/projects.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NgToastService } from 'ng-angular-popup';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 import { UpdateApprovedTeamComponent } from '../../update-modals/update-approved-team/update-approved-team.component';
+import { Roles } from '../../../models/roles.model';
 
 @Component({
   selector: 'app-approved-team',
@@ -13,11 +14,13 @@ import { UpdateApprovedTeamComponent } from '../../update-modals/update-approved
   styleUrl: './approved-team.component.scss',
 })
 export class ApprovedTeamComponent {
+  @Input({required: true}) userRoleId: string = '';
   projectId!: string;
   teamForm: any;
   teams: any = [];
   phaseNo: number = 0;
   phases: number[] = [];
+  roles = Roles;
 
   constructor(
     private route: ActivatedRoute,

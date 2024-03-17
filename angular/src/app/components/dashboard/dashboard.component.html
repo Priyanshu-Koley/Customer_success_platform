@@ -53,7 +53,10 @@
                         <th>Status</th>
                         <th>Project Manager</th>
                         <th>Members</th>
-                        <th>Actions</th>
+                        @if(userRoleId === roles.Admin || userRoleId === roles.Auditor)
+                        {
+                            <th>Actions</th>
+                        }
                     </thead>
                     <tbody>
                         @for(project of projects; track $index)
@@ -67,11 +70,14 @@
                                     </div>
                                 </td>
                                 <td routerLink="/details/{{project.id}}">{{project.projectManagerName}}</td>
-                                <td routerLink="/details/{{project.id}}">{{project.membersAssociated}}</td>
-                                <td class="action-btns">
-                                    <button class="edit" (click)="openUpdateProjectModal($index)" >Edit</button>
-                                    <button class="delete" (click)="deleteProject(project.id,project.name)" >Delete</button>
-                                </td>
+                                <td routerLink="/details/{{project.id}}" >{{project.membersAssociated}}</td>
+                                @if(userRoleId === roles.Admin || userRoleId === roles.Auditor)
+                                {
+                                    <td class="action-btns">
+                                        <button class="edit" (click)="openUpdateProjectModal($index)" >Edit</button>
+                                        <button class="delete" (click)="deleteProject(project.id,project.name)" >Delete</button>
+                                    </td>
+                                }
                             </tr>
                         }
                     </tbody>

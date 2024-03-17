@@ -4,44 +4,47 @@
       Download Sprint wise details
     </button>
   </h2>
-  <form [formGroup]="sprintForm" (ngSubmit)="addSprint()">
-    <h3>Add new sprint</h3>
-    <div class="row row-1">
-      <input type="number" formControlName="sprintNumber" placeholder="Sprint Number" />
+  @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+  {
+    <form [formGroup]="sprintForm" (ngSubmit)="addSprint()">
+      <h3>Add new sprint</h3>
+      <div class="row row-1">
+        <input type="number" formControlName="sprintNumber" placeholder="Sprint Number" />
 
-      <input
-        type="text"
-        placeholder="Start Date"
-        formControlName="startDate"
-        onfocus="(this.type='date')"
-        onblur="(this.type='text')"
+        <input
+          type="text"
+          placeholder="Start Date"
+          formControlName="startDate"
+          onfocus="(this.type='date')"
+          onblur="(this.type='text')"
+        />
+
+        <input
+          type="text"
+          placeholder="End Date"
+          formControlName="endDate"
+          onfocus="(this.type='date')"
+          onblur="(this.type='text')"
       />
+      </div>
 
-      <input
-        type="text"
-        placeholder="End Date"
-        formControlName="endDate"
-        onfocus="(this.type='date')"
-        onblur="(this.type='text')"
-    />
-    </div>
-
-    <div class="row row-2">
+      <div class="row row-2">
+          
+        <select formControlName="status">
+          <option value="" selected disabled>Select Status</option>
+          @for (status of sprintStatus | keyvalue; track $index) {
+            <option value={{status.key}}>{{status.value}}</option>
+          }
+        </select>
         
-      <select formControlName="status">
-        <option value="" selected disabled>Select Status</option>
-        @for (status of sprintStatus | keyvalue; track $index) {
-          <option value={{status.key}}>{{status.value}}</option>
-        }
-      </select>
-      
-      <input type="text" formControlName="comments" placeholder="Comments" />
-      
-      <button type="submit" class="btn">Add sprint</button>
+        <input type="text" formControlName="comments" placeholder="Comments" />
+        
+        <button type="submit" class="btn">Add sprint</button>
 
-    </div>
+      </div>
 
-  </form>
+    </form>
+  }
 
   <table class="sprint-list">
     <thead>
@@ -50,6 +53,10 @@
       <th>End Date</th>
       <th>Status</th>
       <th>Comments</th>
+      @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+      {
+        <th>Delete</th>
+      }
     </thead>
     <tbody>
       @for(sprint of sprints; track $index) {
@@ -59,11 +66,14 @@
         <td>{{ sprint.endDate | date}}</td>
         <td>{{ getSprintStatus(sprint.status) }}</td>
         <td>{{ sprint.comments }}</td>
-        <td>
-          <button (click)="deleteSprint(sprint.id)" class="delete-sprint">
-            <i class="fa fa-trash-o"></i>
-          </button>
-        </td>
+        @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
+        {
+          <td>
+            <button (click)="deleteSprint(sprint.id)" class="delete-sprint">
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </td>
+        }
       </tr>
       }
     </tbody>

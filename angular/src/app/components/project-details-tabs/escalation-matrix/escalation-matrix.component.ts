@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +7,7 @@ import { ProjectsService } from '../../../services/projects.service';
 import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 import { EscalationType } from '../../../models/escalation-type.model';
 import { UpdateEscalationMatrixComponent } from '../../update-modals/update-escalation-matrix/update-escalation-matrix.component';
+import { Roles } from '../../../models/roles.model';
 
 @Component({
   selector: 'app-escalation-matrix',
@@ -14,11 +15,13 @@ import { UpdateEscalationMatrixComponent } from '../../update-modals/update-esca
   styleUrl: './escalation-matrix.component.scss',
 })
 export class EscalationMatrixComponent {
+  @Input({required: true}) userRoleId: string = '';
   projectId!: string;
   escalationForm: any;
   escalations: any;
   types = EscalationType;
   currentLevels!: any;
+  roles = Roles;
 
   constructor(
     private route: ActivatedRoute,

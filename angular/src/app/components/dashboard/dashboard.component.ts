@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { UpdateProjectComponent } from '../update-modals/update-project/update-project.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Roles } from '../../models/roles.model';
+import { UserRoleService } from '../../services/user-role.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,15 +32,28 @@ export class DashboardComponent {
 
   loading: boolean = false;
 
+  userRoleId: string = '';
+  userRoleName: string = '';
+  roles = Roles;
+
   constructor(
     private projectService: ProjectsService,
     private router: Router,
     private dialog: MatDialog,
-    private toast: NgToastService
+    private toast: NgToastService,
+    private role:UserRoleService
   ) { }
 
   ngOnInit(): void {
+    this.loading = true;
+    this.role.userRoleSubject.subscribe((data) => {
+      this.userRoleId = data.id;
+      this.userRoleName = data.name;
+    })
+    this.userRoleId = this.role.userRoleId;
+    this.loading = false;
     this.getAllProjects();
+    
   }
 
   getAllProjects(): void {

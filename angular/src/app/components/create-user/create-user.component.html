@@ -14,7 +14,7 @@
             <select name="role" id="role" formControlName="role">
                 <option selected disabled value="">Select role of the user</option>
                 @for (role of roles|keyvalue; track $index) {
-                    <option value={{role.key}}>{{role.value}}</option>
+                    <option value={{role.value}}>{{role.key}}</option>
                 }
             </select>
         </div>

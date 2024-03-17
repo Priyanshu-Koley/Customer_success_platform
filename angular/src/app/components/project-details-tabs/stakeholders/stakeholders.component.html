@@ -4,6 +4,8 @@
             Download Stakeholders List
         </button>
     </h2>
+    @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] || userRoleId === roles.Auditor)
+    {
     <form [formGroup]="stakeholderForm" (ngSubmit)="addStakeholder()">
         <h3>Add new Stakeholder</h3>
         <div class="row row-1">
@@ -14,30 +16,41 @@
             <input type="email" formControlName="contact" placeholder="Stakeholder's Contact Email">
             <button type="submit" class="btn">Add Stakeholder</button>
         </div>
-        
+
     </form>
+    }
 
     <table class="stakeholders-list" id="stakeholders-table">
-            <thead>
-                <th>Title</th>
-                <th>Name</th>
-                <th>Contact</th>
-                <th>Delete</th>
-            </thead>
-            <tbody>
-                @for(stakeholder of stakeholders; track $index)
+        <thead>
+            <th>Title</th>
+            <th>Name</th>
+            <th>Contact</th>
+            @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] || userRoleId === roles.Auditor)
+            {
+            <th>Delete</th>
+            }
+        </thead>
+        <tbody>
+            @for(stakeholder of stakeholders; track $index)
+            {
+            <tr class="stakeholder-{{$index}} stakeholder-row">
+                <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager'] || userRoleId === roles.Auditor ? 'auto' : 'none'"
+                    (click)="openUpdateStakeholderModal($index)">{{stakeholder.title}}</td>
+                <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager'] || userRoleId === roles.Auditor ? 'auto' : 'none'"
+                    (click)="openUpdateStakeholderModal($index)">{{stakeholder.name}}</td>
+                <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager'] || userRoleId === roles.Auditor ? 'auto' : 'none'"
+                    (click)="openUpdateStakeholderModal($index)">{{stakeholder.contact}}</td>
+                @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] || userRoleId ===
+                roles.Auditor)
                 {
-                    <tr class="stakeholder-{{$index}} stakeholder-row" >
-                        <td (click)="openUpdateStakeholderModal($index)">{{stakeholder.title}}</td>
-                        <td (click)="openUpdateStakeholderModal($index)">{{stakeholder.name}}</td>
-                        <td (click)="openUpdateStakeholderModal($index)">{{stakeholder.contact}}</td>
-                        <td>
-                            <button (click)="deleteStakeholder(stakeholder.id)" class="delete-stakeholder">
-                                <i class="fa fa-trash-o"></i>
-                            </button>
-                        </td>
-                    </tr>
+                <td>
+                    <button (click)="deleteStakeholder(stakeholder.id)" class="delete-stakeholder">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+                </td>
                 }
-            </tbody>
-        </table>
+            </tr>
+            }
+        </tbody>
+    </table>
 </div>

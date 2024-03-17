@@ -1,6 +1,6 @@
 export const Roles = {
-  rol_JfIsNFXVNbPcSD6W: 'Admin',
-  rol_VfTTPzPYMwZZqEjQ: 'Auditor',
-  rol_qPDCLcmUhnPbRLx9: 'Project Manager',
-  rol_4r7W1YlPgFRD71vl: 'Client',
+  Admin: 'rol_JfIsNFXVNbPcSD6W',
+  Auditor: 'rol_VfTTPzPYMwZZqEjQ',
+  'Project Manager': 'rol_qPDCLcmUhnPbRLx9',
+  Client: 'rol_4r7W1YlPgFRD71vl'
 };
