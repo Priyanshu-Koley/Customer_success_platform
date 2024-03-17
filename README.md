@@ -16,28 +16,38 @@ Customer Success Platform
     
         1. Clone Repository:
 
-            ```git clone https://github.com/Priyanshu-Koley/Customer_success_platform.git```
+            ```
+            git clone https://github.com/Priyanshu-Koley/Customer_success_platform.git
+            ```
 
         2. Backend Setup:
 
         i. Navigate to the backend directory[dotnet].
         ii. Update the connection string in appsettings.json to the PostgreSQL database[username and password].
         iii. Run migrations to create the database and schema:    
-            ```dotnet ef database update```
+            ```
+            dotnet ef database update
+            ```
         iv. Start the backend server:
-            ```dotnet run```
+            ```
+            dotnet run
+            ```
         
         3. Frontend Setup:
 
         i. Navigate to the frontend directory[angular].
         ii. Install dependencies:
-            ```npm install```
+            ```
+            npm install
+            ```
         iii. My backend was running on https://localhost:44347/ i.e. PORT = 44347. 
             If your backend is running on another port then change the PORT variable in 
             a. angular\src\app\services\projects.service.ts 
             b. angular\src\app\components\project-details\project-details.component.ts
         iv. Start the Angular development server:
-            ```ng serve -o```
+            ```
+            ng serve -o
+            ```
         
         4. Database Setup:
 
@@ -47,8 +57,14 @@ Customer Success Platform
         
     Admin Credentials
 
-        Email Id: admin@example.com
-        Password: Admin@123
+        Email Id: 
+        ```
+        admin@example.com
+        ```
+        Password: 
+        ```
+        Admin@123
+        ```
 
     Testing Steps
 
