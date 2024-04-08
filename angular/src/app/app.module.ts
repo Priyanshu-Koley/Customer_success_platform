@@ -14,7 +14,7 @@ import { EditProjectComponent } from './components/edit-project/edit-project.com
 import { NgToastModule } from 'ng-angular-popup';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { UpdateAuditModalComponent } from './components/update-audit-modal/update-audit-modal.component';
+import { UpdateAuditModalComponent } from './components/update-modals/update-audit-modal/update-audit-modal.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';

@@ -3,7 +3,9 @@ export interface Project
     id: string;
     name: string;
     description?: string;
+    projectManagerID: string;
     projectManagerName: string;
+    clientId: string;
     clientName: string;
     clientEmail: string;
     brief?: string;
@@ -11,7 +13,7 @@ export interface Project
     goal?: string;
     objective?: string;
     totalBudget?: string;
-    membersAssociated?: number;
+    membersAssociated: number;
     status?: string;
     creationTime: string;
 }

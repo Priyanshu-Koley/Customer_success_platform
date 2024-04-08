@@ -1,55 +1,63 @@
-<div class="modal">
-  <h3 mat-dialog-title id="modal-heading">Edit Project</h3>
-  <form [formGroup]="editProjectForm" (ngSubmit)="editProject()">
-    <div class="row row-1">
-      <input
-        type="text"
-        placeholder="Start Date"
-        formControlName="creationTime"
-        onfocus="(this.type='date')"
-        onblur="(this.type='text')"
-      />
-      <input type="text" formControlName="name" placeholder="Project Name" />
-      <input
-        type="text"
-        formControlName="projectManagerName"
-        placeholder="Project manager"
-      />
-    </div>
-
-    <div class="row row-2">
-      <input
-        type="number"
-        formControlName="membersAssociated"
-        placeholder="Members Associated"
-      />
-
-      <input
-        type="text"
-        formControlName="clientName"
-        placeholder="Client Name"
-      />
-    </div>
-
-    <div class="row row-3">
-      <input
-        type="email"
-        formControlName="clientEmail"
-        placeholder="Client Email"
-      />
-
-      <label for="status">Project Status</label>
-      <select name="status" id="status" formControlName="status">
-        <option value="" selected disabled>Select project status</option>
-        <option value="progress">In Progress</option>
-        <option value="completed">Completed</option>
-        <option value="hold">Hold</option>
-      </select>
-    </div>
-
-    <button mat-button type="submit" class="update-btn">Update Project</button>
-    <button mat-button type="button" (click)="onClose()" class="cancel-btn">
-      Cancel
-    </button>
-  </form>
-</div>
+@if(!loading)
+{
+  <div class="modal">
+    <h3 mat-dialog-title id="modal-heading">Edit Project</h3>
+    <form [formGroup]="editProjectForm" (ngSubmit)="editProject()">
+      <div class="row row-1">
+        <label for="start-date">Project Start Date</label>
+        <input
+          type="text"
+          placeholder="Start Date"
+          formControlName="creationTime"
+          onfocus="(this.type='date')"
+          onblur="(this.type='text')"
+        />
+        <label for="name">Project Name</label>
+        <input type="text" formControlName="name" placeholder="Project Name" />
+      </div>
+  
+      <div class="row row-2">
+        <label for="pm-name">Project Manager</label>
+        <select name="pm-name" id="pm-name" formControlName="projectManager">
+            <option value="" selected disabled>Select project manager</option>
+            @for (projectManager of projectManagers; track $index) {
+              <option value="{{ projectManager.user_id }},{{ projectManager.name }}">
+                  {{ projectManager.name }}
+              </option>
+            }
+        </select>
+  
+        <label for="client-name">Client</label>
+        <select name="client-name" id="client-name" formControlName="client">
+          <option value="" selected disabled>Select client</option>
+            @for (client of clients; track $index) {
+              <option value="{{ client.user_id }},{{ client.name }},{{client.email}}">
+                  {{ client.name }}
+              </option>
+            }
+        </select>
+      </div>
+  
+      
+      <div class="row row-3">
+        <label for="status">Project Status</label>
+        <select name="status" id="status" formControlName="status">
+          <option value="" selected disabled>Select project status</option>
+          <option value="progress">In Progress</option>
+          <option value="completed">Completed</option>
+          <option value="hold">Hold</option>
+        </select>
+      </div>
+  
+      <button mat-button type="submit" class="update-btn">Update Project</button>
+      <button mat-button type="button" (click)="onClose()" class="cancel-btn">
+        Cancel
+      </button>
+    </form>
+  </div>
+}
+@else{
+  <div class="spinner-container">
+      <mat-spinner></mat-spinner>
+  </div>
+}

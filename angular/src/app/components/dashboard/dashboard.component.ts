@@ -32,6 +32,7 @@ export class DashboardComponent {
 
   loading: boolean = false;
 
+  userId: string = '';
   userRoleId: string = '';
   userRoleName: string = '';
   roles = Roles;
@@ -41,19 +42,35 @@ export class DashboardComponent {
     private router: Router,
     private dialog: MatDialog,
     private toast: NgToastService,
-    private role:UserRoleService
-  ) { }
+    private role: UserRoleService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
-    this.role.userRoleSubject.subscribe((data) => {
-      this.userRoleId = data.id;
-      this.userRoleName = data.name;
-    })
-    this.userRoleId = this.role.userRoleId;
-    this.loading = false;
-    this.getAllProjects();
-    
+    try {
+      this.userId = this.role.userId;
+      this.userRoleId = this.role.userRoleId;
+      this.userRoleName = this.role.userRoleName;
+      if (this.userRoleId == this.roles['Project Manager']) {
+        this.getProjectsByProjectManager();
+      } else if (this.userRoleId == this.roles.Client) {
+        this.getProjectsByClient();
+      } else if (
+        this.userRoleId == this.roles.Admin ||
+        this.userRoleId == this.roles.Auditor
+      ) {
+        this.getAllProjects();
+      }
+      this.loading = false;
+         
+    } catch (error) {
+      this.toast.error({
+        detail: 'Error',
+        summary: 'Failed to fetch user role',
+        duration: 4000,
+      });
+      console.error('Error fetching user role:', error);
+    }
   }
 
   getAllProjects(): void {
@@ -65,6 +82,26 @@ export class DashboardComponent {
       this.loading = false;
     });
   }
+  getProjectsByProjectManager(): void {
+    this.loading = true;
+    this.projectService.getProjectByProjectManagerId(this.userId).subscribe((response) => {
+      this.projects = response.items;
+      this.statusCounter(response.items);
+      this.lazyCounter();
+      this.loading = false;
+    });
+  }
+  getProjectsByClient(): void {
+    this.loading = true;
+    this.projectService.getProjectByClientId(this.userId).subscribe((response) => {
+      this.projects = response.items;
+      this.statusCounter(response.items);
+      this.lazyCounter();
+      this.loading = false;
+    });
+  }
+
+
 
   deleteProject(id: string, projectName: string): void {
     let confirmDelete = confirm(
@@ -98,6 +135,8 @@ export class DashboardComponent {
 
   openUpdateProjectModal(index: number) {
     const projectToUpdate = { ...this.projects[index] };
+    console.log(projectToUpdate);
+    
     const dialogRef = this.dialog.open(UpdateProjectComponent, {
       width: '70%',
       data: projectToUpdate,
@@ -110,8 +149,7 @@ export class DashboardComponent {
       console.log('Form Data:', result);
 
       // this.sendEmail(result);
-      if (result)
-        this.getAllProjects();
+      if (result) this.getAllProjects();
     });
   }
 

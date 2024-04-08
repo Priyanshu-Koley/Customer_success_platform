@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProjectsService } from '../../services/projects.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
-import { UpdateAuditModalComponent } from '../update-audit-modal/update-audit-modal.component';
+import { UpdateAuditModalComponent } from '../update-modals/update-audit-modal/update-audit-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { Project } from '../../models/project.model';
@@ -66,12 +66,13 @@ export class ProjectDetailsComponent {
     this.loading = true;
     this.projectId = this.route.snapshot.params['id'];
 
-    this.role.userRoleSubject.subscribe((data) => {
-      this.userRoleId = data.id;
-      this.userRoleName = data.name;
-    })
+    // this.role.userRoleSubject.subscribe((data) => {
+    //   this.userRoleId = data.id;
+    //   this.userRoleName = data.name;
+    // })
 
     this.userRoleId = this.role.userRoleId;
+    this.userRoleName = this.role.userRoleName;
 
     this.auditForm = this.formBuilder.group({
       reviewedBy: ['', [Validators.required]],
@@ -203,14 +204,20 @@ export class ProjectDetailsComponent {
 
     const emailData = {
       name: this.project.clientName,
-      toEmail: this.project.clientEmail,
+      toEmails: [this.project.clientEmail],
       changedAudit: newAudit,
     };
+    console.log(emailData);
+    
 
     this.http
-      .post(`https://localhost:${this.PORT}/api/Email/AuditChange`, emailData, {
-        responseType: 'text',
-      })
+      .post(
+        `https://localhost:${this.PORT}/api/app/email/send-email-on-audit-change`,
+        emailData,
+        {
+          responseType: 'text',
+        }
+      )
       .subscribe({
         next: (res) => {
           // On successful response

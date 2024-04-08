@@ -8,6 +8,8 @@ import { ConvertToPdfService } from '../../../services/convert-to-pdf.service';
 import { UpdateEscalationMatrixComponent } from '../../update-modals/update-escalation-matrix/update-escalation-matrix.component';
 import { UpdateStakeholdersComponent } from '../../update-modals/update-stakeholders/update-stakeholders.component';
 import { Roles } from '../../../models/roles.model';
+import { UsersService } from '../../../services/users.service';
+import { UserRoleService } from '../../../services/user-role.service';
 
 @Component({
   selector: 'app-stakeholders',
@@ -15,11 +17,15 @@ import { Roles } from '../../../models/roles.model';
   styleUrl: './stakeholders.component.scss',
 })
 export class StakeholdersComponent {
-  @Input({required: true}) userRoleId: string = '';
+  @Input({ required: true }) userRoleId: string = '';
   projectId!: string;
   stakeholderForm: any;
   stakeholders: any;
   roles = Roles;
+  loading: boolean = false;
+  users: any[] = [];
+  selectedUser: any;
+  stakeholderRoleName: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -27,22 +33,24 @@ export class StakeholdersComponent {
     private formBuilder: FormBuilder,
     private toast: NgToastService,
     private dialog: MatDialog,
-    private convertToPdf: ConvertToPdfService
+    private convertToPdf: ConvertToPdfService,
+    private userService: UsersService,
+    private role: UserRoleService
   ) {}
 
   ngOnInit() {
     this.projectId = this.route.snapshot.params['id'];
 
+    // get all users
+    this.loading = true;
+    const res = this.userService.getAllUser();
+    res.then((users) => {
+      this.users = users;
+      this.loading = false;
+    });
+
     this.stakeholderForm = this.formBuilder.group({
-      title: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      contact: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$'),
-        ],
-      ],
+      stakeholderId: ['', Validators.required],
     });
 
     this.getStakeholders();
@@ -59,14 +67,34 @@ export class StakeholdersComponent {
     );
   }
 
-  addStakeholder() {
+  async addStakeholder() {
     if (this.stakeholderForm.valid) {
+      let resRole = await this.role.getRole(
+        this.stakeholderForm.value.stakeholderId,
+        false
+      );
+      this.stakeholderRoleName = resRole.name;
+      
+      // get user details
+      const resUser = this.userService.getUserById(
+        this.stakeholderForm.value.stakeholderId
+      );
+      resUser.then((user) => {
+        console.log(user);
+        this.selectedUser = user;
+      });
+
+
       const newStakeholder = {
-        ...this.stakeholderForm.value,
+        userId: this.stakeholderForm.value.stakeholderId,
+        title: this.stakeholderRoleName,
+        name: this.selectedUser.name,
+        contact: this.selectedUser.email,
         projectId: this.projectId,
-        userId: this.projectId,
       };
 
+      console.log(newStakeholder);
+      
       this.projectService.createStakeholder(newStakeholder).subscribe(
         (res) => {
           console.log(res);
@@ -122,7 +150,10 @@ export class StakeholdersComponent {
   }
 
   openUpdateStakeholderModal(index: number) {
-    const stakeholderToUpdate = { ...this.stakeholders[index], projectId: this.projectId };
+    const stakeholderToUpdate = {
+      ...this.stakeholders[index],
+      projectId: this.projectId,
+    };
     const dialogRef = this.dialog.open(UpdateStakeholdersComponent, {
       width: '70%',
       data: stakeholderToUpdate,

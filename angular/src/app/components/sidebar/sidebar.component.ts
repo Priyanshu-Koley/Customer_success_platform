@@ -16,10 +16,22 @@ export class SidebarComponent {
   constructor(private role:UserRoleService){}
 
   ngOnInit(): void {
-    this.role.userRoleSubject.subscribe((data) => {
-      this.userRoleId = data.id;
-      this.userRoleName = data.name;
-    })
+    try
+    {
+      // this.role.userRoleSubject.subscribe((data) => {    
+      //   this.userRoleId = data.id;
+      //   this.userRoleName = data.name;
+        
+      // });
+      this.userRoleId = this.role.userRoleId;
+      this.userRoleName = this.role.userRoleName;
+      
+    }
+    catch(error)
+    {
+      console.log(error);
+      this.userRoleId = this.roles.Client;     
+    }
   }
 
 }

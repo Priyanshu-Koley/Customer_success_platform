@@ -12,6 +12,7 @@ import { Roles } from '../../models/roles.model';
 export class NavbarComponent {
   userId: string = Roles.Client;
   userRoleName: string = "Client";
+  loading: boolean = false;
 
   constructor(
     public auth: AuthService,
@@ -20,24 +21,27 @@ export class NavbarComponent {
   ) {}
 
   ngOnInit() {
+    this.loading = true;
     this.auth.user$.subscribe((user) => {
       //@ts-ignore
       this.userId = user.sub;
+      console.log("User data: "+JSON.stringify(user));
+      
     })
-    // const res = this.role.getRole(this.userId);
-    
-    this.role.userRoleSubject.subscribe((data) => {
-      if (data.name === 'ProjectManager') 
+    try{      
+      if (this.role.userRoleName === 'ProjectManager') 
       {
         this.userRoleName = 'Project Manager';
       }
       else{
-        this.userRoleName = data.name;
+        this.userRoleName = this.role.userRoleName;
       }
-      
-    });
-
-
+      this.loading = false;
+    }
+    catch (error) {
+      console.log(error);
+      this.loading = false;
+    }
 
   }
 }

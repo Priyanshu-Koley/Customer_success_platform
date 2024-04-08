@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgToastService } from 'ng-angular-popup';
 import { ProjectsService } from '../../../services/projects.service';
+import { UsersService } from '../../../services/users.service';
+import { UserOfRole } from '../../../models/userOfRole.model';
+import { Roles } from '../../../models/roles.model';
 
 @Component({
   selector: 'app-update-project',
@@ -10,35 +13,64 @@ import { ProjectsService } from '../../../services/projects.service';
   styleUrl: './update-project.component.scss',
 })
 export class UpdateProjectComponent {
+  loading: boolean = false;
   editProjectForm: FormGroup;
+  projectManagers: UserOfRole[] = [];
+  clients: UserOfRole[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<UpdateProjectComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private projectService: ProjectsService,
-    private toast: NgToastService
+    private toast: NgToastService,
+    private userService: UsersService
   ) {
     this.editProjectForm = this.formBuilder.group({
-      creationTime: [this.data.creationTime.substr(0,10), [Validators.required]],
-      name: [this.data.name, [Validators.required]],
-      projectManagerName: [this.data.projectManagerName, [Validators.required]],
-      membersAssociated: [
-        this.data.membersAssociated,
-        [Validators.required, Validators.min(1)],
+      creationTime: [
+        this.data.creationTime.substr(0, 10),
+        [Validators.required],
       ],
-      clientName: [this.data.clientName, [Validators.required]],
-      clientEmail: [this.data.clientEmail, [Validators.required]],
+      name: [this.data.name, [Validators.required]],
+      projectManager: [
+        `${this.data.projectManagerId},${this.data.projectManagerName}`,
+        [Validators.required],
+      ],
+      client: [
+        `${this.data.clientId},${this.data.clientName},${this.data.clientEmail}`,
+        [Validators.required],
+      ],
       status: [this.data.status, [Validators.required]],
     });
-    
+
+    this.loading = true;
+    // Get list of project managers
+    const resultPm = this.userService.getUsersOfRole(Roles['Project Manager']);
+    resultPm.then((users) => {
+      console.log(users);
+      this.projectManagers = users;
+    });
+    // Get list of clients
+    const resultClient = this.userService.getUsersOfRole(Roles['Client']);
+    resultClient.then((users) => {
+      console.log(users);
+      this.clients = users;
+      this.loading = false;
+    });
   }
 
   editProject() {
     if (this.editProjectForm.valid) {
       const updatedProject = {
         ...this.data,
-        ...this.editProjectForm.value,
+        name: this.editProjectForm.value.name,
+        clientId: this.editProjectForm.value.client.split(',')[0],
+        clientName: this.editProjectForm.value.client.split(',')[1],
+        clientEmail: this.editProjectForm.value.client.split(',')[2],
+        projectManagerID:
+          this.editProjectForm.value.projectManager.split(',')[0],
+        projectManagerName:
+          this.editProjectForm.value.projectManager.split(',')[1],
       };
 
       this.projectService.updateProject(this.data.id, updatedProject).subscribe(

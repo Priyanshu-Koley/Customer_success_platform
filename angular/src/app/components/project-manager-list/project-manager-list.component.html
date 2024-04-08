@@ -14,13 +14,13 @@
                 <th>Email</th>
             </thead>
             <tbody>
-                @for(user of users; track $index)
+                @for(projectManager of projectManagers; track $index)
                 {
-                <tr class="project-manager-{{$index}} project-manager-row">
-                    <td>{{user.user_id}}</td>
-                    <td>{{user.name | titlecase}}</td>
-                    <td>{{user.email}}</td>
-                </tr>
+                    <tr class="project-manager-{{$index}} project-manager-row">
+                        <td>{{projectManager.user_id}}</td>
+                        <td>{{projectManager.name | titlecase}}</td>
+                        <td>{{projectManager.email}}</td>
+                    </tr>
                 }
             </tbody>
         </table>

@@ -10,15 +10,32 @@ import { UserRoleService } from './services/user-role.service';
 })
 export class AppComponent {
   userId: string = '';
-  constructor(public auth: AuthService,  private role: UserRoleService) { 
-    
-    this.auth.user$.subscribe((user) => {
-      //@ts-ignore
-      this.userId = user.sub;
-      role.getRole(this.userId);
-    });
+  userRoleID: string = '';
+  loading: boolean = false;
+  
+  constructor(public auth: AuthService,  private role: UserRoleService) {
 
+    try {
+      this.loading = true;
+      this.auth.user$.subscribe(async (user: any) => 
+      {
+        //@ts-ignore
+        this.userId = user.sub;
+        let res = await role.getRole(this.userId, true);
+        this.userRoleID = res.id;
+        this.loading = false;
+      });
+      
+    } 
+    catch (error) {
+      console.log(error);
+      this.loading = false;
+      
+    }
+  }
 
+  setLoading(value: boolean) {
+    this.loading = value;
   }
 
 

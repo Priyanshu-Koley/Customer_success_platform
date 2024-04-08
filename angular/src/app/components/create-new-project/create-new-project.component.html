@@ -1,30 +1,62 @@
 <div class="form-container">
     <form [formGroup]="projectForm" (ngSubmit)="createProject()">
-        <h3 class="project-details-heading">Project details</h3>
-        <div class="input-container input-container-1">
-            <label for="name">Project name</label>
-            <input type="text" placeholder="Sample project" id="name" formControlName="name">
+        <div class="upper-container">
+            <div>
+                <h3 class="project-details-heading">Project details</h3>
+                <div class="input-container input-container-1">
+                    <label for="name">Project name</label>
+                    <input type="text" placeholder="Sample project" id="name" formControlName="name" />
+                </div>
+            </div>
+
+            <div>
+                <h3 class="project-details-heading">Invite client</h3>
+                <div class="input-container input-container-2">
+                    <label for="client-name">Client</label>
+                    <select name="client-name" id="client-name" formControlName="client">
+                        <option value="" selected disabled>Select client</option>
+                        @for (client of clients; track $index) {
+                        <option value="{{ client.user_id }},{{ client.name }},{{ client.email }}">
+                            {{ client.name }}
+                        </option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="lower-container">
+            <div>
+                <h3>Select project manager</h3>
+                <div class="input-container input-container-3">
+                    <label for="pm-name">Project manager</label>
+                    <select name="pm-name" id="pm-name" formControlName="projectManager">
+                        <option value="" selected disabled>Select project manager</option>
+                        @for (projectManager of projectManagers; track $index) {
+                        <option value="{{ projectManager.user_id }},{{ projectManager.name }}">
+                            {{ projectManager.name }}
+                        </option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-container input-container-4" >
+                <label for="start-date">Project Start Date</label>
+                <input
+                    type="text"
+                    placeholder="Project Start Date"
+                    formControlName="creationTime"
+                    onfocus="(this.type='date')"
+                    onblur="(this.type='text')"
+                />
+            </div>
         </div>
 
-        <h3>Invite client</h3>
-        <div class="input-container input-container-2">
-            <label for="client-name">Client name</label>
-            <input type="text" placeholder="Client name" id="client-name" formControlName="clientName">
-
-            <label for="client-email" class="client-email-label">Client email</label>
-            <input type="email" placeholder="example@work.com" id="client-email" formControlName="clientEmail">
-        </div>
-
-        <h3>Select project manager</h3>
-        <div class="input-container input-container-3">
-            <label for="pm-name">Project manager</label>
-            <input type="text" placeholder="Project manager name" id="pm-name" formControlName="projectManagerName">
-
-            <label for="employeeCount">Members</label>
-            <input type="number" placeholder="No. of associated members" id="employeeCount" formControlName="membersAssociated">
-        </div>
-        
-        <button type="submit" class="create-project-btn">Create Project</button>
-        <button type="button" class="cancel-project-btn" routerLink="/dashboard">Cancel</button>
+        <button type="submit" class="create-project-btn">
+            Create Project
+        </button>
+        <button type="button" class="cancel-project-btn" routerLink="/dashboard">
+            Cancel
+        </button>
     </form>
 </div>

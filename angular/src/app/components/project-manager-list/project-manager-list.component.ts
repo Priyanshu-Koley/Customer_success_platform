@@ -10,7 +10,7 @@ import { UserOfRole } from '../../models/userOfRole.model';
 })
 export class ProjectManagerListComponent {
 
-  users:UserOfRole[] = [];
+  projectManagers:UserOfRole[] = [];
   loading:boolean = false;
 
   constructor(private userService: UsersService){ }
@@ -20,7 +20,7 @@ export class ProjectManagerListComponent {
     const res = this.userService.getUsersOfRole(Roles['Project Manager']);
     res.then(users =>{
       console.log(users);      
-      this.users = users;  
+      this.projectManagers = users;  
       this.loading = false;
     })
     
