@@ -67,7 +67,7 @@ export class EscalationMatrixComponent {
         (res) => {
           console.log(res);
           this.getEscalations();
-          this.escalationForm.reset();
+          this.escalationForm.reset({escalationType: '', responsible: ''});
           this.toast.success({
             detail: 'Success',
             summary: 'Escalation added successfully',
@@ -129,8 +129,6 @@ export class EscalationMatrixComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
       console.log('Form Data:', result);
-
-      // this.sendEmail(result);
       if (result) this.getEscalations();
     });
   }

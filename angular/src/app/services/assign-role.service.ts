@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class AssignRoleService {
     myHeaders.append('Content-Type', 'application/json');
     myHeaders.append(
       'Authorization',
-      `Bearer ${this.TOKEN}`
+      `Bearer ${environment.AUTH0_TOKEN}`
     );
 
     const raw = JSON.stringify({

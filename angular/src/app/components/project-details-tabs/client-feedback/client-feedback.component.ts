@@ -66,7 +66,7 @@ export class ClientFeedbackComponent {
         (res) => {
           console.log(res);
           this.getFeedbacks();
-          this.feedbackForm.reset();
+          this.feedbackForm.reset({feedbackDate : '', feedbackType: '', details: '', actionTaken: '', closureDate: ''});
           this.toast.success({
             detail: 'Success',
             summary: 'Feedback added successfully',

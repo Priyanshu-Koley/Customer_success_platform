@@ -4,14 +4,6 @@
     <h3 mat-dialog-title id="modal-heading">Edit Project</h3>
     <form [formGroup]="editProjectForm" (ngSubmit)="editProject()">
       <div class="row row-1">
-        <label for="start-date">Project Start Date</label>
-        <input
-          type="text"
-          placeholder="Start Date"
-          formControlName="creationTime"
-          onfocus="(this.type='date')"
-          onblur="(this.type='text')"
-        />
         <label for="name">Project Name</label>
         <input type="text" formControlName="name" placeholder="Project Name" />
       </div>

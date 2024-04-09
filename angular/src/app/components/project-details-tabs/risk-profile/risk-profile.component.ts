@@ -73,7 +73,7 @@ export class RiskProfileComponent {
         (res) => {
           console.log(res);
           this.getRisks();
-          this.riskForm.reset();
+          this.riskForm.reset({riskType : '', description: '', severity: '', impact: '', remedialSteps: '', status: '', closureDate: ''});
           this.toast.success({
             detail: 'Success',
             summary: 'Risk added successfully',

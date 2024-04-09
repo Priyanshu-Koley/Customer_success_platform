@@ -1,6 +1,7 @@
 .main-content {
   display: flex;
   width: 96vw;
+  min-height: 90vh;
   padding-top: 30px;
 }
 
@@ -8,4 +9,5 @@
   width: 100vw;
   display: flex;
   justify-content: center;
+  align-items: center;
 }

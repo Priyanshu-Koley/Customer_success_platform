@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable, audit } from 'rxjs';
 import { Project } from '../models/project.model';
 import { ApiResponse } from '../models/api-response.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectsService {
-  private PORT = 44347
-  private apiUrl =`https://localhost:${this.PORT}/api/app`;
+  private PORT = 44347;
+  private apiUrl = environment.API_URL;
 
   constructor(private http: HttpClient) {}
 
@@ -30,7 +31,9 @@ export class ProjectsService {
     );
   }
   getProjectByClientId(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/project/projects-by-client/${id}`);
+    return this.http.get<any>(
+      `${this.apiUrl}/project/projects-by-client/${id}`
+    );
   }
   updateProject(id: string, project: any): Observable<any> {
     const url = `${this.apiUrl}/project/${id}`;

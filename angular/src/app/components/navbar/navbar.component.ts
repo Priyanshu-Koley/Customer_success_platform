@@ -10,7 +10,6 @@ import { Roles } from '../../models/roles.model';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  userId: string = Roles.Client;
   userRoleName: string = "Client";
   loading: boolean = false;
 
@@ -21,14 +20,9 @@ export class NavbarComponent {
   ) {}
 
   ngOnInit() {
-    this.loading = true;
-    this.auth.user$.subscribe((user) => {
-      //@ts-ignore
-      this.userId = user.sub;
-      console.log("User data: "+JSON.stringify(user));
-      
-    })
-    try{      
+    this.loading = true;    
+    if(this.role.userRoleId != '')
+    {      
       if (this.role.userRoleName === 'ProjectManager') 
       {
         this.userRoleName = 'Project Manager';
@@ -38,10 +32,9 @@ export class NavbarComponent {
       }
       this.loading = false;
     }
-    catch (error) {
-      console.log(error);
+    else{
+      console.log("Role is not setted");
       this.loading = false;
     }
-
   }
 }

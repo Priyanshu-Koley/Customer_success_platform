@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { UserRoleService } from './services/user-role.service';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 
 @Component({
@@ -12,31 +13,22 @@ export class AppComponent {
   userId: string = '';
   userRoleID: string = '';
   loading: boolean = false;
-  
-  constructor(public auth: AuthService,  private role: UserRoleService) {
 
+  constructor(public auth: AuthService, private role: UserRoleService) {
     try {
       this.loading = true;
-      this.auth.user$.subscribe(async (user: any) => 
-      {
+      this.auth.user$.subscribe(async (user: any) => {
         //@ts-ignore
         this.userId = user.sub;
         let res = await role.getRole(this.userId, true);
         this.userRoleID = res.id;
         this.loading = false;
+        
       });
-      
-    } 
-    catch (error) {
+    } catch (error) {
       console.log(error);
       this.loading = false;
-      
     }
   }
-
-  setLoading(value: boolean) {
-    this.loading = value;
-  }
-
 
 }

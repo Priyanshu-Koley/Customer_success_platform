@@ -8,15 +8,17 @@
     {
         <form [formGroup]="stakeholderForm" (ngSubmit)="addStakeholder()">
             <h3>Add new Stakeholder</h3>
-            <select name="stakeholder" id="stakeholder" formControlName="stakeholderId">
-                <option value="" selected disabled>Select Stakeholder</option>
-                @for(user of users; track $index;)
-                {
-                    <option value="{{user.user_id}}">{{user.name}}</option>
-                }
-            </select>
-            
-            <button type="submit" class="btn">Add Stakeholder</button>
+            <div class="row">
+                <select name="stakeholder" id="stakeholder" formControlName="stakeholderId">
+                    <option value="" selected disabled>Select Stakeholder</option>
+                    @for(user of users; track $index;)
+                    {
+                        <option value="{{user.user_id}}">{{user.name}}</option>
+                    }
+                </select>
+                
+                <button type="submit" class="btn">Add Stakeholder</button>
+            </div>
         </form>
     }
 

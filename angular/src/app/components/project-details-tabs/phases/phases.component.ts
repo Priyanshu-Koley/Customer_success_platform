@@ -69,7 +69,7 @@ export class PhasesComponent {
         (res) => {
           console.log(res);
           this.getPhases();
-          this.phaseForm.reset();
+          this.phaseForm.reset({title : '', startDate : '', endDate : '', approvalDate : '', status : '', revisedCompletionDate : '', comments : ''});
           this.toast.success({
             detail: 'Success',
             summary: 'Phase added successfully',

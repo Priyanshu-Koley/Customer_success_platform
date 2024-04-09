@@ -25,8 +25,7 @@ export class UpdateStakeholdersComponent {
       contact: [
         this.data.contact,
         [
-          Validators.required,
-          Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$'),
+          Validators.required
         ],
       ],
     });

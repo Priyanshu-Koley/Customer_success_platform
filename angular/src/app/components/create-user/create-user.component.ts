@@ -72,7 +72,6 @@ export class CreateUserComponent {
               duration: 4000,
             });
             this.assignRole.assignRole(this.userForm.value.role, newUser.user_id);
-            this.router.navigate(['/users'])
           }
           //@ts-ignore
           else if (response.status === 409) {

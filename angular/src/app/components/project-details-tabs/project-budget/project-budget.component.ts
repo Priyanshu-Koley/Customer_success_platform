@@ -67,7 +67,7 @@ export class ProjectBudgetComponent {
         (res) => {
           console.log(res);
           this.getBudget();
-          this.budgetForm.reset();
+          this.budgetForm.reset({type: '', durationInMonths: '', budgetedHours: ''});
           this.toast.success({
             detail: 'Success',
             summary: 'Budget added successfully',

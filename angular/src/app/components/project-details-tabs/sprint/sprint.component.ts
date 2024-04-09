@@ -66,7 +66,7 @@ export class SprintComponent {
         (res) => {
           console.log(res);
           this.getSprints();
-          this.sprintForm.reset();
+          this.sprintForm.reset({sprintNumber: '', startDate: '', endDate: '', status: '', comments: ''});
           this.toast.success({
             detail: 'Success',
             summary: 'Sprint added successfully',

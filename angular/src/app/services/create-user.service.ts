@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class CreateUserService {
     myHeaders.append('Accept', 'application/json');
     myHeaders.append(
       'Authorization',
-      `Bearer ${this.TOKEN}`
+      `Bearer ${environment.AUTH0_TOKEN}`
     );
 
     const raw: string = JSON.stringify(user);

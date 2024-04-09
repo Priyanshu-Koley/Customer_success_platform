@@ -24,15 +24,27 @@
     
     @if(userRoleId === roles.Admin)
     {
-        <a routerLink="/users" (click)="activePage = 2">
-            <div class="users-link link" [class.active]="activePage === 2">
-                Users
+        <a routerLink="/admins" (click)="activePage = 2">
+            <div class="admin-link link" [class.active]="activePage === 2">
+                Admins
             </div>
         </a>
 
         <a routerLink="/project-managers" (click)="activePage = 3">
             <div class="project-managers-link link" [class.active]="activePage === 3">
                 Project Managers
+            </div>
+        </a>
+
+        <a routerLink="/clients" (click)="activePage = 4">
+            <div class="clients-link link" [class.active]="activePage === 4">
+                Clients
+            </div>
+        </a>
+
+        <a routerLink="/auditors" (click)="activePage = 5">
+            <div class="auditors-link link" [class.active]="activePage === 5">
+                Auditors
             </div>
         </a>
     }

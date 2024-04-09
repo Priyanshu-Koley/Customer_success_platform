@@ -27,10 +27,6 @@ export class UpdateProjectComponent {
     private userService: UsersService
   ) {
     this.editProjectForm = this.formBuilder.group({
-      creationTime: [
-        this.data.creationTime.substr(0, 10),
-        [Validators.required],
-      ],
       name: [this.data.name, [Validators.required]],
       projectManager: [
         `${this.data.projectManagerId},${this.data.projectManagerName}`,
@@ -71,8 +67,10 @@ export class UpdateProjectComponent {
           this.editProjectForm.value.projectManager.split(',')[0],
         projectManagerName:
           this.editProjectForm.value.projectManager.split(',')[1],
+        status: this.editProjectForm.value.status,
       };
-
+      console.log(updatedProject);
+      
       this.projectService.updateProject(this.data.id, updatedProject).subscribe(
         (res) => {
           console.log(res);

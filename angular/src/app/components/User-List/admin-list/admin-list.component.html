@@ -1,0 +1,28 @@
+@if(loading)
+{
+    <div class="spinner-container">
+        <mat-spinner></mat-spinner>
+    </div>
+}
+@else {
+    <div class="list-container">
+        <h2>Admins</h2>
+        <table class="list" id="table">
+            <thead>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+            </thead>
+            <tbody>
+                @for(admin of admins; track $index)
+                {
+                    <tr class="admin-{{$index}} row">
+                        <td>{{admin.user_id}}</td>
+                        <td>{{admin.name | titlecase}}</td>
+                        <td>{{admin.email}}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

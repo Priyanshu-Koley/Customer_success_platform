@@ -1,4 +1,4 @@
-.user-list-container{
+.list-container{
     
     margin-left: calc(14.5vw + 30px);
     padding: 20px;
@@ -6,14 +6,14 @@
     border-radius: 4px;
     box-shadow: 0 0 10px rgb(140, 140, 140);
 
-    .user-list {
+    .list {
         border-collapse: collapse;
         width: 75vw;
     
-        .user-row {
+        .row {
           cursor: pointer;
         }
-        .user-row:hover {
+        .row:hover {
           background-color: rgb(254, 246, 237);
         }
     

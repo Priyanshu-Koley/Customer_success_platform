@@ -1,7 +1,9 @@
-<app-navbar />
+@if (!loading) {
+    <app-navbar />
+}
 <div class="main-content">
     
-    @if(auth.isAuthenticated$ | async)
+    @if((auth.isAuthenticated$ | async) && !loading)
     {
         <app-sidebar/>
         <router-outlet/>

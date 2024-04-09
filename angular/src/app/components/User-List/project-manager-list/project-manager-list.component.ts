@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { UsersService } from '../../services/users.service';
-import { Roles } from '../../models/roles.model';
-import { UserOfRole } from '../../models/userOfRole.model';
+import { UsersService } from '../../../services/users.service';
+import { Roles } from '../../../models/roles.model';
+import { UserOfRole } from '../../../models/userOfRole.model';
 
 @Component({
   selector: 'app-project-manager-list',
@@ -20,7 +20,10 @@ export class ProjectManagerListComponent {
     const res = this.userService.getUsersOfRole(Roles['Project Manager']);
     res.then(users =>{
       console.log(users);      
-      this.projectManagers = users;  
+      this.projectManagers = users;
+      this.projectManagers.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+      });  
       this.loading = false;
     })
     

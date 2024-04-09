@@ -49,8 +49,10 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CreateUserComponent } from './components/create-user/create-user.component';
-import { UserListComponent } from './components/user-list/user-list.component';
-import { ProjectManagerListComponent } from './components/project-manager-list/project-manager-list.component';
+import { ProjectManagerListComponent } from './components/User-List/project-manager-list/project-manager-list.component';
+import { AdminListComponent } from './components/User-List/admin-list/admin-list.component';
+import { ClientListComponent } from './components/User-List/client-list/client-list.component';
+import { AuditorListComponent } from './components/User-List/auditor-list/auditor-list.component'; 
 
 @NgModule({
   declarations: [
@@ -88,8 +90,10 @@ import { ProjectManagerListComponent } from './components/project-manager-list/p
     UpdateProjectComponent,
     LandingPageComponent,
     CreateUserComponent,
-    UserListComponent,
     ProjectManagerListComponent,
+    AdminListComponent,
+    ClientListComponent,
+    AuditorListComponent
   ],
   imports: [
     BrowserModule,

@@ -73,48 +73,53 @@ export class StakeholdersComponent {
         this.stakeholderForm.value.stakeholderId,
         false
       );
-      this.stakeholderRoleName = resRole.name;
+      if (resRole) {
+        this.stakeholderRoleName = resRole.name;
+      }
+      else
+      {
+        this.stakeholderRoleName = 'Client'
+      }
       
       // get user details
       const resUser = this.userService.getUserById(
         this.stakeholderForm.value.stakeholderId
       );
       resUser.then((user) => {
-        console.log(user);
         this.selectedUser = user;
-      });
-
-
-      const newStakeholder = {
-        userId: this.stakeholderForm.value.stakeholderId,
-        title: this.stakeholderRoleName,
-        name: this.selectedUser.name,
-        contact: this.selectedUser.email,
-        projectId: this.projectId,
-      };
-
-      console.log(newStakeholder);
-      
-      this.projectService.createStakeholder(newStakeholder).subscribe(
-        (res) => {
-          console.log(res);
-          this.getStakeholders();
-          this.stakeholderForm.reset();
-          this.toast.success({
-            detail: 'Success',
-            summary: 'Stakeholder added successfully',
-            duration: 4000,
-          });
-        },
-        (err) => {
-          console.log(err);
-          this.toast.error({
-            detail: 'Error',
-            summary: 'Error adding Stakeholder',
-            duration: 4000,
-          });
+        let userContact = user.email;
+        if (user.email == null) {
+          userContact = 'No Email';
         }
-      );
+        const newStakeholder = {
+          userId: this.stakeholderForm.value.stakeholderId,
+          title: this.stakeholderRoleName,
+          name: this.selectedUser.name,
+          contact: userContact,
+          projectId: this.projectId,
+        };
+        
+        this.projectService.createStakeholder(newStakeholder).subscribe(
+          (res) => {
+            this.getStakeholders();
+            this.stakeholderForm.reset({ stakeholderId : ''});
+            this.toast.success({
+              detail: 'Success',
+              summary: 'Stakeholder added successfully',
+              duration: 4000,
+            });
+          },
+          (err) => {
+            console.log(err);
+            this.toast.error({
+              detail: 'Error',
+              summary: 'Error adding Stakeholder',
+              duration: 4000,
+            });
+          }
+        );
+
+      });
     } else {
       this.toast.error({
         detail: 'Error',

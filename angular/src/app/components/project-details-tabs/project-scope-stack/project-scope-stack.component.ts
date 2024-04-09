@@ -62,7 +62,7 @@ export class ProjectScopeStackComponent {
         (res) => {
           console.log(res);
           this.getStack();
-          this.stackForm.reset();
+          this.stackForm.reset({stack : '', scope: ''});
           this.toast.success({
             detail: 'Success',
             summary: 'Scope and Stack added successfully',
