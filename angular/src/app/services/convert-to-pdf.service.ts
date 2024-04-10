@@ -8,36 +8,10 @@ import autoTable from 'jspdf-autotable';
 })
 export class ConvertToPdfService {
   constructor() {}
-  // defaultDisplay: string = 'flex';
-
-  // public convertToPDF(ElementToPrint: string) {
-  //   // Hide the display buttons
-  //   // this.defaultDisplay = 'none';
-  //   console.log('Printing...');
-
-  //   let data: any = document.getElementById(ElementToPrint);
-  //   html2canvas(data).then((canvas) => {
-  //     // Few necessary setting options
-  //     let imgWidth = 208;
-  //     let pageHeight = 295;
-  //     let imgHeight = (canvas.height * imgWidth) / canvas.width;
-  //     let heightLeft = imgHeight;
-
-  //     const contentDataURL = canvas.toDataURL('image/png');
-  //     let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
-  //     let position = 0;
-  //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-  //     pdf.save(`${ElementToPrint}.pdf`); // Generated PDF
-  //   });
-
-  //   // Redisplay the delete buttons
-  //   // setTimeout(() => {
-  //   //   this.defaultDisplay = 'flex';
-  //   // }, 1000);
-  // }
 
   tableHeadings: string[] = [];
   tableData: string[][] = [];
+  pdfs: jsPDF[] = [];
 
   private getData(tableId:string){
     const table = document.getElementById(tableId);
@@ -63,47 +37,79 @@ export class ConvertToPdfService {
     }
   }
 
-  public convertToPDF(tableId:string, fileName:string = "data"){
-    const doc = new jsPDF();
-    this.getData(tableId);
-    autoTable(doc, {
-      theme: 'grid',
-      head: [this.tableHeadings],
-      body: [...this.tableData],
-      startY: 15,
+  public convertToPDF(tableIds:string[], fileName:string = "data", noOfTables:number = 1,){
+    let i: number = 0;
+    let num = noOfTables;
+    while (num > 0) {
+      const doc = new jsPDF();
+      this.getData(tableIds[i]);
+      autoTable(doc, {
+        theme: 'grid',
+        head: [this.tableHeadings],
+        body: [...this.tableData],
+        startY: 15,
 
-      margin: { horizontal: 10 },
-      styles: { overflow: 'linebreak' },
-      bodyStyles: { valign: 'top' },
-      columnStyles: {
-        //@ts-ignore
-        email: { columnWidth: 'wrap' },
-      },
-      showHead: 'everyPage',
-      didDrawPage: function (data) {
-        // Header
-        doc.setFontSize(16);
-        doc.setTextColor('#161C22');
-        doc.text(`${fileName.replaceAll('-',' ').toUpperCase()}`, data.settings.margin.left,10);
+        margin: { horizontal: 10 },
+        styles: { overflow: 'linebreak' },
+        bodyStyles: { valign: 'top' },
+        columnStyles: {
+          //@ts-ignore
+          email: { columnWidth: 'wrap' },
+        },
+        showHead: 'everyPage',
+        didDrawPage: function (data) {
+          // Header
+          doc.setFontSize(16);
+          doc.setTextColor('#161C22');
+          doc.text(
+            `${fileName.replaceAll('-', ' ').toUpperCase()}`,
+            data.settings.margin.left,
+            10
+          );
 
-        // Footer
-        doc.setFontSize(8);
+          // Footer
+          doc.setFontSize(8);
 
-        let pageSize = doc.internal.pageSize;
-        let pageHeight = pageSize.height
-          ? pageSize.height
-          : pageSize.getHeight();
-        let pageWidth = pageSize.width
-          ? pageSize.width
-          : pageSize.getWidth();
-        doc.text('Customer success platform', data.settings.margin.left, pageHeight - 10);
-        doc.text(data.pageNumber.toString(),pageWidth-12 , pageHeight - 10);
-      },
-    });
-    doc.save(`${fileName}.pdf`);
+          let pageSize = doc.internal.pageSize;
+          let pageHeight = pageSize.height
+            ? pageSize.height
+            : pageSize.getHeight();
+          let pageWidth = pageSize.width ? pageSize.width : pageSize.getWidth();
+          doc.text(
+            'Customer success platform',
+            data.settings.margin.left,
+            pageHeight - 10
+          );
+          doc.text(data.pageNumber.toString(), pageWidth - 12, pageHeight - 10);
+        },
+      });
+      this.pdfs[i] = doc;
 
-    // reset the tableHeadings and tableData
-    this.tableHeadings = [];
-    this.tableData = [];
+      // reset the tableHeadings and tableData
+      this.tableHeadings = [];
+      this.tableData = [];
+
+      num--;
+      i++;
+    }
+    num = noOfTables;
+    let j = 0;
+    while (num > 0) {
+      this.pdfs[j].addPage();
+      this.pdfs[j].setPage(this.pdfs[j].getNumberOfPages());
+      for (
+        let index = 1;
+        index <= this.pdfs[j + 1].getNumberOfPages();
+        index++
+      )
+      {
+          this.pdfs[j].addPage(this.pdfs[j+1].getPage(page));
+      }
+
+      j++;
+      num--;
+    }
+
+    this.pdfs[0].save(`${fileName}.pdf`);
   }
 }
