@@ -12,25 +12,26 @@ using Volo.Abp.ObjectMapping;
 using Promact.CustomerSuccess.Platform.Services.ServiceInterface;
 using Promact.CustomerSuccess.Platform.Services.Dtos.UpdateDto;
 using Promact.CustomerSuccess.Platform.Services.Dtos.DbDto;
+using Promact.CustomerSuccess.Platform.Services.Dtos.CreateDto;
 
 namespace Promact.CustomerSuccess.Platform.Services
 {
     [RemoteService]
-    public class ProjectScopeStackService : ApplicationService, IProjectScopeStackService
+    public class ProjectScopeStackService : CrudAppService<ProjectScopeStack,
+        ProjectScopeStackDto,
+        Guid,
+        PagedAndSortedResultRequestDto,
+        CreateProjectScopeStackDto,
+        UpdateProjectScopeStackDto
+        >, IProjectScopeStackService
     {
         private readonly IRepository<ProjectScopeStack, Guid> _projectScopeStackRepository;
         private readonly IAsyncQueryableExecuter _asyncExecuter;
 
-        public ProjectScopeStackService(IRepository<ProjectScopeStack, Guid> projectScopeStackRepository, IAsyncQueryableExecuter asyncExecuter)
+        public ProjectScopeStackService(IRepository<ProjectScopeStack, Guid> projectScopeStackRepository, IAsyncQueryableExecuter asyncExecuter) : base(projectScopeStackRepository)
         {
             _projectScopeStackRepository = projectScopeStackRepository;
             _asyncExecuter = asyncExecuter;
-        }
-
-        public async Task CreateProjectScopeStackAsync(ProjectScopeStackDto newProjectScopeStack)
-        {
-            var projectScopeStack = ObjectMapper.Map<ProjectScopeStackDto, ProjectScopeStack>(newProjectScopeStack);
-            await _projectScopeStackRepository.InsertAsync(projectScopeStack);
         }
 
         public async Task<ListResultDto<ProjectScopeStackDto>> GetProjectScopeStackByProjectId(string projectId)
@@ -46,18 +47,6 @@ namespace Promact.CustomerSuccess.Platform.Services
 
             return new ListResultDto<ProjectScopeStackDto>(ObjectMapper.Map<List<ProjectScopeStack>, List<ProjectScopeStackDto>>(projectScopeStack)
             );
-        }
-
-        public async Task UpdateProjectScopeStackAsync(Guid id, UpdateProjectScopeStackDto updatedProjectScopeStack)
-        {
-            var projectScopeStack = await _projectScopeStackRepository.GetAsync(id);
-            ObjectMapper.Map(updatedProjectScopeStack, projectScopeStack);
-            await _projectScopeStackRepository.UpdateAsync(projectScopeStack);
-        }
-
-        public async Task DeleteProjectScopeStackAsync(Guid id)
-        {
-            await _projectScopeStackRepository.DeleteAsync(id);
         }
     }
 }

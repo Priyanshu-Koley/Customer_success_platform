@@ -10,25 +10,13 @@ namespace Promact.CustomerSuccess.Platform.Entities
         public required DateTime EndDate { get; set; }
         public required SprintStatus Status { get; set; }
         public required string Comments { get; set; }
+        public required string Goals { get; set; }
 
+        [ForeignKey(nameof(Project))]
         public required Guid ProjectId { get; set; }
-
-
-
-
-
-        //[ForeignKey("PhaseMilestone")]
-        //public Guid PhaseMilestoneId { get; set; }
-        //public DateTime StartDate { get; set; }
-        //public DateTime EndDate { get; set; }
-        //public SprintStatus Status { get; set; }
-        //public required string Comments { get; set; }
-        //public required string Goals { get; set; }
-        //public int SprintNumber { get; set; }
-        //public virtual PhaseMilestone? PhaseMilestone { get; set; }
-        //public override object?[] GetKeys()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public Project? Project { get; set; }
+        [ForeignKey(nameof(PhaseMilestone))]
+        public Guid PhaseMilestoneId { get; set; }
+        public virtual PhaseMilestone? PhaseMilestone { get; set; }
     }
 }

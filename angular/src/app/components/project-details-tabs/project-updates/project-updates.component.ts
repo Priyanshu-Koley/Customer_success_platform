@@ -131,6 +131,6 @@ export class ProjectUpdatesComponent {
   }
 
   convertToPDF() {
-    this.convertToPdf.convertToPDF('update-table', 'update-table');
+    this.convertToPdf.convertToPDF(['update-table'], 'update-table');
   }
 }

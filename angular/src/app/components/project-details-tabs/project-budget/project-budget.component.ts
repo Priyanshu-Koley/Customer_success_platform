@@ -136,7 +136,7 @@ export class ProjectBudgetComponent {
   }
 
   convertToPDF() {
-    this.convertToPdf.convertToPDF('budget-table', 'budget-table');
+    this.convertToPdf.convertToPDF(['budget-table'], 'budget-table');
   }
 
   getBudgetType(intType: number) {

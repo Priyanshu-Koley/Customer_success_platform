@@ -6,7 +6,7 @@ namespace Promact.CustomerSuccess.Platform.Entities
 
     public class DocumentVersion : AuditedAggregateRootWithUser<Guid, ApplicationUser>
     {
-        public required ChangeType ChangeType { get; set; }
+        public required String ChangeType { get; set; }
         public string? Changes { get; set; }
         public string? ChangeReason { get; set; }
         [ForeignKey(nameof(Document))]

@@ -122,7 +122,7 @@ export class SprintComponent {
 
   convertToPDF() {
     this.convertToPdf.convertToPDF(
-      'version-history-table',
+      ['version-history-table'],
       'version-history-table'
     );
   }

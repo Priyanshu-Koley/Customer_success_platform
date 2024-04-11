@@ -15,9 +15,11 @@ namespace Promact.CustomerSuccess.Platform.Entities
         public required string CreatedBy { get; set; }
         public required string RevisionDate { get; set; }
         public required string ApprovalDate { get; set; }
-        public required string ApprovedBy { get; set; } 
+        public required string ApprovedBy { get; set; }
 
+        [ForeignKey(nameof(Project))]
         public required Guid ProjectId { get; set; }
+        public Project? Project { get; set; }
 
     }
 }

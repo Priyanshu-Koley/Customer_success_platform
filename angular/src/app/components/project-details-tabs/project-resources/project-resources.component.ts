@@ -135,6 +135,6 @@ export class ProjectResourcesComponent {
   }
 
   convertToPDF() {
-    this.convertToPdf.convertToPDF('resource-table', 'resource-table');
+    this.convertToPdf.convertToPDF(['resource-table'], 'resource-table');
   }
 }

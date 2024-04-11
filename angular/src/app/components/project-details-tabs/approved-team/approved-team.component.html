@@ -40,7 +40,7 @@
   {
     <h4>Phase - {{phase}}</h4>
 
-    <table class="team-list" id="team-table">
+    <table class="team-list" id="approved-team-table-{{ phase }}">
       <thead>
         <th>Number Of Resources</th>
         <th>Role</th>
@@ -62,7 +62,7 @@
                   <td [style.pointer-events]="userRoleId === roles.Admin || userRoleId === roles['Project Manager']  ? 'auto' : 'none'" (click)="openUpdateTeamModal($index)">{{ team.duration }}</td>
                   @if(userRoleId === roles.Admin || userRoleId === roles['Project Manager'] )
                   {
-                  <td (click)="openUpdateTeamModal($index)">
+                  <td>
                       <button (click)="deleteTeam(team.id)" class="delete-team">
                       <i class="fa fa-trash-o"></i>
                       </button>

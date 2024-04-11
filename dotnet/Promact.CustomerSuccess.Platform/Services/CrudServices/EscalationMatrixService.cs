@@ -11,25 +11,26 @@ using Volo.Abp.Linq;
 using Volo.Abp.ObjectMapping;
 using Promact.CustomerSuccess.Platform.Services.Dtos.UpdateDto;
 using Promact.CustomerSuccess.Platform.Services.Dtos.DbDto;
+using Promact.CustomerSuccess.Platform.Services.ServiceInterface;
 
 namespace Promact.CustomerSuccess.Platform.Services
 {
     [RemoteService]
-    public class EscalationMatrixService : ApplicationService
+    public class EscalationMatrixService : CrudAppService<EscalationMatrix,
+        EscalationMatrixDto,
+        Guid,
+        PagedAndSortedResultRequestDto,
+        CreateEscalationMatrixDto,
+        UpdateEscalationMatrixDto
+        >, IEscalationMatrixService
     {
         private readonly IRepository<EscalationMatrix, Guid> _escalationMatrixRepository;
         private readonly IAsyncQueryableExecuter _asyncExecuter;
 
-        public EscalationMatrixService(IRepository<EscalationMatrix, Guid> escalationMatrixRepository, IAsyncQueryableExecuter asyncExecuter)
+        public EscalationMatrixService(IRepository<EscalationMatrix, Guid> escalationMatrixRepository, IAsyncQueryableExecuter asyncExecuter) : base(escalationMatrixRepository)
         {
             _escalationMatrixRepository = escalationMatrixRepository;
             _asyncExecuter = asyncExecuter;
-        }
-
-        public async Task CreateEscalationMatrixAsync(UpdateEscalationMatrixDto newEscalationMatrix)
-        {
-            var escalationMatrix = ObjectMapper.Map<UpdateEscalationMatrixDto, EscalationMatrix>(newEscalationMatrix);
-            await _escalationMatrixRepository.InsertAsync(escalationMatrix);
         }
 
         public async Task<ListResultDto<EscalationMatrixDto>> GetEscalationMatrixByProjectId(string projectId)
@@ -45,18 +46,6 @@ namespace Promact.CustomerSuccess.Platform.Services
 
             return new ListResultDto<EscalationMatrixDto>(ObjectMapper.Map<List<EscalationMatrix>, List<EscalationMatrixDto>>(escalationMatrix)
             );
-        }
-
-        public async Task UpdateEscalationMatrixAsync(Guid id, UpdateEscalationMatrixDto updatedEscalationMatrix)
-        {
-            var escalationMatrix = await _escalationMatrixRepository.GetAsync(id);
-            ObjectMapper.Map(updatedEscalationMatrix, escalationMatrix);
-            await _escalationMatrixRepository.UpdateAsync(escalationMatrix);
-        }
-
-        public async Task DeleteEscalationMatrixAsync(Guid id)
-        {
-            await _escalationMatrixRepository.DeleteAsync(id);
         }
     }
 }

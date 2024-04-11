@@ -1,4 +1,5 @@
-﻿using Volo.Abp.Domain.Entities.Auditing;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Promact.CustomerSuccess.Platform.Entities
 {
@@ -7,6 +8,8 @@ namespace Promact.CustomerSuccess.Platform.Entities
         public required string Scope { get; set; }
         public required string Stack { get; set; }
         
+        [ForeignKey(nameof(Project))]
         public required Guid ProjectId { get; set; }
+        public Project? Project { get; set; }
     }
 }

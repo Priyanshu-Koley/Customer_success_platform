@@ -11,7 +11,9 @@ namespace Promact.CustomerSuccess.Platform.Entities
         public required float Availability { get; set; }
         public required string Duration { get; set; }
         
+        [ForeignKey(nameof(Project))]
         public required Guid ProjectId { get; set; }
+        public Project? Project { get; set; }
 
     }
 }

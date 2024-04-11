@@ -1,4 +1,5 @@
 using Promact.CustomerSuccess.Platform.Data;
+using Promact.CustomerSuccess.Platform.Services.EmailService;
 using Serilog;
 using Serilog.Events;
 using Volo.Abp.Data;
@@ -42,6 +43,19 @@ public class Program
             builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables().AddCommandLine(args);
+
+
+            //load the json file.
+            builder.Configuration.AddJsonFile("secrets.json",
+                    optional: true,
+                    reloadOnChange: true);
+            //register the service 
+            builder.Services.AddScoped<IDataRepository, DataRepository>();
+
+            //get the value from the secrets.json file
+            var name = builder.Configuration.GetSection("Email:ServiceApiKey").Value;
+
+
 
             if (IsMigrateDatabase(args))
             {

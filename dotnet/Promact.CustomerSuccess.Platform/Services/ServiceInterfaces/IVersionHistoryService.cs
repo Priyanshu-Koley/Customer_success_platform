@@ -8,9 +8,6 @@ namespace Promact.CustomerSuccess.Platform.Services.ServiceInterface
 {
     public interface IVersionHistoryService : IApplicationService
     {
-        Task CreateVersionHistoryAsync(CreateVersionHistoryDto newVersion);
         Task<ListResultDto<VersionHistoryDto>> GetVersionHistoryByProjectId(string projectId);
-        Task UpdateVersionHistoryAsync(Guid id, UpdateVersionHistoryDto updatedVersion);
-        Task DeleteVersionHistoryAsync(Guid id);
     }
 }

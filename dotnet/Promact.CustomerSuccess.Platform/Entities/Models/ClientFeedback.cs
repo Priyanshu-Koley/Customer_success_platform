@@ -12,9 +12,8 @@ namespace Promact.CustomerSuccess.Platform.Entities
         public required string ActionTaken { get; set; }
         public required DateTime ClosureDate { get; set; }
 
+        [ForeignKey(nameof(Project))]
         public required Guid ProjectId { get; set; }
-        
-        //[ForeignKey("Project")]
-        //public virtual Project? Project { get; set; }
+        public Project? Project { get; set; }
     }
 }

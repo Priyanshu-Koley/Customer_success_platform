@@ -8,7 +8,9 @@ namespace Promact.CustomerSuccess.Platform.Entities
         public required DateTime Date { get; set; }
         public required string GeneralUpdates{ get; set; }
         
+        [ForeignKey(nameof(Project))]
         public required Guid ProjectId { get; set; }
+        public Project? Project { get; set; }
 
     }
 }

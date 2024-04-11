@@ -11,25 +11,26 @@ using Volo.Abp.Linq;
 using Volo.Abp.ObjectMapping;
 using Promact.CustomerSuccess.Platform.Services.Dtos.UpdateDto;
 using Promact.CustomerSuccess.Platform.Services.Dtos.DbDto;
+using Promact.CustomerSuccess.Platform.Services.ServiceInterface;
 
 namespace Promact.CustomerSuccess.Platform.Services
 {
     [RemoteService]
-    public class SprintService : ApplicationService
+    public class SprintService : CrudAppService<Sprint,
+        SprintDto,
+        Guid,
+        PagedAndSortedResultRequestDto,
+        CreateSprintDto,
+        UpdateSprintDto
+        >, ISprintService
     {
         private readonly IRepository<Sprint, Guid> _sprintRepository;
         private readonly IAsyncQueryableExecuter _asyncExecuter;
 
-        public SprintService(IRepository<Sprint, Guid> sprintRepository, IAsyncQueryableExecuter asyncExecuter)
+        public SprintService(IRepository<Sprint, Guid> sprintRepository, IAsyncQueryableExecuter asyncExecuter) : base(sprintRepository)
         {
             _sprintRepository = sprintRepository;
             _asyncExecuter = asyncExecuter;
-        }
-
-        public async Task CreateSprintAsync(UpdateSprintDto newSprint)
-        {
-            var sprint = ObjectMapper.Map<UpdateSprintDto, Sprint>(newSprint);
-            await _sprintRepository.InsertAsync(sprint);
         }
 
         public async Task<ListResultDto<SprintDto>> GetSprintByProjectId(string projectId)
@@ -45,18 +46,6 @@ namespace Promact.CustomerSuccess.Platform.Services
 
             return new ListResultDto<SprintDto>(ObjectMapper.Map<List<Sprint>, List<SprintDto>>(sprint)
             );
-        }
-
-        public async Task UpdateSprintAsync(Guid id, UpdateSprintDto updatedSprint)
-        {
-            var sprint = await _sprintRepository.GetAsync(id);
-            ObjectMapper.Map(updatedSprint, sprint);
-            await _sprintRepository.UpdateAsync(sprint);
-        }
-
-        public async Task DeleteSprintAsync(Guid id)
-        {
-            await _sprintRepository.DeleteAsync(id);
         }
     }
 }

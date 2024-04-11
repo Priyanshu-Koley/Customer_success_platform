@@ -131,6 +131,6 @@ export class ProjectScopeStackComponent {
   }
 
   convertToPDF() {
-    this.convertToPdf.convertToPDF('stack-table', 'stack-table');
+    this.convertToPdf.convertToPDF(['stack-table'], 'stack-table');
   }
 }

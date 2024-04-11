@@ -2,35 +2,37 @@
 using Promact.CustomerSuccess.Platform.Entities;
 using System.Net;
 using System.Net.Mail;
+using Volo.Abp;
+using Volo.Abp.Application.Services;
 
-namespace API.Controllers
+namespace Promact.CustomerSuccess.Platform.Services.EmailService
 {
-    
-    // Define model for audit history change email
-    public class AuditChangeModel
+    public class EmailService : ApplicationService
     {
-        public required string Name { get; set; } = string.Empty; // Name of the recipient
-        public required string ToEmail { get; set; } = string.Empty; // Email address of the recipient
-        public required AuditHistory ChangedAudit { get; set; } // Changed Audit
-    }
+        private readonly IDataRepository _datarepo;
+        public EmailService(IDataRepository dataRepository)
+        {
+            _datarepo = dataRepository;
+        }
+        public string FetchKey()
+        {
+            return _datarepo.GetEmailKey();
+        }
+        
 
-    // Controller for handling email-related operations
-    [Route("api/[controller]")]
-    [ApiController]
-    public class EmailController : ControllerBase
-    {
-        // Sender's email address and key
+        // Sender's email address
         public string FromEmail = "priyanshukoley0@gmail.com";
-        public string Key = "oinq humj srsb kqry";
 
         // Company name used in email templates
-        public string CompanyName = "Promact Infotech Pvt Ltd";
+        public string CompanyName = "Promact Infotech Private Limited";
 
         // Endpoint for sending audit updation email
-        [HttpPost("AuditChange")]
-        public ActionResult AuditChange(AuditChangeModel emailData)
+        public string CreateSendEmailOnAuditChange(AuditChangeModel emailData)
         {
             var Subject = $"Change in audit history";
+
+            // Key for sending email
+            var Key = FetchKey();
 
             // Construct the email message
             var message = new MailMessage()
@@ -58,7 +60,10 @@ namespace API.Controllers
             };
 
             // Add recipient's email address
-            message.To.Add(new MailAddress(emailData.ToEmail));
+            foreach (var toEmail in emailData.ToEmails)
+            {
+                message.To.Add(new MailAddress(toEmail));
+            }
 
             // Create new SMTP client
             var smtp = new SmtpClient("smtp.gmail.com")
@@ -72,7 +77,7 @@ namespace API.Controllers
             smtp.Send(message);
 
             // Return success message
-            return Ok("Audit update Email Sent");
+            return ("Audit update Email Sent");
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using Volo.Abp.Application.Dtos;
+﻿using Promact.CustomerSuccess.Platform.Entities;
+using Volo.Abp.Application.Dtos;
 
 namespace Promact.CustomerSuccess.Platform.Services.Dtos.DbDto
 {
@@ -6,8 +7,9 @@ namespace Promact.CustomerSuccess.Platform.Services.Dtos.DbDto
     {
         public Guid Id { get; set; }
         public required string Name { get; set; }
-        //public string? Description { get; set; }
+        public required string ProjectManagerId { get; set; }
         public required string ProjectManagerName { get; set; }
+        public required string ClientId { get; set; }
         public required string ClientName { get; set; }
         public required string ClientEmail { get; set; }
         public string? Brief { get; set; }
@@ -20,14 +22,21 @@ namespace Promact.CustomerSuccess.Platform.Services.Dtos.DbDto
         public DateTime CreationTime { get; set; }
 
 
-        //public IEnumerable<DocumentDto>? Documents { get; set; }
-        //public IEnumerable<ProjectBudgetDto>? Budgets { get; set; }
-        //public IEnumerable<EscalationMatrixDto>? EscalationMatrices { get; set; }
-        //public IEnumerable<RiskProfileDto>? RiskProfiles { get; set; }
-        //public IEnumerable<PhaseMilestoneDto>? PhaseMilestones { get; set; }
-        //public IEnumerable<ProjectResourcesDto>? Resources { get; set; }
-        //public IEnumerable<ClientFeedbackDto>? ClientFeedbacks { get; set; }
-        //public IEnumerable<MeetingMinuteDto>? MeetingMinutes { get; set; }
+
+        public IEnumerable<ApprovedTeam>? ApprovedTeams { get; set; }
+        public IEnumerable<AuditHistory>? AuditHistory { get; set; }
+        public IEnumerable<ClientFeedback>? ClientFeedbacks { get; set; }
+        public IEnumerable<EscalationMatrix>? EscalationMatrices { get; set; }
+        public IEnumerable<MeetingMinute>? MeetingMinutes { get; set; }
+        public IEnumerable<PhaseMilestone>? PhaseMilestones { get; set; }
+        public IEnumerable<ProjectBudget>? Budgets { get; set; }
+        public IEnumerable<ProjectResources>? Resources { get; set; }
+        public IEnumerable<ProjectScopeStack>? ProjectScopeStacks { get; set; }
+        public IEnumerable<ProjectUpdates>? ProjectUpdates { get; set; }
+        public IEnumerable<RiskProfile>? RiskProfiles { get; set; }
+        public IEnumerable<Sprint>? Sprints { get; set; }
+        public IEnumerable<Stakeholders>? Stakeholders { get; set; }
+        public IEnumerable<VersionHistory>? VersionHistory { get; set; }
 
     }
 }

@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc;
 
-namespace Promact.CustomerSuccess.Platform.Controllers;
-
-public class HomeController : AbpController
+namespace Promact.CustomerSuccess.Platform.Controllers
 {
-    public ActionResult Index()
+    public class HomeController : AbpController
     {
-        return Redirect("~/swagger");
+        public ActionResult Index()
+        {
+            return Redirect("~/swagger");
+        }
     }
 }

@@ -13,21 +13,11 @@ namespace Promact.CustomerSuccess.Platform.Entities
         public required string RemedialSteps { get; set; }
         public required string Status { get; set; }
         public required DateTime ClosureDate { get; set; }
+        public virtual ICollection<RemediationStep>? RemediationSteps { get; set; }
 
+        [ForeignKey(nameof(Project))]
         public required Guid ProjectId { get; set; }
+        public Project? Project { get; set; }
 
-
-
-    //[ForeignKey("Project")]
-    //public Guid ProjectId { get; set; }
-    //public RiskType RiskType { get; set; }
-    //public RiskSeverity Severity { get; set; }
-    //public RiskImpact Impact { get; set; }        
-    //public virtual ICollection<RemediationStep>? RemediationSteps { get; set; }
-    //public virtual Project? Project { get; set; }
-    //public override object?[] GetKeys()
-    //{
-    //    throw new NotImplementedException();
-    //}
     }
 }

@@ -144,7 +144,7 @@ export class VersionHistoryComponent {
 
   convertToPDF() {
     this.convertToPdf.convertToPDF(
-      'version-history-table',
+      ['version-history-table'],
       'version-history-table'
     );
   }

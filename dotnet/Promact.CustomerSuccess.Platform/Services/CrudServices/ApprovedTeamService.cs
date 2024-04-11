@@ -11,25 +11,27 @@ using Volo.Abp.Linq;
 using Volo.Abp.ObjectMapping;
 using Promact.CustomerSuccess.Platform.Services.Dtos.UpdateDto;
 using Promact.CustomerSuccess.Platform.Services.Dtos.DbDto;
+using Promact.CustomerSuccess.Platform.Services.ServiceInterface;
+using Promact.CustomerSuccess.Platform.Services.Dtos.CreateDto;
 
 namespace Promact.CustomerSuccess.Platform.Services
 {
     [RemoteService]
-    public class ApprovedTeamService : ApplicationService
+    public class ApprovedTeamService : CrudAppService<ApprovedTeam,
+            ApprovedTeamDto,
+            Guid,
+            PagedAndSortedResultRequestDto,
+            CreateApprovedTeamDto,
+            UpdateApprovedTeamDto>, 
+        IApprovedTeamService
     {
         private readonly IRepository<ApprovedTeam, Guid> _approvedTeamRepository;
         private readonly IAsyncQueryableExecuter _asyncExecuter;
 
-        public ApprovedTeamService(IRepository<ApprovedTeam, Guid> approvedTeamRepository, IAsyncQueryableExecuter asyncExecuter)
+        public ApprovedTeamService(IRepository<ApprovedTeam, Guid> approvedTeamRepository, IAsyncQueryableExecuter asyncExecuter) : base(approvedTeamRepository)
         {
             _approvedTeamRepository = approvedTeamRepository;
             _asyncExecuter = asyncExecuter;
-        }
-
-        public async Task CreateApprovedTeamAsync(UpdateApprovedTeamDto newApprovedTeam)
-        {
-            var approvedTeam = ObjectMapper.Map<UpdateApprovedTeamDto, ApprovedTeam>(newApprovedTeam);
-            await _approvedTeamRepository.InsertAsync(approvedTeam);
         }
 
         public async Task<ListResultDto<ApprovedTeamDto>> GetApprovedTeamByProjectId(string projectId)
@@ -44,18 +46,6 @@ namespace Promact.CustomerSuccess.Platform.Services
 
             return new ListResultDto<ApprovedTeamDto>(ObjectMapper.Map<List<ApprovedTeam>, List<ApprovedTeamDto>>(approvedTeam)
             );
-        }
-
-        public async Task UpdateApprovedTeamAsync(Guid id, UpdateApprovedTeamDto updatedApprovedTeam)
-        {
-            var approvedTeam = await _approvedTeamRepository.GetAsync(id);
-            ObjectMapper.Map(updatedApprovedTeam, approvedTeam);
-            await _approvedTeamRepository.UpdateAsync(approvedTeam);
-        }
-
-        public async Task DeleteApprovedTeamAsync(Guid id)
-        {
-            await _approvedTeamRepository.DeleteAsync(id);
         }
     }
 }

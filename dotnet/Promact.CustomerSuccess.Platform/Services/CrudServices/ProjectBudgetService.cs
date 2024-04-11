@@ -16,21 +16,21 @@ using Promact.CustomerSuccess.Platform.Services.Dtos.DbDto;
 namespace Promact.CustomerSuccess.Platform.Services
 {
     [RemoteService]
-    public class ProjectBudgetService : ApplicationService, IProjectBudgetService
+    public class ProjectBudgetService : CrudAppService<ProjectBudget,
+        ProjectBudgetDto,
+        Guid,
+        PagedAndSortedResultRequestDto,
+        CreateProjectBudgetDto,
+        UpdateProjectBudgetDto
+        >, IProjectBudgetService
     {
         private readonly IRepository<ProjectBudget, Guid> _projectBudgetRepository;
         private readonly IAsyncQueryableExecuter _asyncExecuter;
 
-        public ProjectBudgetService(IRepository<ProjectBudget, Guid> projectBudgetRepository, IAsyncQueryableExecuter asyncExecuter)
+        public ProjectBudgetService(IRepository<ProjectBudget, Guid> projectBudgetRepository, IAsyncQueryableExecuter asyncExecuter) : base(projectBudgetRepository)
         {
             _projectBudgetRepository = projectBudgetRepository;
             _asyncExecuter = asyncExecuter;
-        }
-
-        public async Task CreateProjectBudgetAsync(ProjectBudgetDto newProjectBudget)
-        {
-            var projectBudget = ObjectMapper.Map<ProjectBudgetDto, ProjectBudget>(newProjectBudget);
-            await _projectBudgetRepository.InsertAsync(projectBudget);
         }
 
         public async Task<ListResultDto<ProjectBudgetDto>> GetProjectBudgetByProjectId(string projectId)
@@ -46,18 +46,6 @@ namespace Promact.CustomerSuccess.Platform.Services
 
             return new ListResultDto<ProjectBudgetDto>(ObjectMapper.Map<List<ProjectBudget>, List<ProjectBudgetDto>>(projectBudget)
             );
-        }
-
-        public async Task UpdateProjectBudgetAsync(Guid id, UpdateProjectBudgetDto updatedProjectBudget)
-        {
-            var projectBudget = await _projectBudgetRepository.GetAsync(id);
-            ObjectMapper.Map(updatedProjectBudget, projectBudget);
-            await _projectBudgetRepository.UpdateAsync(projectBudget);
-        }
-
-        public async Task DeleteProjectBudgetAsync(Guid id)
-        {
-            await _projectBudgetRepository.DeleteAsync(id);
         }
     }
 }

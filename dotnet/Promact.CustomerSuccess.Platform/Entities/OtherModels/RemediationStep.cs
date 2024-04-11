@@ -6,7 +6,7 @@ namespace Promact.CustomerSuccess.Platform.Entities
     public class RemediationStep : AuditedAggregateRootWithUser<Guid, ApplicationUser>
     {
         public required string Description { get; set; }
-        [ForeignKey("RiskProfile")]
+        [ForeignKey(nameof(RiskProfile))]
         public Guid RiskProfileId { get; set; }
         public virtual RiskProfile? RiskProfile { get; set; }
         public override object?[] GetKeys()

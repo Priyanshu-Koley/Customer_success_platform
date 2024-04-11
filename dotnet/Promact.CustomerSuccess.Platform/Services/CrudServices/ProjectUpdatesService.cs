@@ -12,25 +12,27 @@ using Volo.Abp.ObjectMapping;
 using Promact.CustomerSuccess.Platform.Services.Dtos.UpdateDto;
 using Promact.CustomerSuccess.Platform.Services.Dtos.DbDto;
 using Volo.Abp.Domain.Entities.Auditing;
+using Promact.CustomerSuccess.Platform.Services.ServiceInterface;
+using Promact.CustomerSuccess.Platform.Services.Dtos.CreateDto;
 
 namespace Promact.CustomerSuccess.Platform.Services
 {
     [RemoteService]
-    public class ProjectUpdatesService : ApplicationService
+    public class ProjectUpdatesService : CrudAppService<ProjectUpdates,
+        ProjectUpdatesDto,
+        Guid,
+        PagedAndSortedResultRequestDto,
+        CreateProjectUpdatesDto,
+        UpdateProjectUpdatesDto
+        >, IProjectUpdatesService
     {
         private readonly IRepository<ProjectUpdates, Guid> _projectUpdatesRepository;
         private readonly IAsyncQueryableExecuter _asyncExecuter;
 
-        public ProjectUpdatesService(IRepository<ProjectUpdates, Guid> projectUpdatesRepository, IAsyncQueryableExecuter asyncExecuter)
+        public ProjectUpdatesService(IRepository<ProjectUpdates, Guid> projectUpdatesRepository, IAsyncQueryableExecuter asyncExecuter) : base(projectUpdatesRepository)
         {
             _projectUpdatesRepository = projectUpdatesRepository;
             _asyncExecuter = asyncExecuter;
-        }
-
-        public async Task CreateProjectUpdatesAsync(UpdateProjectUpdatesDto newProjectUpdates)
-        {
-            var projectUpdates = ObjectMapper.Map<UpdateProjectUpdatesDto, ProjectUpdates>(newProjectUpdates);
-            await _projectUpdatesRepository.InsertAsync(projectUpdates);
         }
 
         public async Task<ListResultDto<ProjectUpdatesDto>> GetProjectUpdatesByProjectId(string projectId)
@@ -46,18 +48,6 @@ namespace Promact.CustomerSuccess.Platform.Services
 
             return new ListResultDto<ProjectUpdatesDto>(ObjectMapper.Map<List<ProjectUpdates>, List<ProjectUpdatesDto>>(projectUpdates)
             );
-        }
-
-        public async Task UpdateProjectUpdatesAsync(Guid id, UpdateProjectUpdatesDto updatedProjectUpdates)
-        {
-            var projectUpdates = await _projectUpdatesRepository.GetAsync(id);
-            ObjectMapper.Map(updatedProjectUpdates, projectUpdates);
-            await _projectUpdatesRepository.UpdateAsync(projectUpdates);
-        }
-
-        public async Task DeleteProjectUpdatesAsync(Guid id)
-        {
-            await _projectUpdatesRepository.DeleteAsync(id);
         }
     }
 }

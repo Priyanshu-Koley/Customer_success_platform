@@ -138,7 +138,13 @@ export class ApprovedTeamComponent {
   }
 
   convertToPDF() {
-    this.convertToPdf.convertToPDF('team-table', 'team-table');
+    this.convertToPdf.convertToPDF(
+      this.phases.map((phase): string => {
+        return `approved-team-table-${phase}`;
+      }),
+      'approved-team-table',
+      this.phases.length
+    );
   }
 
   addPhase() {

@@ -16,21 +16,21 @@ using Promact.CustomerSuccess.Platform.Services.Dtos.DbDto;
 namespace Promact.CustomerSuccess.Platform.Services
 {
     [RemoteService]
-    public class StakeholdersService : ApplicationService, IStakeholdersService
+    public class StakeholdersService : CrudAppService<Stakeholders,
+        StakeholdersDto,
+        Guid,
+        PagedAndSortedResultRequestDto,
+        CreateStakeholdersDto,
+        UpdateStakeholdersDto
+        >, IStakeholdersService
     {
         private readonly IRepository<Stakeholders, Guid> _stakeholdersRepository;
         private readonly IAsyncQueryableExecuter _asyncExecuter;
 
-        public StakeholdersService(IRepository<Stakeholders, Guid> stakeholdersRepository, IAsyncQueryableExecuter asyncExecuter)
+        public StakeholdersService(IRepository<Stakeholders, Guid> stakeholdersRepository, IAsyncQueryableExecuter asyncExecuter) : base(stakeholdersRepository)
         {
             _stakeholdersRepository = stakeholdersRepository;
             _asyncExecuter = asyncExecuter;
-        }
-
-        public async Task CreateStakeholdersAsync(UpdateStakeholdersDto newStakeholders)
-        {
-            var stakeholders = ObjectMapper.Map<UpdateStakeholdersDto, Stakeholders>(newStakeholders);
-            await _stakeholdersRepository.InsertAsync(stakeholders);
         }
 
         public async Task<ListResultDto<StakeholdersDto>> GetStakeholdersByProjectId(string projectId)
@@ -46,18 +46,6 @@ namespace Promact.CustomerSuccess.Platform.Services
 
             return new ListResultDto<StakeholdersDto>(ObjectMapper.Map<List<Stakeholders>, List<StakeholdersDto>>(stakeholders)
             );
-        }
-
-        public async Task UpdateStakeholdersAsync(Guid id, UpdateStakeholdersDto updatedStakeholders)
-        {
-            var stakeholders = await _stakeholdersRepository.GetAsync(id);
-            ObjectMapper.Map(updatedStakeholders, stakeholders);
-            await _stakeholdersRepository.UpdateAsync(stakeholders);
-        }
-
-        public async Task DeleteStakeholdersAsync(Guid id)
-        {
-            await _stakeholdersRepository.DeleteAsync(id);
         }
     }
 }

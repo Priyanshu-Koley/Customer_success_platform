@@ -12,25 +12,26 @@ using Volo.Abp.ObjectMapping;
 using Promact.CustomerSuccess.Platform.Services.Dtos.UpdateDto;
 using Promact.CustomerSuccess.Platform.Services.Dtos.DbDto;
 using Volo.Abp.Domain.Entities.Auditing;
+using Promact.CustomerSuccess.Platform.Services.ServiceInterface;
 
 namespace Promact.CustomerSuccess.Platform.Services
 {
     [RemoteService]
-    public class ClientFeedbackService : ApplicationService
+    public class ClientFeedbackService : CrudAppService<ClientFeedback,
+        ClientFeedbackDto,
+        Guid,
+        PagedAndSortedResultRequestDto,
+        CreateClientFeedbackDto,
+        UpdateClientFeedbackDto
+        >, IClientFeedbackService
     {
         private readonly IRepository<ClientFeedback, Guid> _clientFeedbackRepository;
         private readonly IAsyncQueryableExecuter _asyncExecuter;
 
-        public ClientFeedbackService(IRepository<ClientFeedback, Guid> clientFeedbackRepository, IAsyncQueryableExecuter asyncExecuter)
+        public ClientFeedbackService(IRepository<ClientFeedback, Guid> clientFeedbackRepository, IAsyncQueryableExecuter asyncExecuter) : base(clientFeedbackRepository)
         {
             _clientFeedbackRepository = clientFeedbackRepository;
             _asyncExecuter = asyncExecuter;
-        }
-
-        public async Task CreateClientFeedbackAsync(UpdateClientFeedbackDto newClientFeedback)
-        {
-            var clientFeedback = ObjectMapper.Map<UpdateClientFeedbackDto, ClientFeedback>(newClientFeedback);
-            await _clientFeedbackRepository.InsertAsync(clientFeedback);
         }
 
         public async Task<ListResultDto<ClientFeedbackDto>> GetClientFeedbackByProjectId(string projectId)
@@ -46,18 +47,6 @@ namespace Promact.CustomerSuccess.Platform.Services
 
             return new ListResultDto<ClientFeedbackDto>(ObjectMapper.Map<List<ClientFeedback>, List<ClientFeedbackDto>>(clientFeedback)
             );
-        }
-
-        public async Task UpdateClientFeedbackAsync(Guid id, UpdateClientFeedbackDto updatedClientFeedback)
-        {
-            var clientFeedback = await _clientFeedbackRepository.GetAsync(id);
-            ObjectMapper.Map(updatedClientFeedback, clientFeedback);
-            await _clientFeedbackRepository.UpdateAsync(clientFeedback);
-        }
-
-        public async Task DeleteClientFeedbackAsync(Guid id)
-        {
-            await _clientFeedbackRepository.DeleteAsync(id);
         }
     }
 }

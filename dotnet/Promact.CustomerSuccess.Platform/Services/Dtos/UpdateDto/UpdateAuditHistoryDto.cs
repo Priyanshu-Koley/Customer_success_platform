@@ -4,7 +4,7 @@ namespace Promact.CustomerSuccess.Platform.Services.Dtos.UpdateDto
 {
     public class UpdateAuditHistoryDto
     {
-        public string? AuditDate { get; set; }
+        public DateTime? AuditDate { get; set; }
         public string? ReviewedBy { get; set; }
         public string? Status { get; set; }
         public string? ReviewedSection { get; set; }

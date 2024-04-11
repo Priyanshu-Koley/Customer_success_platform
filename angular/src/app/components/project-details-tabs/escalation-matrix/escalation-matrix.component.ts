@@ -135,7 +135,7 @@ export class EscalationMatrixComponent {
 
   convertToPDF(type: string) {
     this.convertToPdf.convertToPDF(
-      `${type.toLowerCase()}-escalation-matrix-table`,
+      [`${type.toLowerCase()}-escalation-matrix-table`],
       `${type.toLowerCase()}-escalation-matrix-table`
     );
   }

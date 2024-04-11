@@ -7,9 +7,6 @@ namespace Promact.CustomerSuccess.Platform.Services.ServiceInterface
 {
     public interface IRiskProfileService : IApplicationService
     {
-        Task CreateRiskProfileAsync(UpdateRiskProfileDto newRiskProfile);
         Task<ListResultDto<RiskProfileDto>> GetRiskProfileByProjectId(string projectId);
-        Task UpdateRiskProfileAsync(Guid id, UpdateRiskProfileDto updatedRiskProfile);
-        Task DeleteRiskProfileAsync(Guid id);
     }
 }

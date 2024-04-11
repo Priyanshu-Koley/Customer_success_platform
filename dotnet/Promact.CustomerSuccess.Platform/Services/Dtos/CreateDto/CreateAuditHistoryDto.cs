@@ -4,7 +4,7 @@ namespace Promact.CustomerSuccess.Platform.Services.Dtos.CreateDto
 {
     public class CreateAuditHistoryDto
     {
-        public required string AuditDate { get; set; }
+        public DateTime AuditDate { get; set; }
         public required string ReviewedBy { get; set; }
         public required string Status { get; set; }
         public required string ReviewedSection { get; set; }

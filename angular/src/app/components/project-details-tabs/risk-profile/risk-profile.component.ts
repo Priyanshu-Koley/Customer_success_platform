@@ -154,6 +154,6 @@ export class RiskProfileComponent {
   }
 
   convertToPDF() {
-    this.convertToPdf.convertToPDF('risk-profile-table', 'risk-profile-table');
+    this.convertToPdf.convertToPDF(['risk-profile-table'], 'risk-profile-table');
   }
 }

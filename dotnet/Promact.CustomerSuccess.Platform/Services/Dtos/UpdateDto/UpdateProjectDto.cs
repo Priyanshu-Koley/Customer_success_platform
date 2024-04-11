@@ -8,8 +8,9 @@ namespace Promact.CustomerSuccess.Platform.Services.Dtos.UpdateDto
         [StringLength(128)]
         public string? Name { get; set; }
         public DateTime? CreationTime { get; set; }
-        // public string? Description { get; set; }
+        public string? ProjectManagerId { get; set; }
         public string? ProjectManagerName { get; set; }
+        public string? ClientId { get; set; }
         public string? ClientName { get; set; }
         public string? ClientEmail { get; set; }
         public string? Brief { get; set; }

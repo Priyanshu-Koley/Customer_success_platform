@@ -5,6 +5,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+		<UserSecretsId>6e988c86-1468-420b-bb85-6e64ad7488a2</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>

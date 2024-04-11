@@ -16,21 +16,21 @@ using Promact.CustomerSuccess.Platform.Services.Dtos.DbDto;
 namespace Promact.CustomerSuccess.Platform.Services
 {
     [RemoteService]
-    public class AuditHistoryService : ApplicationService, IAuditHistoryService
+    public class AuditHistoryService : CrudAppService<AuditHistory,
+        AuditHistoryDto,
+        Guid,
+        PagedAndSortedResultRequestDto,
+        CreateAuditHistoryDto,
+        UpdateAuditHistoryDto
+        >, IAuditHistoryService
     {
         private readonly IRepository<AuditHistory, Guid> _auditHistoryRepository;
         private readonly IAsyncQueryableExecuter _asyncExecuter;
 
-        public AuditHistoryService(IRepository<AuditHistory, Guid> auditHistoryRepository, IAsyncQueryableExecuter asyncExecuter)
+        public AuditHistoryService(IRepository<AuditHistory, Guid> auditHistoryRepository, IAsyncQueryableExecuter asyncExecuter) : base(auditHistoryRepository)
         {
             _auditHistoryRepository = auditHistoryRepository;
             _asyncExecuter = asyncExecuter;
-        }
-
-        public async Task CreateAuditHistoryAsync(CreateAuditHistoryDto newAudit)
-        {
-            var auditHistory = ObjectMapper.Map<CreateAuditHistoryDto, AuditHistory>(newAudit);
-            await _auditHistoryRepository.InsertAsync(auditHistory);
         }
 
         public async Task<ListResultDto<AuditHistoryDto>> GetAuditHistoryByProjectId(string projectId)
@@ -44,20 +44,7 @@ namespace Promact.CustomerSuccess.Platform.Services
 
             List<AuditHistory> auditHistories = await _asyncExecuter.ToListAsync(query);
 
-            return new ListResultDto<AuditHistoryDto>(ObjectMapper.Map<List<AuditHistory>, List<AuditHistoryDto>>(auditHistories)
-            );
-        }
-
-        public async Task UpdateAuditHistoryAsync(Guid id, UpdateAuditHistoryDto updatedAudit)
-        {
-            var auditHistory = await _auditHistoryRepository.GetAsync(id);
-            ObjectMapper.Map(updatedAudit, auditHistory);
-            await _auditHistoryRepository.UpdateAsync(auditHistory);
-        }
-
-        public async Task DeleteAuditHistoryAsync(Guid id)
-        {
-            await _auditHistoryRepository.DeleteAsync(id);
-        }
+            return new ListResultDto<AuditHistoryDto>(ObjectMapper.Map<List<AuditHistory>, List<AuditHistoryDto>>(auditHistories));
+         }
     }
 }

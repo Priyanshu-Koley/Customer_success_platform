@@ -176,6 +176,6 @@ export class StakeholdersComponent {
   }
 
   convertToPDF() {
-    this.convertToPdf.convertToPDF('stakeholders-table', 'stakeholders-table');
+    this.convertToPdf.convertToPDF(['stakeholders-table'], 'stakeholders-table');
   }
 }

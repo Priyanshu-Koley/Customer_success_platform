@@ -114,6 +114,6 @@ export class MeetingMinuteComponent {
   }
 
   convertToPDF() {
-    this.convertToPdf.convertToPDF('mom-table', 'mom-table');
+    this.convertToPdf.convertToPDF(['mom-table'], 'mom-table');
   }
 }

@@ -10,14 +10,8 @@ namespace Promact.CustomerSuccess.Platform.Entities
         public required string MoMLink { get; set; }
         public required string Comments { get; set; }
         
+        [ForeignKey(nameof(Project))]
         public required Guid ProjectId { get; set; }
-        
-        //[ForeignKey("Project")]
-        //public virtual Project? Project { get; set; }
-
-        //public override object?[] GetKeys()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public Project? Project { get; set; }
     }
 }
