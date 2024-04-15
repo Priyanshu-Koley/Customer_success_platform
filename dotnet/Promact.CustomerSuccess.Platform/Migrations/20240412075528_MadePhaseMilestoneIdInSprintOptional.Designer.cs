@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Promact.CustomerSuccess.Platform.Data;
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Promact.CustomerSuccess.Platform.Migrations
 {
     [DbContext(typeof(PlatformDbContext))]
-    partial class PlatformDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240412075528_MadePhaseMilestoneIdInSprintOptional")]
+    partial class MadePhaseMilestoneIdInSprintOptional
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -895,6 +898,7 @@ namespace Promact.CustomerSuccess.Platform.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Goals")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("LastModificationTime")
@@ -904,6 +908,9 @@ namespace Promact.CustomerSuccess.Platform.Migrations
                     b.Property<Guid?>("LastModifierId")
                         .HasColumnType("uuid")
                         .HasColumnName("LastModifierId");
+
+                    b.Property<Guid?>("PhaseMilestoneId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uuid");
@@ -918,6 +925,8 @@ namespace Promact.CustomerSuccess.Platform.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PhaseMilestoneId");
 
                     b.HasIndex("ProjectId");
 
@@ -2928,11 +2937,17 @@ namespace Promact.CustomerSuccess.Platform.Migrations
 
             modelBuilder.Entity("Promact.CustomerSuccess.Platform.Entities.Sprint", b =>
                 {
+                    b.HasOne("Promact.CustomerSuccess.Platform.Entities.PhaseMilestone", "PhaseMilestone")
+                        .WithMany()
+                        .HasForeignKey("PhaseMilestoneId");
+
                     b.HasOne("Promact.CustomerSuccess.Platform.Entities.Project", "Project")
                         .WithMany("Sprints")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("PhaseMilestone");
 
                     b.Navigation("Project");
                 });

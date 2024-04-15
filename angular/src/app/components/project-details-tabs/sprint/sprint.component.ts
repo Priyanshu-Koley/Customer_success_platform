@@ -59,7 +59,7 @@ export class SprintComponent {
     if (this.sprintForm.valid) {
       const newSprint = {
         ...this.sprintForm.value,
-        projectId: this.projectId,
+        projectId: this.projectId
       };
 
       this.projectService.createSprint(newSprint).subscribe(
